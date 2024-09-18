@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   Image,
   useColorScheme,
-  Alert,
   ActivityIndicator,
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import createStyles from './styles'; // Import createStyles instead of styles
+import createStyles from './styles';
+import CustomAlert from '../CommanText/CustomAlert';
 
 // Define the type for the stack parameters
 type RootStackParamList = {
@@ -23,6 +23,13 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 const LogIn: React.FC<Props> = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
   const styles = createStyles(isDarkMode);
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+
+  const showAlert = (message: string) => {
+    setAlertMessage(message);
+    setAlertVisible(true);
+  };
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,7 +39,7 @@ const LogIn: React.FC<Props> = ({navigation}) => {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert('Error', 'Please enter both email and password.');
+      showAlert('Please enter both email and password.');
       return;
     }
 
@@ -76,18 +83,14 @@ const LogIn: React.FC<Props> = ({navigation}) => {
       const result = await response.json();
       setLoading(false);
 
-      // eslint-disable-next-line eqeqeq
-      if (response.ok && result.token != '') {
+      if (response.ok && result.token !== '') {
         navigation.navigate('HomeScreen');
       } else {
-        Alert.alert('Login Failed', result.message || 'Something went wrong.');
+        showAlert(result.message || 'Incorrect Credentials.');
       }
     } catch (error) {
       setLoading(false);
-      Alert.alert(
-        'Error',
-        'Unable to connect to the server. Please try again later.',
-      );
+      showAlert('Unable to connect to the server. Please try again later.');
     }
   };
 
@@ -132,6 +135,13 @@ const LogIn: React.FC<Props> = ({navigation}) => {
       <Text style={styles.termsText}>
         By logging in you are accepting all the terms and conditions
       </Text>
+
+      {/* Custom Alert */}
+      <CustomAlert
+        visible={alertVisible}
+        message={alertMessage}
+        onClose={() => setAlertVisible(false)}
+      />
     </View>
   );
 };

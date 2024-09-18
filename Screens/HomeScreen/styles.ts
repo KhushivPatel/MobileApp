@@ -4,7 +4,7 @@ export const createStyles = (isDarkMode: boolean) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#f8f8f8',
+      backgroundColor:isDarkMode ?  '#1E1E1E' : '#f8f8f8',
     },
     homestyle: {
       margin: 12,
@@ -15,9 +15,7 @@ export const createStyles = (isDarkMode: boolean) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingHorizontal: 16,
-      backgroundColor: '#5287D7',
-      borderBottomWidth: 1,
-      borderBottomColor: '#ddd',
+      backgroundColor: isDarkMode ?  '#22395C' : '#5287D7',
     },
     headerText: {
       fontSize: 18,
@@ -40,7 +38,7 @@ export const createStyles = (isDarkMode: boolean) =>
       paddingLeft: 18,
       paddingRight: 18,
       paddingBottom: 10,
-      backgroundColor: '#DCEAFF',
+      backgroundColor:isDarkMode ?  '#565E69' : '#DCEAFF',
       borderRadius: 10,
     },
     infoContainer: {
@@ -48,7 +46,7 @@ export const createStyles = (isDarkMode: boolean) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: '#B9D5FF',
+      backgroundColor:isDarkMode ?  '#869BBA' : '#B9D5FF',
       borderRadius: 10,
       marginBottom: 10,
     },
@@ -82,13 +80,13 @@ export const createStyles = (isDarkMode: boolean) =>
       borderRadius: 29,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#B9D5FF',
+      backgroundColor:isDarkMode ?  '#869BBA' : '#B9D5FF',
     },
     linkInput: {
       fontWeight: 'bold',
       fontSize: 12,
       textAlign: 'center',
-      color: '#000',
+       color: isDarkMode ? '#fff' : '#000',
     },
     certificateMainContainer: {
       backgroundColor: '#FFC6C0',
@@ -129,7 +127,7 @@ export const createStyles = (isDarkMode: boolean) =>
       alignItems: 'center',
       justifyContent: 'space-between',
       padding: 20,
-      backgroundColor: '#DCEAFF',
+       backgroundColor:isDarkMode ?  '#565E69' : '#DCEAFF',
       borderRadius: 8,
       marginTop: 10,
     },
@@ -145,7 +143,7 @@ export const createStyles = (isDarkMode: boolean) =>
     },
     greetingText: {
       fontSize: 14,
-      color: '#000',
+        color: isDarkMode ? '#fff' : '#000',
       fontWeight: 'bold',
     },
     expandDetailsButton: {
@@ -159,7 +157,7 @@ export const createStyles = (isDarkMode: boolean) =>
       resizeMode: 'contain',
     },
     ExaminationContainer: {
-      backgroundColor: '#DCEAFF',
+        backgroundColor:isDarkMode ?  '#565E69' : '#DCEAFF',
       marginTop: 10,
       borderRadius: 10,
       paddingBottom: 20,
@@ -173,7 +171,7 @@ export const createStyles = (isDarkMode: boolean) =>
       flexDirection: 'row',
     },
     coloredBox: {
-      backgroundColor: '#B9D5FF',
+        backgroundColor:isDarkMode ?  '#869BBA' : '#B9D5FF',
       height: 53,
       width: '49%',
       borderRadius: 10,
@@ -181,7 +179,7 @@ export const createStyles = (isDarkMode: boolean) =>
     },
     boxText: {
       textAlign: 'center',
-      color: '#000',
+       color: isDarkMode ? '#fff' : '#000',
     },
     logotext: {
       justifyContent: 'center',
@@ -189,6 +187,22 @@ export const createStyles = (isDarkMode: boolean) =>
       alignItems: 'center',
       paddingTop: 20,
       paddingBottom: 20,
+    },
+      containerloading: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: isDarkMode ? '#333' : '#fff',
+    },
+     loadingText: {
+      fontSize: 18,
+      color: isDarkMode ? '#fff' : '#5287D7',
+      textAlign: 'center',
+      justifyContent:'center',
+      alignItems:'center',
+    },
+      spinner: {
+      marginBottom: 10,
     },
     badge: {
       position: 'absolute',

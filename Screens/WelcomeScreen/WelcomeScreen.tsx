@@ -9,7 +9,7 @@ type RootStackParamList = {
 
 type WelcomeScreenProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
-const AUTO_NAVIGATE_DELAY = 4000; // 3 seconds delay before navigating
+const AUTO_NAVIGATE_DELAY = 3000; // 3 seconds delay before navigating
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
   useEffect(() => {

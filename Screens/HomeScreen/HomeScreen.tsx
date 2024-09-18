@@ -1,5 +1,6 @@
+/* eslint-disable no-catch-shadow */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -7,23 +8,120 @@ import {
   TouchableOpacity,
   ScrollView,
   useColorScheme,
+  ActivityIndicator,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {createStyles} from './styles'; // Import the styles
+import Alert1 from '../CommanText/Alert1';
+import Alert2 from '../CommanText/Alert2';
 
 const HomePage: React.FC = () => {
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const styles = createStyles(isDarkMode);
-  const notificationCount = 3; // Example notification count
+  const [notificationCount, setNotificationCount] = useState<number>(0);
+  // Api call is started
+  const [firstname, setFirstname] = useState<string | null>(null);
+  const [emailid, setEmailid] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
+  const handleNotification = () => {
+    // Navigate to the Notification page
+    navigation.navigate('NotificationScreen');
+  };
+  const handleProfile = () => {
+    // Navigate to the Notification page
+    navigation.navigate('ProfileScreen');
+  };
+  const handleidcard = () => {
+    // Navigate to the Notification page
+    navigation.navigate('View_id');
+  };
+  const handlerequestStatus = () => {
+    // Navigate to the Notification page
+    navigation.navigate('RequestStatus');
+  };
+  const handlenewRequest = () => {
+    // Navigate to the Notification page
+    navigation.navigate('NewRequest');
+  };
+
+  interface UserResponse {
+    response_code: string;
+    obj: Array<{
+      FirstName: string;
+      EmailId: string;
+      // Add other fields if needed
+    }>;
+  }
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await fetch(
+          'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentDetailsTopNav/StudentDetailsTopNavGet',
+          {
+            method: 'GET',
+            headers: {
+              Referer:
+                'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+              Token:
+                'LTofrlSvkK;LCPJLTofrlSv:2442358;4LTofrlSvZ5KjxXlpS9SYyTtGGwxumicYX',
+            },
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data: UserResponse = await response.json();
+        setNotificationCount(data.obj ? data.obj.length : 0);
+        const user = data.obj[0];
+        setFirstname(user.FirstName || 'No Firstname');
+        setEmailid(user.EmailId || 'No Email ID');
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.containerloading}>
+        <ActivityIndicator
+          size="large"
+          color={isDarkMode ? '#fff' : '#5287D7'}
+          style={styles.spinner}
+        />
+        <Text style={styles.loadingText}>Loading...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text>Error: {error}</Text>
+      </View>
+    );
+  }
+
+  // API call end
   return (
     <ScrollView style={styles.container}>
-      {/* navbar part */}
+      {/* Navbar part */}
       <View style={styles.header}>
         <Text style={styles.headerText}>Dashboard</Text>
         <View style={styles.headerIcons}>
-          <TouchableOpacity style={styles.iconButton}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={handleNotification}>
             <Image
               source={require('../../assets/icons/notification.png')}
               style={styles.notification}
@@ -42,35 +140,51 @@ const HomePage: React.FC = () => {
           </TouchableOpacity>
         </View>
       </View>
-      {/* details and menu part */}
+      {/* Details and menu part */}
       <View style={styles.homestyle}>
-        {/* profile part */}
+        {/* Profile part */}
         <View style={styles.mainContent}>
           <View style={styles.infoContainer}>
             <View style={styles.textContainer}>
               <Text
                 style={[
                   styles.textItem,
-                  {fontSize: 24, color: '#000', fontWeight: 'bold'},
+                  {
+                    fontSize: 24,
+                    color: isDarkMode ? '#fff' : '#000',
+                    fontWeight: 'bold',
+                  },
                 ]}>
                 Hello 👋
               </Text>
+              {/* Display FirstName from API */}
               <Text
                 style={[
                   styles.textItem,
-                  {fontSize: 14, color: '#000', fontWeight: 'bold'},
+                  {
+                    fontSize: 14,
+                    color: isDarkMode ? '#fff' : '#000',
+                    fontWeight: 'bold',
+                  },
                 ]}>
-                hi
+                {firstname}
               </Text>
+              {/* Display EmailId from API */}
               <Text
                 style={[
                   styles.textItem,
-                  {fontSize: 14, color: '#6B6B6B', fontWeight: 'bold'},
+                  {
+                    fontSize: 14,
+                    color: isDarkMode ? '#cdcdcd' : '#6B6B6B',
+                    fontWeight: 'bold',
+                  },
                 ]}>
-                hi
+                {emailid}
               </Text>
             </View>
-            <TouchableOpacity style={styles.arrowButton}>
+            <TouchableOpacity
+              style={styles.arrowButton}
+              onPress={handleProfile}>
               <Image
                 source={require('../../assets/icons/arrow.png')}
                 style={styles.arrow}
@@ -80,13 +194,19 @@ const HomePage: React.FC = () => {
           <Text
             style={[
               styles.textItem,
-              {fontSize: 14, color: '#000', fontWeight: 'bold'},
+              {
+                fontSize: 14,
+                color: isDarkMode ? '#fff' : '#000',
+                fontWeight: 'bold',
+              },
             ]}>
             Quick Links
           </Text>
           <View style={styles.linkContainer}>
             {/* Request Status Touchable */}
-            <TouchableOpacity style={[styles.linkInputWrapper, {width: '40%'}]}>
+            <TouchableOpacity
+              style={[styles.linkInputWrapper, {width: '40%'}]}
+              onPress={handlerequestStatus}>
               <Text style={styles.linkInput}>Request Status</Text>
             </TouchableOpacity>
 
@@ -102,24 +222,9 @@ const HomePage: React.FC = () => {
           </View>
         </View>
         {/* alert1 */}
-        <View style={styles.certificateMainContainer}>
-          <View style={styles.certificateTitleContainer}>
-            <Text style={styles.certificateTitleText}>
-              Certificate Course in Temple Management
-            </Text>
-          </View>
-          <View style={styles.certificatemessage}>
-            <Text style={styles.placeholderText}>Provisionally_Eligible</Text>
-            <Text style={styles.remarksText}>
-              Remarks: Dear student, your eligibility has been resolved
-              provisionally, subject to submission of Original Migration
-              Certificate to your building office. Your Eligibility would be
-              marked Final after submission of Original Migration Certificate.
-            </Text>
-          </View>
-        </View>
+        <Alert1 />
         {/* alert2 */}
-        <View style={styles.certificateMainContainer}>
+        {/* <View style={styles.certificateMainContainer}>
           <View style={styles.certificateTitleContainer}>
             <Text style={styles.certificateTitleText}>ACHARYA</Text>
           </View>
@@ -132,7 +237,8 @@ const HomePage: React.FC = () => {
               marked Final after submission of Original Migration Certificate.
             </Text>
           </View>
-        </View>
+        </View> */}
+        <Alert2 />
         {/* education details */}
         <View style={styles.educationDetailsContainer}>
           <View style={styles.greetingTextContainer}>
@@ -156,7 +262,7 @@ const HomePage: React.FC = () => {
             <TouchableOpacity style={styles.coloredBox}>
               <Text style={styles.boxText}>Time Table</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.coloredBox}>
+            <TouchableOpacity style={styles.coloredBox} onPress={handleidcard}>
               <Text style={styles.boxText}>ID Card</Text>
             </TouchableOpacity>
           </View>
@@ -201,10 +307,14 @@ const HomePage: React.FC = () => {
         <View style={styles.ExaminationContainer}>
           <Text style={styles.greetingText}>Request</Text>
           <View style={styles.rowContainer}>
-            <TouchableOpacity style={styles.coloredBox}>
+            <TouchableOpacity
+              style={styles.coloredBox}
+              onPress={handlerequestStatus}>
               <Text style={styles.boxText}>Request Status</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.coloredBox}>
+            <TouchableOpacity
+              style={styles.coloredBox}
+              onPress={handlenewRequest}>
               <Text style={styles.boxText}>New Request</Text>
             </TouchableOpacity>
           </View>
@@ -223,7 +333,7 @@ const HomePage: React.FC = () => {
         </View>
         {/* msu text */}
         <Text style={styles.logotext}>
-          The Maharaja Sayajirao University - Baroda
+          The Maharaja Sayajirao University Of Baroda
         </Text>
       </View>
     </ScrollView>
