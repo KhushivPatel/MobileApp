@@ -103,6 +103,22 @@ const createStyles = (isDarkMode: boolean) =>
     scrollViewContent:{
       padding:10,
     },
+        containerloading: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: isDarkMode ? '#333' : '#fff',
+    },
+     loadingText: {
+      fontSize: 18,
+      color: isDarkMode ? '#fff' : '#5287D7',
+      textAlign: 'center',
+      justifyContent:'center',
+      alignItems:'center',
+    },
+      spinner: {
+      marginBottom: 10,
+    },
   });
 
 export default createStyles;

@@ -7,7 +7,7 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import createStyles from './styles';
 
 const View_id = () => {
@@ -31,7 +31,7 @@ const View_id = () => {
               Referer:
                 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
               Token:
-                'LTofrlSvkK;LCPJLTofrlSv:2442358;4LTofrlSvZ5KjxXlpS9SYyTtGGwxumicYX',
+                'HnpZxFe8H3|ZgVZHnpZxFe8:2442358;4HnpZxFe8\\5KkO;7{\\jkDwUNDo|:cf52pz',
             },
             body: JSON.stringify({
               ProgrammeId: 1,
@@ -58,7 +58,7 @@ const View_id = () => {
 
   if (loading) {
     return (
-      <View >
+      <View>
         <ActivityIndicator size="large" color="#5287D7" />
       </View>
     );
@@ -66,8 +66,8 @@ const View_id = () => {
 
   if (!studentData) {
     return (
-      <View >
-        <Text >No data available</Text>
+      <View>
+        <Text>No data available</Text>
       </View>
     );
   }

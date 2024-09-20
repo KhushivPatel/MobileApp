@@ -34,7 +34,7 @@ const NotificationScreen: React.FC = () => {
             method: 'POST',
             headers: {
               Token:
-                'qDeEOd;:[WF4lN5qDeEOd;::2442358;4qDeEOd;:Z5Ki5UZ{kuq-ETLKST5Wi{cs2',
+                'HnpZxFe8H3|ZgVZHnpZxFe8:2442358;4HnpZxFe8\\5KkO;7{\\jkDwUNDo|:cf52pz',
               origin: 'https://admission.msubaroda.ac.in',
               referer:
                 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
@@ -52,7 +52,7 @@ const NotificationScreen: React.FC = () => {
 
         const data = await response.json();
         setNotifications(data.obj || []); // Use `data.obj` to set notifications
-      // eslint-disable-next-line no-catch-shadow
+        // eslint-disable-next-line no-catch-shadow
       } catch (error: any) {
         setError(error.message);
       } finally {
@@ -65,9 +65,14 @@ const NotificationScreen: React.FC = () => {
 
   if (loading) {
     return (
-      <SafeAreaView style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </SafeAreaView>
+      <View style={styles.containerloading}>
+        <ActivityIndicator
+          size="large"
+          color={isDarkMode ? '#fff' : '#5287D7'}
+          style={styles.spinner}
+        />
+        <Text style={styles.loadingText}>Loading...</Text>
+      </View>
     );
   }
 

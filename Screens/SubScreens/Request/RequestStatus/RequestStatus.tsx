@@ -31,10 +31,10 @@ const RequestStatus: React.FC = () => {
               referer:
                 'https://admission.msubaroda.ac.in/vidhyarthi/index.html?',
               token:
-                'LTofrlSvkK;LCPJLTofrlSv:2442358;4LTofrlSvZ5KjxXlpS9SYyTtGGwxumicYX',
+                'HnpZxFe8H3|ZgVZHnpZxFe8:2442358;4HnpZxFe8\\5KkO;7{\\jkDwUNDo|:cf52pz',
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({}), // Include any necessary data here
+            body: JSON.stringify({}),
           },
         );
 

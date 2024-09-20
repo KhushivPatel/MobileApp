@@ -7,10 +7,12 @@ import HomeScreen from './Screens/HomeScreen/HomeScreen';
 import NotificationScreen from './Screens/Notification/NotificationScreen';
 import ProfileScreen from './Screens/SubScreens/Profile/ProfileScreen';
 import View_id from './Screens/SubScreens/Examination/IdCard/View_id';
-import SimpleView from './Screens/SubScreens/Examination/IdCard/SimpleView';
-import Alert1 from './Screens/CommanText/Alert1';
 import RequestStatus from './Screens/SubScreens/Request/RequestStatus/RequestStatus';
 import NewRequest from './Screens/SubScreens/Request/NewRequest/NewRequest';
+import SimpleView from './Screens/SubScreens/Examination/IdCard/simpleview/SimpleView';
+import EducationalList from './Screens/SubScreens/Education/EducationalList';
+import TimetableDetails from './Screens/SubScreens/Examination/TimeTable/TimetableDetails';
+import Fee from './Screens/SubScreens/Exam/ExamFee/Fee';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -61,6 +63,21 @@ const App = () => {
         <Stack.Screen
           name="NewRequest"
           component={NewRequest}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="EducationalList"
+          component={EducationalList}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="TimetableDetails"
+          component={TimetableDetails}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Fee"
+          component={Fee}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

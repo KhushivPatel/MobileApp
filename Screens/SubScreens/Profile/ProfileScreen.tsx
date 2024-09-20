@@ -8,7 +8,7 @@ import {
   useColorScheme,
   ActivityIndicator,
 } from 'react-native';
-import styles from './styles'; // Import styles from the new file
+import styles from './styles';
 
 interface UserResponse {
   response_code: string;
@@ -44,7 +44,7 @@ const ProfileScreen: React.FC = () => {
               Referer:
                 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
               Token:
-                'LTofrlSvkK;LCPJLTofrlSv:2442358;4LTofrlSvZ5KjxXlpS9SYyTtGGwxumicYX',
+                'HnpZxFe8H3|ZgVZHnpZxFe8:2442358;4HnpZxFe8\\5KkO;7{\\jkDwUNDo|:cf52pz',
             },
           },
         );

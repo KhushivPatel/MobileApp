@@ -1,5 +1,5 @@
-/* eslint-disable no-catch-shadow */
 /* eslint-disable react-native/no-inline-styles */
+/* eslint-disable no-catch-shadow */
 import React, {useEffect, useState} from 'react';
 import {
   View,
@@ -11,11 +11,12 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {createStyles} from './styles'; // Import the styles
+import {createStyles} from './styles';
 import Alert1 from '../CommanText/Alert1';
 import Alert2 from '../CommanText/Alert2';
+// import {AuthContext} from '../ContextApi/AuthContext';
 
-const HomePage: React.FC = () => {
+const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const styles = createStyles(isDarkMode);
@@ -26,10 +27,9 @@ const HomePage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const handleNotification = () => {
-    // Navigate to the Notification page
-    navigation.navigate('NotificationScreen');
-  };
+  // const handleNotification = () => {
+  //   navigation.navigate('NotificationScreen');
+  // };
   const handleProfile = () => {
     // Navigate to the Notification page
     navigation.navigate('ProfileScreen');
@@ -46,13 +46,24 @@ const HomePage: React.FC = () => {
     // Navigate to the Notification page
     navigation.navigate('NewRequest');
   };
+  const handleEducation = () => {
+    // Navigate to the Notification page
+    navigation.navigate('EducationalList');
+  };
+  const handleTimetable = () => {
+    // Navigate to the Notification page
+    navigation.navigate('TimetableDetails');
+  };
+  const handleFee = () => {
+    // Navigate to the Notification page
+    navigation.navigate('Fee');
+  };
 
   interface UserResponse {
     response_code: string;
     obj: Array<{
       FirstName: string;
       EmailId: string;
-      // Add other fields if needed
     }>;
   }
 
@@ -67,7 +78,7 @@ const HomePage: React.FC = () => {
               Referer:
                 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
               Token:
-                'LTofrlSvkK;LCPJLTofrlSv:2442358;4LTofrlSvZ5KjxXlpS9SYyTtGGwxumicYX',
+                'HnpZxFe8H3|ZgVZHnpZxFe8:2442358;4HnpZxFe8\\5KkO;7{\\jkDwUNDo|:cf52pz',
             },
           },
         );
@@ -119,7 +130,7 @@ const HomePage: React.FC = () => {
       <View style={styles.header}>
         <Text style={styles.headerText}>Dashboard</Text>
         <View style={styles.headerIcons}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.iconButton}
             onPress={handleNotification}>
             <Image
@@ -131,7 +142,7 @@ const HomePage: React.FC = () => {
                 <Text style={styles.badgeText}>{notificationCount}</Text>
               </View>
             )}
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity style={styles.iconButton}>
             <Image
               source={require('../../assets/icons/menu.png')}
@@ -216,7 +227,9 @@ const HomePage: React.FC = () => {
             </TouchableOpacity>
 
             {/* Fees Touchable */}
-            <TouchableOpacity style={[styles.linkInputWrapper, {width: '25%'}]}>
+            <TouchableOpacity
+              style={[styles.linkInputWrapper, {width: '25%'}]}
+              onPress={handleFee}>
               <Text style={styles.linkInput}>Fees</Text>
             </TouchableOpacity>
           </View>
@@ -224,20 +237,6 @@ const HomePage: React.FC = () => {
         {/* alert1 */}
         <Alert1 />
         {/* alert2 */}
-        {/* <View style={styles.certificateMainContainer}>
-          <View style={styles.certificateTitleContainer}>
-            <Text style={styles.certificateTitleText}>ACHARYA</Text>
-          </View>
-          <View style={styles.certificatemessage}>
-            <Text style={styles.placeholderText}>Provisionally_Eligible</Text>
-            <Text style={styles.remarksText}>
-              Remarks: Dear student, your eligibility has been resolved
-              provisionally, subject to submission of Original Migration
-              Certificate to your building office. Your Eligibility would be
-              marked Final after submission of Original Migration Certificate.
-            </Text>
-          </View>
-        </View> */}
         <Alert2 />
         {/* education details */}
         <View style={styles.educationDetailsContainer}>
@@ -248,7 +247,9 @@ const HomePage: React.FC = () => {
             />
             <Text style={styles.greetingText}>Educational Details</Text>
           </View>
-          <TouchableOpacity style={styles.expandDetailsButton}>
+          <TouchableOpacity
+            style={styles.expandDetailsButton}
+            onPress={handleEducation}>
             <Image
               source={require('../../assets/icons/arrow.png')}
               style={styles.expandArrowIcon}
@@ -259,7 +260,9 @@ const HomePage: React.FC = () => {
         <View style={styles.ExaminationContainer}>
           <Text style={styles.greetingText}>Examination</Text>
           <View style={styles.rowContainer}>
-            <TouchableOpacity style={styles.coloredBox}>
+            <TouchableOpacity
+              style={styles.coloredBox}
+              onPress={handleTimetable}>
               <Text style={styles.boxText}>Time Table</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.coloredBox} onPress={handleidcard}>
@@ -271,7 +274,7 @@ const HomePage: React.FC = () => {
         <View style={styles.ExaminationContainer}>
           <Text style={styles.greetingText}>Exam - Fee & Hall Ticket</Text>
           <View style={styles.rowContainer}>
-            <TouchableOpacity style={styles.coloredBox}>
+            <TouchableOpacity style={styles.coloredBox} onPress={handleFee}>
               <Text style={styles.boxText}>Exam Fees</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.coloredBox}>
@@ -340,4 +343,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default HomeScreen;
