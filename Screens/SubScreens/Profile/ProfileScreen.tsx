@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import { AuthContext } from '../../ContextApi/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 interface UserResponse {
   response_code: string;
@@ -25,7 +26,7 @@ interface UserResponse {
 const ProfileScreen: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const currentStyles = styles(isDarkMode);
-
+  const navigation = useNavigation();
   const {authToken, userDetails} = useContext(AuthContext);
   const [firstname, setFirstname] = useState<string | null>(null);
   const [lastname, setLastName] = useState<string | null>(null);
@@ -92,7 +93,10 @@ const ProfileScreen: React.FC = () => {
       </View>
     );
   }
-
+  // Navigation function
+  const handleNavigation = (screen: string) => {
+    navigation.navigate(screen); // Navigate to the specified screen
+  };
   return (
     <View style={currentStyles.container}>
       <View style={currentStyles.header}>
@@ -139,7 +143,7 @@ const ProfileScreen: React.FC = () => {
         contentContainerStyle={currentStyles.scrollViewContent}>
         <View style={currentStyles.studentDetailmain}>
           <View style={currentStyles.studentmenu}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleNavigation('Educationinfo')}>
               <Image
                 source={require('../../../assets/images/profile1.png')}
                 style={currentStyles.menuimg}

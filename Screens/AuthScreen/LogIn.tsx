@@ -11,7 +11,7 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import createStyles from './styles';
 import CustomAlert from '../CommanText/CustomAlert';
-import { AuthContext } from '../ContextApi/AuthContext';
+import {AuthContext} from '../ContextApi/AuthContext';
 
 // Define the type for the stack parameters
 type RootStackParamList = {
@@ -26,7 +26,7 @@ const LogIn: React.FC<Props> = ({navigation}) => {
   const styles = createStyles(isDarkMode);
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-const {login} = useContext(AuthContext);
+  const {login} = useContext(AuthContext);
 
   const showAlert = (message: string) => {
     setAlertMessage(message);

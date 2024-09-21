@@ -2,6 +2,7 @@ import React, {createContext, useState, ReactNode} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
+import CustomAlert from '../CommanText/CustomAlert';
 // Define user details interface
 export interface UserDetails {
   name: string;
@@ -35,7 +36,8 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 export const AuthProvider: React.FC<{children: ReactNode}> = ({children}) => {
   const [authToken, setAuthToken] = useState<string | null>(null);
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
-
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
   // Login function to handle authentication
   const login = async (
     credentials: LoginCredentials,
@@ -46,7 +48,6 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({children}) => {
       password: credentials.password,
       loginValidateCaptcha: 'true',
     };
-
     // Headers required by the API
     const myHeaders = new Headers();
     myHeaders.append('accept', 'application/json, text/plain, */*');
@@ -105,7 +106,8 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({children}) => {
         // setUserDetails({ name: 'John Doe', email: credentials.email });
         // localStorage.setItem('token', token);
       } else {
-        console.error('Login failed: ', obj);
+        setAlertMessage('Login failed. Please check your credentials.');
+        setAlertVisible(true);
       }
     } catch (error) {
       console.error('Login error', error);
@@ -123,6 +125,11 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({children}) => {
   return (
     <AuthContext.Provider value={{authToken, userDetails, login, logout}}>
       {children}
+      <CustomAlert
+        visible={alertVisible}
+        message={alertMessage}
+        onClose={() => setAlertVisible(false)}
+      />
     </AuthContext.Provider>
   );
 };

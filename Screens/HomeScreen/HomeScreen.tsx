@@ -15,7 +15,6 @@ import {createStyles} from './styles';
 import Alert1 from '../CommanText/Alert1';
 import Alert2 from '../CommanText/Alert2';
 import { AuthContext } from '../ContextApi/AuthContext';
-// import {AuthContext} from '../ContextApi/AuthContext';
 
 const HomeScreen: React.FC = () => {
   const {authToken, userDetails} = useContext(AuthContext);

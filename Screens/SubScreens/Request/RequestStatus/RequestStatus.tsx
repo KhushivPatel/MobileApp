@@ -74,11 +74,14 @@ const RequestStatus: React.FC = () => {
 
       {/* Conditional rendering for loading, error, or data */}
       {loading ? (
-        <ActivityIndicator
-          size="large"
-          color="#5287D7"
-          style={styles.loading}
-        />
+        <View style={styles.containerloading}>
+          <ActivityIndicator
+            size="large"
+            color={isDarkMode ? '#fff' : '#5287D7'}
+            style={styles.spinner}
+          />
+          <Text style={styles.loadingText}>Loading...</Text>
+        </View>
       ) : error ? (
         <Text style={styles.errorText}>{error}</Text>
       ) : data === null ? (

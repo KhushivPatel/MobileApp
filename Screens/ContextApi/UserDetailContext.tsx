@@ -1,4 +1,5 @@
 import React, {createContext, useState, ReactNode, useContext} from 'react';
+import {AuthContext} from './AuthContext';
 
 // Define the structure for the user details
 export interface ProgrammeDetails {
@@ -60,40 +61,25 @@ export const UserDetailProvider: React.FC<{children: ReactNode}> = ({
   const [programmeDetails, setProgrammeDetails] = useState<
     ProgrammeDetails[] | null
   >(null);
+  // Use the AuthContext to get the authToken
+  const { authToken } = useContext(AuthContext); // Move this inside the functional component
+
 
   // Fetch the user's programme details from the API
   const fetchProgrammeDetails = async () => {
     try {
+         if (!authToken) {
+           console.error('Token is missing');
+           return;
+         }
       const response = await fetch(
         'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/NextYearAdmDetails/AdmDetailsGet',
         {
-          method: 'GET', // or POST depending on your API method
+          method: 'GET',
           headers: {
             accept: 'application/json, text/plain, */*',
-            'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8,hi;q=0.7',
-            browser: 'chrome',
-            browserversion: 'not known',
-            city: 'not known',
-            'content-type': 'application/json',
-            device: 'unknown',
-            macaddress: 'not known',
-            origin: 'https://admission.msubaroda.ac.in',
-            os: 'windows',
-            osversion: 'not known',
-            priority: 'u=1, i',
             referer: 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
-            'sec-ch-ua':
-              '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': '"Windows"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-origin',
-            sourceip: '',
-            token:
-              '|zIdI[R|O-cs\\2J|zIdI[R|:2442358;4|zIdI[R|\\5KiUlqP[zIJ[ScTZuY5nCxNR', // Add your token here if needed
-            'user-agent':
-              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+            token: authToken,
           },
         },
       );

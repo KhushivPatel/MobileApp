@@ -108,6 +108,22 @@ const createStyles = (isDarkMode: boolean) =>
       backgroundColor: isDarkMode ? '#1E1E1E' : '#f5f5f5',
       padding: 20,
     },
+       containerloading: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: isDarkMode ? '#333' : '#fff',
+    },
+     loadingText: {
+      fontSize: 18,
+      color: isDarkMode ? '#fff' : '#5287D7',
+      textAlign: 'center',
+      justifyContent:'center',
+      alignItems:'center',
+    },
+      spinner: {
+      marginBottom: 10,
+    },
   });
 
 export default createStyles;

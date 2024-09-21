@@ -113,6 +113,30 @@ const createStyles = (isDarkMode: boolean) =>
       justifyContent: 'center',
       alignItems: 'center',
     },
+    waitcontainer:{
+       justifyContent: 'center',
+      alignItems: 'center',
+    },
+    waittext:{
+        fontSize: 20,
+      color: '#5287D7',
+    },
+       containerloading: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: isDarkMode ? '#333' : '#fff',
+    },
+     loadingText: {
+      fontSize: 18,
+      color: isDarkMode ? '#fff' : '#5287D7',
+      textAlign: 'center',
+      justifyContent:'center',
+      alignItems:'center',
+    },
+      spinner: {
+      marginBottom: 10,
+    },
   });
 
 export default createStyles;
