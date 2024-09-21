@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-catch-shadow */
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -14,9 +14,11 @@ import {useNavigation} from '@react-navigation/native';
 import {createStyles} from './styles';
 import Alert1 from '../CommanText/Alert1';
 import Alert2 from '../CommanText/Alert2';
+import { AuthContext } from '../ContextApi/AuthContext';
 // import {AuthContext} from '../ContextApi/AuthContext';
 
 const HomeScreen: React.FC = () => {
+  const {authToken, userDetails} = useContext(AuthContext);
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const styles = createStyles(isDarkMode);
@@ -77,8 +79,7 @@ const HomeScreen: React.FC = () => {
             headers: {
               Referer:
                 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
-              Token:
-                'HnpZxFe8H3|ZgVZHnpZxFe8:2442358;4HnpZxFe8\\5KkO;7{\\jkDwUNDo|:cf52pz',
+              Token: authToken,
             },
           },
         );

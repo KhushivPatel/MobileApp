@@ -7,11 +7,16 @@ import {
   ScrollView,
 } from 'react-native';
 import styles from './styles';
+import {useNavigation} from '@react-navigation/native';
 
 const TimetableList: React.FC = () => {
+  const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const currentStyles = styles(isDarkMode);
 
+  const GotoTimetable = () => {
+    navigation.navigate('View_timetable');
+  };
   return (
     <View style={currentStyles.container}>
       <View style={currentStyles.header}>
@@ -54,7 +59,7 @@ const TimetableList: React.FC = () => {
             </View>
             <TouchableOpacity
               style={currentStyles.button}
-            >
+              onPress={GotoTimetable}>
               <Text style={currentStyles.buttonText}>View Exam Time Table</Text>
             </TouchableOpacity>
           </View>

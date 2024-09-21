@@ -9,14 +9,22 @@ import ProfileScreen from './Screens/SubScreens/Profile/ProfileScreen';
 import View_id from './Screens/SubScreens/Examination/IdCard/View_id';
 import RequestStatus from './Screens/SubScreens/Request/RequestStatus/RequestStatus';
 import NewRequest from './Screens/SubScreens/Request/NewRequest/NewRequest';
-import SimpleView from './Screens/SubScreens/Examination/IdCard/simpleview/SimpleView';
 import EducationalList from './Screens/SubScreens/Education/EducationalList';
 import TimetableDetails from './Screens/SubScreens/Examination/TimeTable/TimetableDetails';
 import Fee from './Screens/SubScreens/Exam/ExamFee/Fee';
+import View_timetable from './Screens/SubScreens/Examination/TimeTable/View_timetable';
+import FeeRecipt from './Screens/SubScreens/Exam/ExamFee/FeeRecipt';
+import { AuthProvider } from './Screens/ContextApi/AuthContext';
+export type RootStackParamList = {
+  HomeScreen: undefined;
+  LoginScreen: undefined;
+  ProfileScreen: undefined;
+};
+const Stack = createNativeStackNavigator<RootStackParamList>(); // Apply RootStackParamList typing
 
-const Stack = createNativeStackNavigator();
 const App = () => {
   return (
+    <AuthProvider>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -51,11 +59,6 @@ const App = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="SimpleView"
-          component={SimpleView}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
           name="RequestStatus"
           component={RequestStatus}
           options={{headerShown: false}}
@@ -80,8 +83,19 @@ const App = () => {
           component={Fee}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="View_timetable"
+          component={View_timetable}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="FeeRecipt"
+          component={FeeRecipt}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
+    </AuthProvider>
   );
 };
 

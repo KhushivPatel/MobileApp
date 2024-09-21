@@ -1,5 +1,5 @@
 /* eslint-disable no-catch-shadow */
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -10,11 +10,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import createStyles from './styles';
+import { AuthContext } from '../../../ContextApi/AuthContext';
 
 const RequestStatus: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const styles = createStyles(isDarkMode);
 
+  const {authToken, userDetails} = useContext(AuthContext);
   // State to hold API data
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -28,10 +30,9 @@ const RequestStatus: React.FC = () => {
           {
             method: 'POST',
             headers: {
-              referer:
-                'https://admission.msubaroda.ac.in/vidhyarthi/index.html?',
-              token:
-                'HnpZxFe8H3|ZgVZHnpZxFe8:2442358;4HnpZxFe8\\5KkO;7{\\jkDwUNDo|:cf52pz',
+              Referer:
+                'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+              Token: authToken,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({}),

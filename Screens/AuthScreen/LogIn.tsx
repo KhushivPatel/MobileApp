@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import createStyles from './styles';
 import CustomAlert from '../CommanText/CustomAlert';
+import { AuthContext } from '../ContextApi/AuthContext';
 
 // Define the type for the stack parameters
 type RootStackParamList = {
@@ -25,6 +26,7 @@ const LogIn: React.FC<Props> = ({navigation}) => {
   const styles = createStyles(isDarkMode);
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
+const {login} = useContext(AuthContext);
 
   const showAlert = (message: string) => {
     setAlertMessage(message);
@@ -36,63 +38,68 @@ const LogIn: React.FC<Props> = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
   const placeholderColor = isDarkMode ? '#dedede' : '#676767';
-
   const handleLogin = async () => {
-    if (!email || !password) {
-      showAlert('Please enter both email and password.');
-      return;
-    }
-
-    setLoading(true);
-
-    const data = {
-      username: email,
-      password: password,
-      loginValidateCaptcha: 'true',
-    };
-
-    const myHeaders = new Headers();
-    myHeaders.append('browser', 'chrome');
-    myHeaders.append('browserversion', 'not known');
-    myHeaders.append('city', 'not known');
-    myHeaders.append('content-type', 'application/json');
-    myHeaders.append('device', 'unknown');
-    myHeaders.append('macaddress', 'not known');
-    myHeaders.append('origin', 'https://admission.msubaroda.ac.in');
-    myHeaders.append('os', 'windows');
-    myHeaders.append('osversion', 'not known');
-    myHeaders.append(
-      'referer',
-      'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
-    );
-    myHeaders.append(
-      'sec-ch-ua',
-      '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
-    );
-
-    try {
-      const response = await fetch(
-        'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/Verification/login',
-        {
-          method: 'POST',
-          headers: myHeaders,
-          body: JSON.stringify(data),
-        },
-      );
-
-      const result = await response.json();
-      setLoading(false);
-
-      if (response.ok && result.token !== '') {
-        navigation.navigate('HomeScreen');
-      } else {
-        showAlert(result.message || 'Incorrect Credentials.');
-      }
-    } catch (error) {
-      setLoading(false);
-      showAlert('Unable to connect to the server. Please try again later.');
+    if (login) {
+      const credentials: LoginCredentials = {email, password};
+      await login(credentials, navigation);
     }
   };
+  // const handleLogin = async () => {
+  //   if (!email || !password) {
+  //     showAlert('Please enter both email and password.');
+  //     return;
+  //   }
+
+  //   setLoading(true);
+
+  //   const data = {
+  //     username: email,
+  //     password: password,
+  //     loginValidateCaptcha: 'true',
+  //   };
+
+  //   const myHeaders = new Headers();
+  //   myHeaders.append('browser', 'chrome');
+  //   myHeaders.append('browserversion', 'not known');
+  //   myHeaders.append('city', 'not known');
+  //   myHeaders.append('content-type', 'application/json');
+  //   myHeaders.append('device', 'unknown');
+  //   myHeaders.append('macaddress', 'not known');
+  //   myHeaders.append('origin', 'https://admission.msubaroda.ac.in');
+  //   myHeaders.append('os', 'windows');
+  //   myHeaders.append('osversion', 'not known');
+  //   myHeaders.append(
+  //     'referer',
+  //     'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+  //   );
+  //   myHeaders.append(
+  //     'sec-ch-ua',
+  //     '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
+  //   );
+
+  //   try {
+  //     const response = await fetch(
+  //       'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/Verification/login',
+  //       {
+  //         method: 'POST',
+  //         headers: myHeaders,
+  //         body: JSON.stringify(data),
+  //       },
+  //     );
+
+  //     const result = await response.json();
+  //     setLoading(false);
+
+  //     if (response.ok && result.token !== '') {
+  //       navigation.navigate('HomeScreen');
+  //     } else {
+  //       showAlert(result.message || 'Incorrect Credentials.');
+  //     }
+  //   } catch (error) {
+  //     setLoading(false);
+  //     showAlert('Unable to connect to the server. Please try again later.');
+  //   }
+  // };
 
   return (
     <View style={styles.container}>

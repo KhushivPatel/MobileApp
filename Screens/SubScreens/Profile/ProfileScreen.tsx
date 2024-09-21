@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
+import { AuthContext } from '../../ContextApi/AuthContext';
 
 interface UserResponse {
   response_code: string;
@@ -25,6 +26,7 @@ const ProfileScreen: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const currentStyles = styles(isDarkMode);
 
+  const {authToken, userDetails} = useContext(AuthContext);
   const [firstname, setFirstname] = useState<string | null>(null);
   const [lastname, setLastName] = useState<string | null>(null);
   const [emailid, setEmailid] = useState<string | null>(null);
@@ -43,8 +45,7 @@ const ProfileScreen: React.FC = () => {
             headers: {
               Referer:
                 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
-              Token:
-                'HnpZxFe8H3|ZgVZHnpZxFe8:2442358;4HnpZxFe8\\5KkO;7{\\jkDwUNDo|:cf52pz',
+              Token: authToken,
             },
           },
         );

@@ -9,11 +9,16 @@ import {
   useColorScheme,
 } from 'react-native';
 import feeStyles from './feeStyles'; // Import the styles from the new file
+import { useNavigation } from '@react-navigation/native';
 
 const Fee: React.FC = () => {
+  const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const styles = feeStyles(isDarkMode);
 
+  const GotoRecipt = ()=>{
+    navigation.navigate('FeeRecipt')
+  };
 
   return (
     <View style={styles.container}>
@@ -62,7 +67,7 @@ const Fee: React.FC = () => {
 
             <View style={styles.textRow}>
               <Text style={styles.textLeft}>View Fees Receipt</Text>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} onPress={GotoRecipt}>
                 <Text style={styles.textRight}>View</Text>
               </TouchableOpacity>
             </View>

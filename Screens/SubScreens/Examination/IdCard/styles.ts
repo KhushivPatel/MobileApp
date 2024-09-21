@@ -27,6 +27,8 @@ const createStyles = (isDarkMode: boolean) =>
       marginHorizontal: 10,
     } as ViewStyle,
     selectcontainer: {
+       marginHorizontal: 10,
+      marginTop:20,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -79,6 +81,7 @@ const createStyles = (isDarkMode: boolean) =>
       width: 97,
       justifyContent: 'center',
       alignItems: 'center',
+        resizeMode: 'contain',
       marginRight: 10, // Space between image and text
     },
     iddetail1: {
