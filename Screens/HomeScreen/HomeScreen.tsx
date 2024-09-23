@@ -10,15 +10,15 @@ import {
   useColorScheme,
   ActivityIndicator,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {createStyles} from './styles';
 import Alert1 from '../CommanText/Alert1';
 import Alert2 from '../CommanText/Alert2';
 import { AuthContext } from '../ContextApi/AuthContext';
+import {useNavigation, DrawerActions} from '@react-navigation/native'; // Import DrawerActions
 
 const HomeScreen: React.FC = () => {
-  const {authToken, userDetails} = useContext(AuthContext);
   const navigation = useNavigation();
+  const {authToken, userDetails} = useContext(AuthContext);
   const isDarkMode = useColorScheme() === 'dark';
   const styles = createStyles(isDarkMode);
   const [notificationCount, setNotificationCount] = useState<number>(0);
@@ -143,7 +143,9 @@ const HomeScreen: React.FC = () => {
               </View>
             )}
           </TouchableOpacity> */}
-          <TouchableOpacity style={styles.iconButton}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
             <Image
               source={require('../../assets/icons/menu.png')}
               style={styles.notification}

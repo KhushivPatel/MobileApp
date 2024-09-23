@@ -17,93 +17,53 @@ import FeeRecipt from './Screens/SubScreens/Exam/ExamFee/FeeRecipt';
 import {AuthProvider} from './Screens/ContextApi/AuthContext';
 import {UserDetailProvider} from './Screens/ContextApi/UserDetailContext';
 import Educationinfo from './Screens/SubScreens/Profile/UserDetails/Educationinfo';
-import CustomDrawer from './Screens/NavScreens/CustomDrawer';
 import 'react-native-gesture-handler';
 
 export type RootStackParamList = {
+  WelcomeScreen: undefined;
+  LogIn: undefined;
   HomeScreen: undefined;
-  LoginScreen: undefined;
+  NotificationScreen: undefined;
   ProfileScreen: undefined;
+  View_id: undefined;
+  RequestStatus: undefined;
+  NewRequest: undefined;
+  EducationalList: undefined;
+  TimetableDetails: undefined;
+  Fee: undefined;
+  View_timetable: undefined;
+  FeeRecipt: undefined;
+  Educationinfo: undefined;
 };
-const Stack = createNativeStackNavigator<RootStackParamList>(); // Apply RootStackParamList typing
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
   return (
     <AuthProvider>
       <UserDetailProvider>
         <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="WelcomeScreen"
-              component={WelcomeScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="LogIn"
-              component={LogIn}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="HomeScreen"
-              component={HomeScreen}
-              options={{headerShown: false}}
-            />
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+            <Stack.Screen name="LogIn" component={LogIn} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen
               name="NotificationScreen"
               component={NotificationScreen}
-              options={{headerShown: false}}
             />
-            {/* drowar navigation  pandding */}
-            <Stack.Screen
-              name="ProfileScreen"
-              component={ProfileScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="View_id"
-              component={View_id}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="RequestStatus"
-              component={RequestStatus}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="NewRequest"
-              component={NewRequest}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="EducationalList"
-              component={EducationalList}
-              options={{headerShown: false}}
-            />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+            <Stack.Screen name="View_id" component={View_id} />
+            <Stack.Screen name="RequestStatus" component={RequestStatus} />
+            <Stack.Screen name="NewRequest" component={NewRequest} />
+            <Stack.Screen name="EducationalList" component={EducationalList} />
             <Stack.Screen
               name="TimetableDetails"
               component={TimetableDetails}
-              options={{headerShown: false}}
             />
-            <Stack.Screen
-              name="Fee"
-              component={Fee}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="View_timetable"
-              component={View_timetable}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="FeeRecipt"
-              component={FeeRecipt}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="Educationinfo"
-              component={Educationinfo}
-              options={{headerShown: false}}
-            />
+            <Stack.Screen name="Fee" component={Fee} />
+            <Stack.Screen name="View_timetable" component={View_timetable} />
+            <Stack.Screen name="FeeRecipt" component={FeeRecipt} />
+            <Stack.Screen name="Educationinfo" component={Educationinfo} />
           </Stack.Navigator>
         </NavigationContainer>
       </UserDetailProvider>

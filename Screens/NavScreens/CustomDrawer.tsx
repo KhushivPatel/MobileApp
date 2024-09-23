@@ -20,7 +20,7 @@ const CustomDrawer = props => {
       <DrawerItem
         label="Logout"
         onPress={() => {
-          navigation.navigate('LoginScreen');
+          navigation.navigate('LogIn');
         }}
       />
     </DrawerContentScrollView>
