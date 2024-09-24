@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {createContext} from 'react';
 
 const Alert2 = () => {
   return (
@@ -58,3 +58,4 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
 });
+export const ExamContext = createContext();

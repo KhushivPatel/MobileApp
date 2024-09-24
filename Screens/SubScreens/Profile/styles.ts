@@ -123,7 +123,7 @@ const styles = (isDarkMode: boolean) =>
     studentDetailmain: {
       backgroundColor: isDarkMode ? '#565E69' : '#DCEAFF',
       borderRadius: 14,
-      paddingBottom: 20, // Add padding to ensure it fills up to the bottom
+      paddingBottom: 20,
       flex: 1,
     },
     studentmenu: {
@@ -145,6 +145,22 @@ const styles = (isDarkMode: boolean) =>
       alignItems: 'center',
       paddingTop: 10,
       paddingBottom: 10,
+    },
+     tabButton: {
+      paddingBottom: 10,
+      borderBottomWidth: 0, // Default no border
+    },
+    activeTab: {
+      borderBottomWidth: 2,  // Make the underline
+      borderBottomColor: '#5287D7', // You can change the color
+    },
+    tabContentContainer: {
+      padding: 10,
+      // backgroundColor: isDarkMode ? '#222' : '#fff',
+    },
+    tabContent: {
+      fontSize: 16,
+      color: isDarkMode ? '#fff' : '#000',
     },
   });
 

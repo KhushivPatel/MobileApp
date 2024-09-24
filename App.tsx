@@ -18,6 +18,7 @@ import {AuthProvider} from './Screens/ContextApi/AuthContext';
 import {UserDetailProvider} from './Screens/ContextApi/UserDetailContext';
 import Educationinfo from './Screens/SubScreens/Profile/UserDetails/Educationinfo';
 import 'react-native-gesture-handler';
+import { ExamProvider } from './Screens/ContextApi/ExamProvider';
 
 export type RootStackParamList = {
   WelcomeScreen: undefined;
@@ -42,6 +43,8 @@ const App = () => {
   return (
     <AuthProvider>
       <UserDetailProvider>
+        <ExamProvider>
+
         <NavigationContainer>
           <Stack.Navigator screenOptions={{headerShown: false}}>
             <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
@@ -56,16 +59,17 @@ const App = () => {
             <Stack.Screen name="RequestStatus" component={RequestStatus} />
             <Stack.Screen name="NewRequest" component={NewRequest} />
             <Stack.Screen name="EducationalList" component={EducationalList} />
+            <Stack.Screen name="Fee" component={Fee} />
             <Stack.Screen
               name="TimetableDetails"
               component={TimetableDetails}
             />
-            <Stack.Screen name="Fee" component={Fee} />
             <Stack.Screen name="View_timetable" component={View_timetable} />
             <Stack.Screen name="FeeRecipt" component={FeeRecipt} />
             <Stack.Screen name="Educationinfo" component={Educationinfo} />
           </Stack.Navigator>
         </NavigationContainer>
+        </ExamProvider>
       </UserDetailProvider>
     </AuthProvider>
   );

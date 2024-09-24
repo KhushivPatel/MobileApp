@@ -62,7 +62,7 @@ export const UserDetailProvider: React.FC<{children: ReactNode}> = ({
     ProgrammeDetails[] | null
   >(null);
   // Use the AuthContext to get the authToken
-  const { authToken } = useContext(AuthContext); // Move this inside the functional component
+  const { authToken } = useContext(AuthContext);
 
 
   // Fetch the user's programme details from the API

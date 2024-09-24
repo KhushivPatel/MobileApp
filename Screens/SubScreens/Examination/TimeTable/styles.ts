@@ -25,7 +25,7 @@ const styles = (isDarkMode: boolean) =>
     mainContent: {
       marginVertical: 10,
       marginHorizontal: 10,
-      backgroundColor: isDarkMode ? '#565E69' : '#DCEAFF',
+      // backgroundColor: isDarkMode ? '#565E69' : '#DCEAFF',
       borderRadius: 10,
     } as ViewStyle,
     textContainerRight: {
@@ -61,8 +61,10 @@ const styles = (isDarkMode: boolean) =>
       paddingRight: 10,
       paddingBottom: 20,
       backgroundColor: isDarkMode ? '#869BBA' : '#B9D5FF',
-      borderBottomLeftRadius: 10,
-      borderBottomRightRadius: 10,
+      // borderBottomLeftRadius: 10,
+      // borderBottomRightRadius: 10,
+      borderRadius:10,
+      marginBottom:24,
     } as ViewStyle,
     boldText: {
       fontWeight: 'bold',

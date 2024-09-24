@@ -9,8 +9,9 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import styles from './styles';
-import { AuthContext } from '../../ContextApi/AuthContext';
-import { useNavigation } from '@react-navigation/native';
+import {AuthContext} from '../../ContextApi/AuthContext';
+import {useNavigation} from '@react-navigation/native';
+import PersonalInfo from './UserDetails/Personalinfo';
 
 interface UserResponse {
   response_code: string;
@@ -35,6 +36,9 @@ const ProfileScreen: React.FC = () => {
   const [prn, setPRN] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  // State to keep track of active tab (1, 2, 3, 4)
+  const [activeTab, setActiveTab] = useState<number>(1);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -93,10 +97,37 @@ const ProfileScreen: React.FC = () => {
       </View>
     );
   }
-  // Navigation function
-  const handleNavigation = (screen: string) => {
-    navigation.navigate(screen); // Navigate to the specified screen
+
+  // Render content based on active tab
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 1:
+        return (
+         <PersonalInfo/>
+        );
+      case 2:
+        return (
+          <Text style={currentStyles.tabContent}>
+            Tab 2 Content: Personal Details
+          </Text>
+        );
+      case 3:
+        return (
+          <Text style={currentStyles.tabContent}>
+            Tab 3 Content: Academic Details
+          </Text>
+        );
+      case 4:
+        return (
+          <Text style={currentStyles.tabContent}>
+            Tab 4 Content: Other Info
+          </Text>
+        );
+      default:
+        return <Text style={currentStyles.tabContent}>Select a tab</Text>;
+    }
   };
+
   return (
     <View style={currentStyles.container}>
       <View style={currentStyles.header}>
@@ -143,32 +174,58 @@ const ProfileScreen: React.FC = () => {
         contentContainerStyle={currentStyles.scrollViewContent}>
         <View style={currentStyles.studentDetailmain}>
           <View style={currentStyles.studentmenu}>
-            <TouchableOpacity onPress={() => handleNavigation('Educationinfo')}>
+            {/* Buttons for the tabs */}
+            <TouchableOpacity
+              onPress={() => setActiveTab(1)}
+              style={[
+                currentStyles.tabButton,
+                activeTab === 1 && currentStyles.activeTab,
+              ]}>
               <Image
                 source={require('../../../assets/images/profile1.png')}
                 style={currentStyles.menuimg}
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setActiveTab(2)}
+              style={[
+                currentStyles.tabButton,
+                activeTab === 2 && currentStyles.activeTab,
+              ]}>
               <Image
                 source={require('../../../assets/images/profil2.png')}
                 style={currentStyles.menuimg}
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setActiveTab(3)}
+              style={[
+                currentStyles.tabButton,
+                activeTab === 3 && currentStyles.activeTab,
+              ]}>
               <Image
                 source={require('../../../assets/images/profile3.png')}
                 style={currentStyles.menuimg}
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setActiveTab(4)}
+              style={[
+                currentStyles.tabButton,
+                activeTab === 4 && currentStyles.activeTab,
+              ]}>
               <Image
                 source={require('../../../assets/images/profile4.png')}
                 style={currentStyles.menuimg}
               />
             </TouchableOpacity>
           </View>
+        {/* Render content based on the active tab */}
+        <View style={currentStyles.tabContentContainer}>
+          {renderTabContent()}
         </View>
+        </View>
+
       </ScrollView>
 
       <Text style={currentStyles.logotext}>

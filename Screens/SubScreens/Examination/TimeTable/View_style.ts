@@ -25,7 +25,7 @@ const createStyles = (isDarkMode: boolean) =>
     } as ViewStyle,
     mainContent: {
       marginVertical: 10,
-      marginHorizontal: 10,
+      // marginHorizontal: 10,
       backgroundColor: isDarkMode ? '#565E69' : '#DCEAFF',
       borderRadius: 10,
     } as ViewStyle,
