@@ -12,6 +12,11 @@ import styles from './styles';
 import {AuthContext} from '../../ContextApi/AuthContext';
 import {useNavigation} from '@react-navigation/native';
 import PersonalInfo from './UserDetails/Personalinfo';
+import Additionalinfo from './UserDetails/Additionalinfo';
+import EducationalDetails from '../Education/EducationalList';
+import RequestStatus from '../Request/RequestStatus/RequestStatus';
+import Educationinfo from './UserDetails/Educationinfo';
+import Requestinfo from './UserDetails/Requestinfo';
 
 interface UserResponse {
   response_code: string;
@@ -107,21 +112,15 @@ const ProfileScreen: React.FC = () => {
         );
       case 2:
         return (
-          <Text style={currentStyles.tabContent}>
-            Tab 2 Content: Personal Details
-          </Text>
+            <Additionalinfo/>
         );
       case 3:
         return (
-          <Text style={currentStyles.tabContent}>
-            Tab 3 Content: Academic Details
-          </Text>
+           <Educationinfo/>
         );
       case 4:
         return (
-          <Text style={currentStyles.tabContent}>
-            Tab 4 Content: Other Info
-          </Text>
+         <Requestinfo/>
         );
       default:
         return <Text style={currentStyles.tabContent}>Select a tab</Text>;

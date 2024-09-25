@@ -13,7 +13,8 @@ const styles = (isDarkMode: boolean) =>
  divider: {
       height: 1,
       backgroundColor: '#5D779E',
-      marginTop: 5,
+      marginTop: 10,
+      marginBottom: 10,
     },
     infoContainer:{
         padding:5,
@@ -38,8 +39,25 @@ const styles = (isDarkMode: boolean) =>
     fontSize: 14,
     fontWeight: 'normal',
     color: '#333',
-       flex:3,
+       flex:2,
+       marginLeft:20,
   },
+    containerloading: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: isDarkMode ? '#333' : '#fff',
+    },
+     loadingText: {
+      fontSize: 18,
+      color: isDarkMode ? '#fff' : '#5287D7',
+      textAlign: 'center',
+      justifyContent:'center',
+      alignItems:'center',
+    },
+      spinner: {
+      marginBottom: 10,
+    },
   });
 
 export default styles;

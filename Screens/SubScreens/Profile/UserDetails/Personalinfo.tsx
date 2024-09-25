@@ -1,6 +1,13 @@
-import {View, Text, ActivityIndicator, Image, StyleSheet, useColorScheme} from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  useColorScheme,
+} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
-import { AuthContext } from '../../../ContextApi/AuthContext';
+import {AuthContext} from '../../../ContextApi/AuthContext';
 import styles from './styles';
 const PersonalInfo = () => {
   const [data, setData] = useState(null);
@@ -38,15 +45,18 @@ const PersonalInfo = () => {
     };
 
     fetchData();
-  }, []);
+  }, [authToken]);
 
   if (loading) {
     return (
-      <ActivityIndicator
-        size="large"
-        color="#5287D7"
-        style={currentStyles.spinner}
-      />
+      <View style={currentStyles.containerloading}>
+        <ActivityIndicator
+          size="large"
+          color={isDarkMode ? '#fff' : '#5287D7'}
+          style={currentStyles.spinner}
+        />
+        <Text style={currentStyles.loadingText}>Loading...</Text>
+      </View>
     );
   }
 
@@ -198,13 +208,21 @@ const PersonalInfo = () => {
             </View>
           </View>
           {data.StudentSignature && (
-            <Image
-              source={{
-                uri: `https://admission.msubaroda.ac.in/Vidhyarthi_API/Signature/${data.StudentSignature}`,
-              }}
-              style={currentStyles.signatureImage}
-              resizeMode="contain"
-            />
+            <View style={currentStyles.signatureContainer}>
+              <Text style={currentStyles.nameLabel}>Signature:</Text>
+              <Image
+                source={{
+                  uri: `https://admission.msubaroda.ac.in/Vidhyarthi_API/Signature/${data.StudentSignature}`,
+                }}
+                style={currentStyles.signatureImage}
+                resizeMode="contain"
+                onError={() => {
+                  console.log(
+                    'Signature image not found, displaying fallback image',
+                  );
+                }}
+              />
+            </View>
           )}
         </>
       ) : (
