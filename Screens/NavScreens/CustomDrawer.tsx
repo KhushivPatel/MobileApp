@@ -54,7 +54,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 const CustomDrawer = () => {
   return (
     <View>
-     <SafeAreaView style={{flex:1}}><TouchableOpacity style={{alignItems:'flex-end', margin:16}} onPress={this.props.navigation.openDrawer}><Text>hi</Text></TouchableOpacity></SafeAreaView>
+     <SafeAreaView style={{flex:1}}><TouchableOpacity style={{alignItems:'flex-end', margin:16}} onPress={this.props.navigation.openDrawer}><Text>hi</Text></TouchableOpacity>
+     <View style={{flex:1, alignItems:'center', justifyContent:'center'}}><Text>{this.props.Name}Screen</Text></View>
+     </SafeAreaView>
     </View>
   );
 };

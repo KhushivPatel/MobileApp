@@ -46,7 +46,8 @@ const styles = (isDarkMode: boolean) =>
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: isDarkMode ? '#333' : '#fff',
+      textAlign: 'center',
+      // backgroundColor: isDarkMode ? '#333' : '#fff',
     },
      loadingText: {
       fontSize: 18,

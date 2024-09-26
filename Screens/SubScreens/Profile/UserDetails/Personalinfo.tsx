@@ -207,23 +207,6 @@ const PersonalInfo = () => {
               <Text style={currentStyles.firstName}>{data.CurrentPincode}</Text>
             </View>
           </View>
-          {data.StudentSignature && (
-            <View style={currentStyles.signatureContainer}>
-              <Text style={currentStyles.nameLabel}>Signature:</Text>
-              <Image
-                source={{
-                  uri: `https://admission.msubaroda.ac.in/Vidhyarthi_API/Signature/${data.StudentSignature}`,
-                }}
-                style={currentStyles.signatureImage}
-                resizeMode="contain"
-                onError={() => {
-                  console.log(
-                    'Signature image not found, displaying fallback image',
-                  );
-                }}
-              />
-            </View>
-          )}
         </>
       ) : (
         <Text>No data available</Text>

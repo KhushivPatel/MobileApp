@@ -187,15 +187,6 @@ const Additionalinfo = () => {
               <Text style={currentStyles.firstName}>{data.CurrentPincode}</Text>
             </View>
           </View>
-          {data.StudentSignature && (
-            <Image
-              source={{
-                uri: `https://admission.msubaroda.ac.in/Vidhyarthi_API/Signature/${data.StudentSignature}`,
-              }}
-              style={currentStyles.signatureImage}
-              resizeMode="contain"
-            />
-          )}
         </>
       ) : (
         <Text>No data available</Text>
