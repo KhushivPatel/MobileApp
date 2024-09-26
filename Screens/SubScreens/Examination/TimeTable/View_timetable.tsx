@@ -70,12 +70,12 @@ const View_timetable = () => {
       ) : (
         <ScrollView style={styles.scrollView}>
           <View style={styles.mainContent}>
-                 <View style={styles.gridview}>
-          <Text style={styles.griditem}> Paper Name </Text>
-          <Text style={styles.griditem}> Teaching Learning Method </Text>
-          <Text style={styles.griditem}> Paper Date </Text>
-          <Text style={styles.griditem}> Time Slot </Text>
-        </View>
+            <View style={styles.gridview}>
+              <Text style={styles.griditem}> Paper Name </Text>
+              <Text style={styles.griditem}> Teaching Learning Method </Text>
+              <Text style={styles.griditem}> Paper Date </Text>
+              <Text style={styles.griditem}> Time Slot </Text>
+            </View>
             {timetable.length > 0 ? (
               timetable.map(item => (
                 <View key={item.PaperId} style={styles.gridview}>
@@ -89,6 +89,9 @@ const View_timetable = () => {
               <Text>No timetable data available.</Text>
             )}
           </View>
+          <Text style={styles.logotext}>
+            The Maharaja Sayajirao University of Baroda
+          </Text>
         </ScrollView>
       )}
     </View>

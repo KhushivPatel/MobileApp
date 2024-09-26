@@ -20,6 +20,13 @@ const createStyles = (isDarkMode: boolean) =>
       fontWeight: 'bold',
       fontSize: 18,
     } as TextStyle,
+     logotext: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      alignItems: 'center',
+      paddingTop: 20,
+      paddingBottom: 20,
+    },
     scrollView: {
       flexGrow: 1,
     } as ViewStyle,

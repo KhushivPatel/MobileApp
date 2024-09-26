@@ -22,6 +22,13 @@ const createStyles = (isDarkMode: boolean) => StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   } as TextStyle,
+   logotext: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      alignItems: 'center',
+      paddingTop: 20,
+      paddingBottom: 20,
+    },
   headerImage: {
     width: 40,
     height: 20,

@@ -219,16 +219,15 @@ const ProfileScreen: React.FC = () => {
               />
             </TouchableOpacity>
           </View>
-        {/* Render content based on the active tab */}
-        <View style={currentStyles.tabContentContainer}>
-          {renderTabContent()}
+          {/* Render content based on the active tab */}
+          <View style={currentStyles.tabContentContainer}>
+            {renderTabContent()}
+          </View>
         </View>
-        </View>
-
       </ScrollView>
 
       <Text style={currentStyles.logotext}>
-        The Maharaja Sayajirao University Of Baroda
+        The Maharaja Sayajirao University of Baroda
       </Text>
     </View>
   );

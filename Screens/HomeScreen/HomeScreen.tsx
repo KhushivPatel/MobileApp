@@ -14,7 +14,7 @@ import {createStyles} from './styles';
 import Alert1 from '../CommanText/Alert1';
 import Alert2 from '../CommanText/Alert2';
 import { AuthContext } from '../ContextApi/AuthContext';
-import {useNavigation, DrawerActions} from '@react-navigation/native'; // Import DrawerActions
+import {useNavigation} from '@react-navigation/native';
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -130,27 +130,6 @@ const HomeScreen: React.FC = () => {
       <View style={styles.header}>
         <Text style={styles.headerText}>Dashboard</Text>
         <View style={styles.headerIcons}>
-          {/* <TouchableOpacity
-            style={styles.iconButton}
-            onPress={handleNotification}>
-            <Image
-              source={require('../../assets/icons/notification.png')}
-              style={styles.notification}
-            />
-            {notificationCount > 0 && (
-              <View style={styles.badge}>
-                <Text style={styles.badgeText}>{notificationCount}</Text>
-              </View>
-            )}
-          </TouchableOpacity> */}
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-            <Image
-              source={require('../../assets/icons/menu.png')}
-              style={styles.notification}
-            />
-          </TouchableOpacity>
         </View>
       </View>
       {/* Details and menu part */}
@@ -338,7 +317,7 @@ const HomeScreen: React.FC = () => {
         </View>
         {/* msu text */}
         <Text style={styles.logotext}>
-          The Maharaja Sayajirao University Of Baroda
+          The Maharaja Sayajirao University of Baroda
         </Text>
       </View>
     </ScrollView>

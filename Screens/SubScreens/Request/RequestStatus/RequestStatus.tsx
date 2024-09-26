@@ -129,7 +129,7 @@ const RequestStatus: React.FC = () => {
       )}
 
       <Text style={styles.logotext}>
-        The Maharaja Sayajirao University - Baroda
+        The Maharaja Sayajirao University of Baroda
       </Text>
     </View>
   );

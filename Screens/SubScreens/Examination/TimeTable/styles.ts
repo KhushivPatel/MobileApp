@@ -84,6 +84,13 @@ const styles = (isDarkMode: boolean) =>
       color: '#fff',
       fontSize: 16,
     } as TextStyle,
+     logotext: {
+      justifyContent: 'center',
+      textAlign: 'center',
+      alignItems: 'center',
+      paddingTop: 20,
+      paddingBottom: 20,
+    },
   });
 
 export default styles;

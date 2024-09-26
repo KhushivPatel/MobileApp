@@ -18,7 +18,11 @@ import {AuthProvider} from './Screens/ContextApi/AuthContext';
 import {UserDetailProvider} from './Screens/ContextApi/UserDetailContext';
 import Educationinfo from './Screens/SubScreens/Profile/UserDetails/Educationinfo';
 import 'react-native-gesture-handler';
-import { ExamProvider } from './Screens/ContextApi/ExamProvider';
+import {ExamProvider} from './Screens/ContextApi/ExamProvider';
+import 'react-native-gesture-handler';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Tabs from './Screens/NavScreens/Tabs';
+import LogOut from './Screens/NavScreens/LogOut';
 
 export type RootStackParamList = {
   WelcomeScreen: undefined;
@@ -35,40 +39,45 @@ export type RootStackParamList = {
   View_timetable: undefined;
   FeeRecipt: undefined;
   Educationinfo: undefined;
+  AboutUs: undefined;
+  Settings: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
 const App = () => {
   return (
     <AuthProvider>
       <UserDetailProvider>
         <ExamProvider>
-
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-            <Stack.Screen name="LogIn" component={LogIn} />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen
-              name="NotificationScreen"
-              component={NotificationScreen}
-            />
-            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-            <Stack.Screen name="View_id" component={View_id} />
-            <Stack.Screen name="RequestStatus" component={RequestStatus} />
-            <Stack.Screen name="NewRequest" component={NewRequest} />
-            <Stack.Screen name="EducationalList" component={EducationalList} />
-            <Stack.Screen name="Fee" component={Fee} />
-            <Stack.Screen
-              name="TimetableDetails"
-              component={TimetableDetails}
-            />
-            <Stack.Screen name="View_timetable" component={View_timetable} />
-            <Stack.Screen name="FeeRecipt" component={FeeRecipt} />
-            <Stack.Screen name="Educationinfo" component={Educationinfo} />
-          </Stack.Navigator>
-        </NavigationContainer>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+              {/* <Tabs/> */}
+              <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+              <Stack.Screen name="LogIn" component={LogIn} />
+              <Stack.Screen name="HomeScreen" component={Tabs} />
+              <Stack.Screen
+                name="NotificationScreen"
+                component={NotificationScreen}
+                />
+              <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+              <Stack.Screen name="View_id" component={View_id} />
+              <Stack.Screen name="RequestStatus" component={RequestStatus} />
+              <Stack.Screen name="NewRequest" component={NewRequest} />
+              <Stack.Screen
+                name="EducationalList"
+                component={EducationalList}
+              />
+              <Stack.Screen name="Fee" component={Fee} />
+              <Stack.Screen
+                name="TimetableDetails"
+                component={TimetableDetails}
+              />
+              <Stack.Screen name="View_timetable" component={View_timetable} />
+              <Stack.Screen name="FeeRecipt" component={FeeRecipt} />
+              <Stack.Screen name="Educationinfo" component={Educationinfo} />
+              <Stack.Screen name="LogOut" component={LogOut} />
+            </Stack.Navigator>
+          </NavigationContainer>
         </ExamProvider>
       </UserDetailProvider>
     </AuthProvider>

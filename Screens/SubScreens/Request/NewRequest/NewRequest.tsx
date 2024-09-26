@@ -210,6 +210,9 @@ const NewRequest: React.FC = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <Text style={styles.logotext}>
+        The Maharaja Sayajirao University of Baroda
+      </Text>
     </View>
   );
 };
