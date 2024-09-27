@@ -10,6 +10,7 @@ import {
   Linking,
   TextInput,
 } from 'react-native';
+import ResultTable from '../ResultTable';
 
 const ContactUs = () => {
   const isDarkMode = false; // Replace this with your dark mode logic
