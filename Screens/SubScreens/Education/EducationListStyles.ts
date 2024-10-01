@@ -19,6 +19,7 @@ const createStyles = (isDarkMode: boolean) =>
       borderBottomColor: isDarkMode ? 'transparent' : '#ddd',
     },
     headerText: {
+      marginLeft:10,
       fontSize: 18,
       fontWeight: 'bold',
       color: '#fff',

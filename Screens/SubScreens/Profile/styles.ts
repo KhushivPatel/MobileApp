@@ -13,14 +13,15 @@ const styles = (isDarkMode: boolean) =>
     header: {
       height: 58,
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      // justifyContent: 'space-between',
       alignItems: 'center',
-      paddingHorizontal: 16,
+      paddingHorizontal: 8,
       backgroundColor: isDarkMode ? '#22395C' : '#5287D7',
       borderBottomWidth: 1,
       borderBottomColor: isDarkMode ? 'transparent' : '#ddd',
     },
     headerText: {
+      marginLeft:10,
       fontSize: 18,
       fontWeight: 'bold',
       color: '#fff',

@@ -12,7 +12,13 @@ import homeImage from '../../assets/icons/home-button.png';
 import aboutImage from '../../assets/icons/aboutus.png';
 import contactImage from '../../assets/icons/contact-us.png';
 import logoutImage from '../../assets/icons/logout.png';
+import ExamImage from '../../assets/icons/exam.png';
+import FeeImage from '../../assets/icons/fee.png';
+import PaperImage from '../../assets/icons/papers.png';
 import settingImage from '../../assets/icons/settings.png';
+import ExaminationDetails from '../SubScreens/FeesDetails/ExaminationDetails';
+import Fee from '../SubScreens/Exam/ExamFee/Fee';
+import PaperList from '../SubScreens/Paper/PaperSelection/PaperList';
 
 const Tab = createBottomTabNavigator();
 
@@ -66,12 +72,12 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="AboutUs"
-        component={AboutUs}
+        name="ExaminationDetails"
+        component={ExaminationDetails}
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={aboutImage}
+              source={ExamImage}
               style={{
                 width: focused ? 24 : 20, // Increase size if focused
                 height: focused ? 24 : 20, // Increase size if focused
@@ -90,18 +96,18 @@ const Tabs = () => {
                 fontWeight: focused ? 'bold' : 'normal',
                 color: focused ? '#5287D7' : isDarkMode ? 'lightgray' : 'gray', // Change color based on focus and mode
               }}>
-              About Us
+              Examination
             </Text>
           ),
         }}
       />
       <Tab.Screen
-        name="Settings"
-        component={Settings}
+        name="Fee"
+        component={Fee}
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={settingImage}
+              source={FeeImage}
               style={{
                 width: focused ? 24 : 20, // Increase size if focused
                 height: focused ? 24 : 20, // Increase size if focused
@@ -120,18 +126,18 @@ const Tabs = () => {
                 fontWeight: focused ? 'bold' : 'normal',
                 color: focused ? '#5287D7' : isDarkMode ? 'lightgray' : 'gray', // Change color based on focus and mode
               }}>
-              Settings
+              Fees Details
             </Text>
           ),
         }}
       />
       <Tab.Screen
-        name="ContactUs"
-        component={ContactUs}
+        name="PaperList"
+        component={PaperList}
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={contactImage}
+              source={PaperImage}
               style={{
                 width: focused ? 24 : 20, // Increase size if focused
                 height: focused ? 24 : 20, // Increase size if focused
@@ -150,7 +156,7 @@ const Tabs = () => {
                 fontWeight: focused ? 'bold' : 'normal',
                 color: focused ? '#5287D7' : isDarkMode ? 'lightgray' : 'gray', // Change color based on focus and mode
               }}>
-              Contact Us
+              Paper List
             </Text>
           ),
         }}

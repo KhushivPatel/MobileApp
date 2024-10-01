@@ -17,6 +17,7 @@ import EducationalDetails from '../Education/EducationalList';
 import RequestStatus from '../Request/RequestStatus/RequestStatus';
 import Educationinfo from './UserDetails/Educationinfo';
 import Requestinfo from './UserDetails/Requestinfo';
+import BackButton from '../../CommanText/BackButton';
 
 interface UserResponse {
   response_code: string;
@@ -130,14 +131,9 @@ const ProfileScreen: React.FC = () => {
   return (
     <View style={currentStyles.container}>
       <View style={currentStyles.header}>
+        <BackButton/>
         <Text style={currentStyles.headerText}>Profile</Text>
         <View style={currentStyles.headerIcons}>
-          <TouchableOpacity style={currentStyles.iconButton}>
-            <Image
-              source={require('../../../assets/icons/menu.png')}
-              style={currentStyles.notification}
-            />
-          </TouchableOpacity>
         </View>
       </View>
 

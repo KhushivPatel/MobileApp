@@ -11,10 +11,11 @@ const createStyles = (isDarkMode: boolean) =>
       backgroundColor: isDarkMode ? '#22395C' : '#5287D7',
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      // justifyContent: 'space-between',
       paddingHorizontal: 16,
     } as ViewStyle,
     headerText: {
+      marginLeft:10,
       color: '#fff',
       fontWeight: 'bold',
       fontSize: 18,
@@ -33,8 +34,11 @@ const createStyles = (isDarkMode: boolean) =>
       alignItems: 'center',
       justifyContent: 'space-between',
     },
+    selectedButton: {
+    backgroundColor: '#5287D7', // Background color for the selected button
+  },
     button: {
-      backgroundColor: isDarkMode ? '#22395C' : '#5287D7',
+      backgroundColor: isDarkMode ? '#22395C' : '#B9D5FF',
       padding: 20,
       width: 185,
       borderRadius: 10,
@@ -42,7 +46,7 @@ const createStyles = (isDarkMode: boolean) =>
       marginBottom: 20,
     },
     text: {
-      color: '#fff',
+      color: '#000',
       fontSize: 14,
     },
     // id

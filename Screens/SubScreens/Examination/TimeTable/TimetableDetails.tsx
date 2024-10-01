@@ -13,6 +13,7 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {AuthContext} from '../../../ContextApi/AuthContext';
 import { useExamContext } from '../../../ContextApi/ExamProvider';
+import BackButton from '../../../CommanText/BackButton';
 
 interface ExamDetail {
   ApplicationId: number;
@@ -102,6 +103,7 @@ const GotoTimetable = (ProgInstPartTermId: number, examEventId: number) => {
   return (
     <View style={currentStyles.container}>
       <View style={currentStyles.header}>
+        <BackButton/>
         <Text style={currentStyles.headerText}>Examination Details</Text>
       </View>
       {loading ? (

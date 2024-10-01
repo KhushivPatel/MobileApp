@@ -2,6 +2,7 @@
 import React from 'react';
 import {View, Text, useColorScheme, Image, ScrollView} from 'react-native';
 import createStyles from './Recipt'; // Import the separated styles
+import BackButton from '../../../CommanText/BackButton';
 
 const E_recipt: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -11,6 +12,7 @@ const E_recipt: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <BackButton/>
         <Text style={styles.headerText}>E-Receipt</Text>
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>

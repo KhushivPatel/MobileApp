@@ -125,202 +125,212 @@ const HomeScreen: React.FC = () => {
 
   // API call end
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       {/* Navbar part */}
       <View style={styles.header}>
-        <Text style={styles.headerText}>Dashboard</Text>
-        <View style={styles.headerIcons}>
-        </View>
+        <Image
+          source={require('../../assets/images/msu_logo.png')}
+          style={styles.icon}
+        />
+        <Text style={styles.headerText}>
+          MSU INTEGRATED SYSTEM (MSUIS) VIDHYARTHI
+        </Text>
+        <View style={styles.headerIcons}></View>
       </View>
       {/* Details and menu part */}
-      <View style={styles.homestyle}>
-        {/* Profile part */}
-        <View style={styles.mainContent}>
-          <View style={styles.infoContainer}>
-            <View style={styles.textContainer}>
-              <Text
-                style={[
-                  styles.textItem,
-                  {
-                    fontSize: 24,
-                    color: isDarkMode ? '#fff' : '#000',
-                    fontWeight: 'bold',
-                  },
-                ]}>
-                Hello 👋
-              </Text>
-              {/* Display FirstName from API */}
-              <Text
-                style={[
-                  styles.textItem,
-                  {
-                    fontSize: 14,
-                    color: isDarkMode ? '#fff' : '#000',
-                    fontWeight: 'bold',
-                  },
-                ]}>
-                {firstname}
-              </Text>
-              {/* Display EmailId from API */}
-              <Text
-                style={[
-                  styles.textItem,
-                  {
-                    fontSize: 14,
-                    color: isDarkMode ? '#cdcdcd' : '#6B6B6B',
-                    fontWeight: 'bold',
-                  },
-                ]}>
-                {emailid}
-              </Text>
+      <ScrollView>
+        <View style={styles.homestyle}>
+          {/* Profile part */}
+          <View style={styles.mainContent}>
+            <View style={styles.infoContainer}>
+              <View style={styles.textContainer}>
+                <Text
+                  style={[
+                    styles.textItem,
+                    {
+                      fontSize: 24,
+                      color: isDarkMode ? '#fff' : '#000',
+                      fontWeight: 'bold',
+                    },
+                  ]}>
+                  Hello 👋
+                </Text>
+                {/* Display FirstName from API */}
+                <Text
+                  style={[
+                    styles.textItem,
+                    {
+                      fontSize: 14,
+                      color: isDarkMode ? '#fff' : '#000',
+                      fontWeight: 'bold',
+                    },
+                  ]}>
+                  {firstname}
+                </Text>
+                {/* Display EmailId from API */}
+                <Text
+                  style={[
+                    styles.textItem,
+                    {
+                      fontSize: 14,
+                      color: isDarkMode ? '#cdcdcd' : '#6B6B6B',
+                      fontWeight: 'bold',
+                    },
+                  ]}>
+                  {emailid}
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={styles.arrowButton}
+                onPress={handleProfile}>
+                <Image
+                  source={require('../../assets/icons/arrow.png')}
+                  style={styles.arrow}
+                />
+              </TouchableOpacity>
+            </View>
+            <Text
+              style={[
+                styles.textItem,
+                {
+                  fontSize: 14,
+                  color: isDarkMode ? '#fff' : '#000',
+                  fontWeight: 'bold',
+                },
+              ]}>
+              Quick Links
+            </Text>
+            <View style={styles.linkContainer}>
+              {/* Request Status Touchable */}
+              <TouchableOpacity
+                style={[styles.linkInputWrapper, {width: '40%'}]}
+                onPress={handlerequestStatus}>
+                <Text style={styles.linkInput}>Request Status</Text>
+              </TouchableOpacity>
+
+              {/* Result Touchable */}
+              <TouchableOpacity
+                style={[styles.linkInputWrapper, {width: '25%'}]}>
+                <Text style={styles.linkInput}>Result</Text>
+              </TouchableOpacity>
+
+              {/* Fees Touchable */}
+              <TouchableOpacity
+                style={[styles.linkInputWrapper, {width: '25%'}]}
+                onPress={handleFee}>
+                <Text style={styles.linkInput}>Fees</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/* alert1 */}
+          <Alert1 />
+          {/* alert2 */}
+          <Alert2 />
+          {/* education details */}
+          <View style={styles.educationDetailsContainer}>
+            <View style={styles.greetingTextContainer}>
+              <Image
+                source={require('../../assets/icons/book.png')}
+                style={styles.bookIcon}
+              />
+              <Text style={styles.greetingText}>Educational Details</Text>
             </View>
             <TouchableOpacity
-              style={styles.arrowButton}
-              onPress={handleProfile}>
+              style={styles.expandDetailsButton}
+              onPress={handleEducation}>
               <Image
                 source={require('../../assets/icons/arrow.png')}
-                style={styles.arrow}
+                style={styles.expandArrowIcon}
               />
             </TouchableOpacity>
           </View>
-          <Text
-            style={[
-              styles.textItem,
-              {
-                fontSize: 14,
-                color: isDarkMode ? '#fff' : '#000',
-                fontWeight: 'bold',
-              },
-            ]}>
-            Quick Links
+          {/* examination details */}
+          <View style={styles.ExaminationContainer}>
+            <Text style={styles.greetingText}>Examination</Text>
+            <View style={styles.rowContainer}>
+              <TouchableOpacity
+                style={styles.coloredBox}
+                onPress={handleTimetable}>
+                <Text style={styles.boxText}>Time Table</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.coloredBox}
+                onPress={handleidcard}>
+                <Text style={styles.boxText}>ID Card</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/* exam fee and hall tickets */}
+          <View style={styles.ExaminationContainer}>
+            <Text style={styles.greetingText}>Exam - Fee & Hall Ticket</Text>
+            <View style={styles.rowContainer}>
+              <TouchableOpacity style={styles.coloredBox} onPress={handleFee}>
+                <Text style={styles.boxText}>Exam Fees</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.coloredBox}>
+                <Text style={styles.boxText}>Hall Ticket</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/* academics details */}
+          <View style={styles.ExaminationContainer}>
+            <Text style={styles.greetingText}>Academics</Text>
+            <View style={styles.rowContainer}>
+              <TouchableOpacity style={styles.coloredBox}>
+                <Text style={styles.boxText}>ADM Fees Receipt</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.coloredBox}>
+                <Text style={styles.boxText}>Result</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/* paper details */}
+          <View style={styles.ExaminationContainer}>
+            <Text style={styles.greetingText}>Paper</Text>
+            <View style={styles.rowContainer}>
+              <TouchableOpacity style={styles.coloredBox}>
+                <Text style={styles.boxText}>Selected Paper</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.coloredBox}>
+                <Text style={styles.boxText}>Paper Selection</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/* request details */}
+          <View style={styles.ExaminationContainer}>
+            <Text style={styles.greetingText}>Request</Text>
+            <View style={styles.rowContainer}>
+              <TouchableOpacity
+                style={styles.coloredBox}
+                onPress={handlerequestStatus}>
+                <Text style={styles.boxText}>Request Status</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.coloredBox}
+                onPress={handlenewRequest}>
+                <Text style={styles.boxText}>New Request</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/* certificate details */}
+          <View style={styles.ExaminationContainer}>
+            <Text style={styles.greetingText}>Certificate</Text>
+            <View style={styles.rowContainer}>
+              <TouchableOpacity style={styles.coloredBox}>
+                <Text style={styles.boxText}>Download Certificate</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.coloredBox}>
+                <Text style={styles.boxText}>Request Certificate</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/* msu text */}
+          <Text style={styles.logotext}>
+            The Maharaja Sayajirao University of Baroda
           </Text>
-          <View style={styles.linkContainer}>
-            {/* Request Status Touchable */}
-            <TouchableOpacity
-              style={[styles.linkInputWrapper, {width: '40%'}]}
-              onPress={handlerequestStatus}>
-              <Text style={styles.linkInput}>Request Status</Text>
-            </TouchableOpacity>
-
-            {/* Result Touchable */}
-            <TouchableOpacity style={[styles.linkInputWrapper, {width: '25%'}]}>
-              <Text style={styles.linkInput}>Result</Text>
-            </TouchableOpacity>
-
-            {/* Fees Touchable */}
-            <TouchableOpacity
-              style={[styles.linkInputWrapper, {width: '25%'}]}
-              onPress={handleFee}>
-              <Text style={styles.linkInput}>Fees</Text>
-            </TouchableOpacity>
-          </View>
         </View>
-        {/* alert1 */}
-        <Alert1 />
-        {/* alert2 */}
-        <Alert2 />
-        {/* education details */}
-        <View style={styles.educationDetailsContainer}>
-          <View style={styles.greetingTextContainer}>
-            <Image
-              source={require('../../assets/icons/book.png')}
-              style={styles.bookIcon}
-            />
-            <Text style={styles.greetingText}>Educational Details</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.expandDetailsButton}
-            onPress={handleEducation}>
-            <Image
-              source={require('../../assets/icons/arrow.png')}
-              style={styles.expandArrowIcon}
-            />
-          </TouchableOpacity>
-        </View>
-        {/* examination details */}
-        <View style={styles.ExaminationContainer}>
-          <Text style={styles.greetingText}>Examination</Text>
-          <View style={styles.rowContainer}>
-            <TouchableOpacity
-              style={styles.coloredBox}
-              onPress={handleTimetable}>
-              <Text style={styles.boxText}>Time Table</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.coloredBox} onPress={handleidcard}>
-              <Text style={styles.boxText}>ID Card</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        {/* exam fee and hall tickets */}
-        <View style={styles.ExaminationContainer}>
-          <Text style={styles.greetingText}>Exam - Fee & Hall Ticket</Text>
-          <View style={styles.rowContainer}>
-            <TouchableOpacity style={styles.coloredBox} onPress={handleFee}>
-              <Text style={styles.boxText}>Exam Fees</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.coloredBox}>
-              <Text style={styles.boxText}>Hall Ticket</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        {/* academics details */}
-        <View style={styles.ExaminationContainer}>
-          <Text style={styles.greetingText}>Academics</Text>
-          <View style={styles.rowContainer}>
-            <TouchableOpacity style={styles.coloredBox}>
-              <Text style={styles.boxText}>ADM Fees Receipt</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.coloredBox}>
-              <Text style={styles.boxText}>Result</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        {/* paper details */}
-        <View style={styles.ExaminationContainer}>
-          <Text style={styles.greetingText}>Paper</Text>
-          <View style={styles.rowContainer}>
-            <TouchableOpacity style={styles.coloredBox}>
-              <Text style={styles.boxText}>Selected Paper</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.coloredBox}>
-              <Text style={styles.boxText}>Paper Selection</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        {/* request details */}
-        <View style={styles.ExaminationContainer}>
-          <Text style={styles.greetingText}>Request</Text>
-          <View style={styles.rowContainer}>
-            <TouchableOpacity
-              style={styles.coloredBox}
-              onPress={handlerequestStatus}>
-              <Text style={styles.boxText}>Request Status</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.coloredBox}
-              onPress={handlenewRequest}>
-              <Text style={styles.boxText}>New Request</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        {/* certificate details */}
-        <View style={styles.ExaminationContainer}>
-          <Text style={styles.greetingText}>Certificate</Text>
-          <View style={styles.rowContainer}>
-            <TouchableOpacity style={styles.coloredBox}>
-              <Text style={styles.boxText}>Download Certificate</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.coloredBox}>
-              <Text style={styles.boxText}>Request Certificate</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        {/* msu text */}
-        <Text style={styles.logotext}>
-          The Maharaja Sayajirao University of Baroda
-        </Text>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 

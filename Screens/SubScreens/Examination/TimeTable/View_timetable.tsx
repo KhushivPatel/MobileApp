@@ -10,6 +10,7 @@ import createStyles from './View_style'; // Import the styles
 import {AuthContext} from '../../../ContextApi/AuthContext';
 import {useExamContext} from '../../../ContextApi/ExamProvider';
 import {useRoute} from '@react-navigation/native'; // Import useRoute
+import BackButton from '../../../CommanText/BackButton';
 
 const View_timetable = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -61,6 +62,7 @@ const View_timetable = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <BackButton/>
         <Text style={styles.headerText}>Time Table</Text>
       </View>
       {loading ? (

@@ -15,11 +15,12 @@ const createStyles = (isDarkMode: boolean) => StyleSheet.create({
     backgroundColor: isDarkMode ? '#22395C' : '#5287D7',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     paddingHorizontal: 16,
   } as ViewStyle,
 
   headerText: {
+    marginLeft:10,
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 18,

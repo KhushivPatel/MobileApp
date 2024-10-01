@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import createStyles from './EducationListStyles'; // Import the styles
+import BackButton from '../../CommanText/BackButton';
 
 const EducationalDetails: React.FC = () => {
   const navigation = useNavigation();
@@ -17,6 +18,7 @@ const EducationalDetails: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <BackButton/>
         <Text style={styles.headerText}>Educational List</Text>
       </View>
 

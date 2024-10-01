@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import createStyles from './styles';
 import { AuthContext } from '../../../ContextApi/AuthContext';
+import BackButton from '../../../CommanText/BackButton';
 
 const RequestStatus: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -63,13 +64,8 @@ const RequestStatus: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <BackButton/>
         <Text style={styles.headerText}>Request Status</Text>
-        <TouchableOpacity onPress={() => console.log('Image pressed')}>
-          <Image
-            source={require('../../../../assets/icons/whitereload.png')}
-            style={styles.headerImage}
-          />
-        </TouchableOpacity>
       </View>
 
       {/* Conditional rendering for loading, error, or data */}

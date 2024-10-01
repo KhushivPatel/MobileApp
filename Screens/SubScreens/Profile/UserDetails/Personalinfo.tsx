@@ -9,6 +9,11 @@ import {
 import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from '../../../ContextApi/AuthContext';
 import styles from './styles';
+import CountryDropdown from '../../Dropdowns/CountryDropdown';
+import MaritalStatus from '../../Dropdowns/MaritalStatus';
+import Religion from '../../Dropdowns/Religion';
+import GenOccupation from '../../Dropdowns/GenOccupation';
+import StateDropdown from '../../Dropdowns/StateDropdown';
 const PersonalInfo = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -206,6 +211,11 @@ const PersonalInfo = () => {
               <Text style={currentStyles.nameLabel}>Current Pincode: </Text>
               <Text style={currentStyles.firstName}>{data.CurrentPincode}</Text>
             </View>
+            {/* drop down */}
+            {/* <CountryDropdown/> */}
+            {/* <MaritalStatus/> */}
+            {/* <Religion/> */}
+            {/* <StateDropdown/> */}
           </View>
         </>
       ) : (

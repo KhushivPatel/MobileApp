@@ -1,89 +1,17 @@
-/* eslint-disable react-native/no-inline-styles */
-// /* eslint-disable react-native/no-inline-styles */
-// import {
-//   View,
-//   Text,
-//   useColorScheme,
-//   ScrollView,
-//   TouchableOpacity,
-//   Image,
-//   ActivityIndicator,
-// } from 'react-native';
-// import React, {useContext, useEffect, useState} from 'react';
-// import createStyles from './styles';
-// import { AuthContext } from '../../../ContextApi/AuthContext';
-
-// const View_id = () => {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   const styles = createStyles(isDarkMode);
-
-//   const {authToken, userDetails} = useContext(AuthContext);
-//   // State to store the API response data
-//   const [studentData, setStudentData] = useState<any>(null);
-//   const [loading, setLoading] = useState(true);
-
-//   // State to toggle between Simple View and ID Card View
-//   const [isIDCardView, setIsIDCardView] = useState(false); // False = Simple View, True = ID Card View
-
-//   // Fetch the data from the API
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await fetch(
-//           'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentIDCard1/GenerateID',
-//           {
-//             method: 'POST',
-//             headers: {
-//               'Content-Type': 'application/json',
-//               Referer:
-//                 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
-//               Token: authToken,
-//             },
-//             body: JSON.stringify({
-//               ProgrammeId: 1,
-//             }),
-//           },
-//         );
-
-//         const data = await response.json();
-
-//         if (data.response_code === '200') {
-//           setStudentData(data.obj);
-//         } else {
-//           console.error('Error fetching data:', data.ErrorMessage);
-//         }
-//       } catch (error) {
-//         console.error('Error fetching data:', error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   // Display a loading spinner while fetching data
-//   if (loading) {
-//     return (
-//       <View>
-//         <ActivityIndicator size="large" color="#5287D7" />
-//       </View>
-//     );
-//   }
-
-//   // If no data is available, show a message
-//   if (!studentData) {
-//     return (
-//       <View>
-//         <Text>No data available</Text>
-//       </View>
-//     );
-//   }
 import React, {useContext, useEffect, useState} from 'react';
-import {View, Text, useColorScheme, ActivityIndicator, ScrollView, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  useColorScheme,
+  ActivityIndicator,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import createStyles from './styles';
 import {AuthContext} from '../../../ContextApi/AuthContext';
 import {useUserDetails} from '../../../ContextApi/UserDetailContext'; // Adjust the import path
+import BackButton from '../../../CommanText/BackButton';
 
 const View_id = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -144,7 +72,7 @@ const View_id = () => {
   // Display a loading spinner while fetching data
   if (loading) {
     return (
-       <View style={styles.containerloading}>
+      <View style={styles.containerloading}>
         <ActivityIndicator
           size="large"
           color={isDarkMode ? '#fff' : '#5287D7'}
@@ -166,19 +94,26 @@ const View_id = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <BackButton />
         <Text style={styles.headerText}>Generate ID Card</Text>
       </View>
 
       {/* Buttons to switch between Simple View and ID Card View */}
       <View style={styles.selectcontainer}>
         <TouchableOpacity
-          style={styles.button}
+          style={[
+            styles.button,
+            !isIDCardView && styles.selectedButton, // Apply selected styles for Simple View
+          ]}
           onPress={() => setIsIDCardView(false)} // Switch to Simple View
         >
           <Text style={styles.text}>Simple View</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.button}
+          style={[
+            styles.button,
+            isIDCardView && styles.selectedButton, // Apply selected styles for ID Card View
+          ]}
           onPress={() => setIsIDCardView(true)} // Switch to ID Card View
         >
           <Text style={styles.text}>ID Card View</Text>

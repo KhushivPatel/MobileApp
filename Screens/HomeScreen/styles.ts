@@ -12,13 +12,14 @@ export const createStyles = (isDarkMode: boolean) =>
     header: {
       height: 58,
       flexDirection: 'row',
-      justifyContent: 'space-between',
+
+      // justifyContent: 'space-between',
       alignItems: 'center',
       paddingHorizontal: 16,
       backgroundColor: isDarkMode ?  '#22395C' : '#5287D7',
     },
     headerText: {
-      fontSize: 18,
+      fontSize: 14,
       fontWeight: 'bold',
       color: '#fff',
     },
@@ -26,6 +27,16 @@ export const createStyles = (isDarkMode: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
     },
+  icon: {
+    width: 45,
+    height: 45,
+    marginRight:10,
+    tintColor: '#fff', // Optional: Tint the image color if needed
+  },
+   gifStyle: {
+    width: 150, // Set width of the GIF
+    height: 150, // Set height of the GIF
+  },
     notification: {
       height: 20,
       width: 20,
