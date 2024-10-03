@@ -142,53 +142,55 @@ const HomeScreen: React.FC = () => {
         <View style={styles.homestyle}>
           {/* Profile part */}
           <View style={styles.mainContent}>
-            <View style={styles.infoContainer}>
-              <View style={styles.textContainer}>
-                <Text
-                  style={[
-                    styles.textItem,
-                    {
-                      fontSize: 24,
-                      color: isDarkMode ? '#fff' : '#000',
-                      fontWeight: 'bold',
-                    },
-                  ]}>
-                  Hello 👋
-                </Text>
-                {/* Display FirstName from API */}
-                <Text
-                  style={[
-                    styles.textItem,
-                    {
-                      fontSize: 14,
-                      color: isDarkMode ? '#fff' : '#000',
-                      fontWeight: 'bold',
-                    },
-                  ]}>
-                  {firstname}
-                </Text>
-                {/* Display EmailId from API */}
-                <Text
-                  style={[
-                    styles.textItem,
-                    {
-                      fontSize: 14,
-                      color: isDarkMode ? '#cdcdcd' : '#6B6B6B',
-                      fontWeight: 'bold',
-                    },
-                  ]}>
-                  {emailid}
-                </Text>
+            <TouchableOpacity onPress={handleProfile}>
+              <View style={styles.infoContainer}>
+                <View style={styles.textContainer}>
+                  <Text
+                    style={[
+                      styles.textItem,
+                      {
+                        fontSize: 24,
+                        color: isDarkMode ? '#fff' : '#000',
+                        fontWeight: 'bold',
+                      },
+                    ]}>
+                    Hello 👋
+                  </Text>
+                  {/* Display FirstName from API */}
+                  <Text
+                    style={[
+                      styles.textItem,
+                      {
+                        fontSize: 14,
+                        color: isDarkMode ? '#fff' : '#000',
+                        fontWeight: 'bold',
+                      },
+                    ]}>
+                    {firstname}
+                  </Text>
+                  {/* Display EmailId from API */}
+                  <Text
+                    style={[
+                      styles.textItem,
+                      {
+                        fontSize: 14,
+                        color: isDarkMode ? '#cdcdcd' : '#6B6B6B',
+                        fontWeight: 'bold',
+                      },
+                    ]}>
+                    {emailid}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  style={styles.arrowButton}
+                  onPress={handleProfile}>
+                  <Image
+                    source={require('../../assets/icons/arrow.png')}
+                    style={styles.arrow}
+                  />
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                style={styles.arrowButton}
-                onPress={handleProfile}>
-                <Image
-                  source={require('../../assets/icons/arrow.png')}
-                  style={styles.arrow}
-                />
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
             <Text
               style={[
                 styles.textItem,
@@ -225,7 +227,7 @@ const HomeScreen: React.FC = () => {
           {/* alert1 */}
           <Alert1 />
           {/* alert2 */}
-          <Alert2 />
+          {/* <Alert2 /> */}
           {/* education details */}
           <View style={styles.educationDetailsContainer}>
             <View style={styles.greetingTextContainer}>
@@ -285,7 +287,7 @@ const HomeScreen: React.FC = () => {
             </View>
           </View>
           {/* paper details */}
-          <View style={styles.ExaminationContainer}>
+          {/* <View style={styles.ExaminationContainer}>
             <Text style={styles.greetingText}>Paper</Text>
             <View style={styles.rowContainer}>
               <TouchableOpacity style={styles.coloredBox}>
@@ -295,7 +297,7 @@ const HomeScreen: React.FC = () => {
                 <Text style={styles.boxText}>Paper Selection</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
           {/* request details */}
           <View style={styles.ExaminationContainer}>
             <Text style={styles.greetingText}>Request</Text>

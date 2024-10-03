@@ -8,8 +8,9 @@ import {
 } from 'react-native';
 import {AuthContext} from '../../../ContextApi/AuthContext';
 import {Table, Row, Rows} from 'react-native-table-component';
+import BackButton from '../../../CommanText/BackButton';
 
-const ExaminationDetails = () => {
+const Fee = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const {authToken} = useContext(AuthContext);
@@ -20,7 +21,7 @@ const ExaminationDetails = () => {
 
   const fetchExamDetails = async () => {
     const url =
-      'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentDashboard/ApplicantPreExaminationDetails';
+      'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/NextYearAdmDetails/AdmDetailsGet';
 
     try {
       const response = await fetch(url, {
@@ -34,7 +35,8 @@ const ExaminationDetails = () => {
 
       const json = await response.json();
       if (json.response_code === '200') {
-        setData(json.obj); // Set data directly from the response
+        const extractedData = json.obj.flatMap(item => item.PTAdmList); // Flatten PTAdmList into one array
+        setData(extractedData); // Set the flattened PTAdmList as the data
       } else {
         console.error('Error fetching data:', json);
       }
@@ -64,45 +66,32 @@ const ExaminationDetails = () => {
 
   const tableHead = [
     'S.No',
-    'Exam Fee Status',
-    'Hall Ticket',
-    'Result',
-    'Timetable',
-    'PRN',
-    'Display Name',
-    'Faculty Name',
-    'Instance Name',
-    'Appearance Type',
-    'Form No',
-    'Fee Start Date',
-    'Fee End Date',
-    'Inward Mode',
-    'Seat Number',
-    'Result Status',
+    'Paper Selection',
+    'Admission Fee Status',
+    'Admission Fee List',
+    'Elective Preference',
+    'Academic Year',
+    'Semester Name',
+    'Yearly Status',
   ];
 
   const tableData = data.map((row, index) => [
     index + 1,
-    row.IsExamFeesPaid ? 'Paid' : 'Not Paid',
-    row.IsHallTicket ? 'Yes' : 'No',
-    row.IsResult ? 'Available' : 'Not Available',
-    row.IsTimetable ? 'Available' : 'Not Available',
-    row.PRN,
-    row.DisplayName,
-    row.FacultyName,
-    row.InstanceName,
-    row.AppearanceType,
-    row.FormNo,
-    row.ExamFeeStartDateView,
-    row.ExamFeeEndDateForStudentView,
-    row.InwardMode,
-    row.SeatNumber,
-    row.ResultStatus,
+    row.IsPaperSelByStudent ? 'Selected' : 'Not Selected',
+    row.PTFeeStatus || 'N/A',
+    row.PartTermStatus || 'N/A',
+    'yes', // Assuming Elective Preference is always 'yes'
+    row.AcademicYearCode || 'N/A',
+    row.InstancePartTermName || 'N/A',
+    row.IsFullyPaid ? 'Yes' : 'No',
   ]);
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Examination Details</Text>
+      <View style={styles.heading}>
+        <BackButton />
+        <Text style={styles.headingText}>Fees Details</Text>
+      </View>
       <ScrollView horizontal>
         <View style={styles.tableContainer}>
           {/* Table Header */}
@@ -123,13 +112,29 @@ const ExaminationDetails = () => {
   );
 };
 
-export default ExaminationDetails;
+export default Fee;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    // padding: 16,
     backgroundColor: '#f5f5f5',
+  },
+  heading: {
+    height: 58,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#5287D7',
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  headingText: {
+    marginLeft: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
   },
   title: {
     fontSize: 22,
@@ -138,17 +143,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   tableContainer: {
+    margin: 10,
     flex: 1,
     borderWidth: 1,
-    borderColor: '#000',
+    borderColor: '#ccc',
     borderRadius: 4,
     overflow: 'hidden',
   },
   header: {
     height: 60, // Set height for header
-    backgroundColor: '#e0e0e0',
-    borderBottomWidth: 2,
-    borderBottomColor: '#000',
+    backgroundColor: '#B9D5FF',
+    // borderBottomWidth: 2,
+    borderBottomColor: '#ccc',
   },
   headerText: {
     fontWeight: 'bold',
@@ -156,17 +162,25 @@ const styles = StyleSheet.create({
     padding: 12,
     width: 100, // Set width for header
     flex: 2,
+    color: '#000',
+
+    borderRightWidth: 1,
+    borderRightColor: '#ccc',
   },
   tableData: {
     textAlign: 'center',
     padding: 12,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    borderRightWidth: 1,
+    borderRightColor: '#ccc',
     width: 100, // Set width for data cells
     height: 60, // Set height for data cells
   },
   tableBorder: {
-    borderColor: '#000',
+    borderColor: '#ccc',
+    borderRightWidth: 1,
+    borderRightColor: '#ccc',
   },
   loadingContainer: {
     flex: 1,

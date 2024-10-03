@@ -27,6 +27,10 @@ import PaperDetails from './Screens/SubScreens/Paper/PaperSelection/PaperDetails
 import PaperList from './Screens/SubScreens/Paper/PaperSelection/PaperList';
 import { StudentProfileProvider } from './Screens/ContextApi/StudentProfileContext';
 import StateDropdown from './Screens/SubScreens/Dropdowns/StateDropdown';
+import DetailsScreen from './Screens/SubScreens/FeesDetails/DetailsScreen';
+import Recipts from './Screens/SubScreens/FeesDetails/Prints.tsx/Recipts';
+import TimeTable from './Screens/SubScreens/FeesDetails/Prints.tsx/TimeTable';
+import ResultPrint from './Screens/SubScreens/Academics/Result/ResultPrint';
 
 export type RootStackParamList = {
   WelcomeScreen: undefined;
@@ -54,39 +58,45 @@ const App = () => {
       <UserDetailProvider>
         <ExamProvider>
           <StudentProfileProvider>
-
-          <NavigationContainer>
-            <Stack.Navigator screenOptions={{headerShown: false}}>
-              {/* <Tabs/> */}
-              <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-              <Stack.Screen name="LogIn" component={LogIn} />
-              <Stack.Screen name="HomeScreen" component={Tabs} />
-              <Stack.Screen
-                name="NotificationScreen"
-                component={NotificationScreen}
-              />
-              <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-              <Stack.Screen name="PaperDetails" component={PaperDetails} />
-              <Stack.Screen name="PaperList" component={PaperList} />
-              <Stack.Screen name="View_id" component={View_id} />
-              <Stack.Screen name="RequestStatus" component={RequestStatus} />
-              <Stack.Screen name="NewRequest" component={NewRequest} />
-              <Stack.Screen
-                name="EducationalList"
-                component={EducationalList}
-              />
-              <Stack.Screen name="Fee" component={Fee} />
-              <Stack.Screen
-                name="TimetableDetails"
-                component={TimetableDetails}
-              />
-              <Stack.Screen name="View_timetable" component={View_timetable} />
-              <Stack.Screen name="FeeRecipt" component={FeeRecipt} />
-              <Stack.Screen name="Educationinfo" component={Educationinfo} />
-              <Stack.Screen name="LogOut" component={LogOut} />
+            <NavigationContainer>
+              <Stack.Navigator screenOptions={{headerShown: false}}>
+                {/* <Tabs/> */}
+                <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+                <Stack.Screen name="LogIn" component={LogIn} />
+                <Stack.Screen name="HomeScreen" component={Tabs} />
+                <Stack.Screen
+                  name="NotificationScreen"
+                  component={NotificationScreen}
+                />
+                <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+                <Stack.Screen name="PaperDetails" component={PaperDetails} />
+                <Stack.Screen name="PaperList" component={PaperList} />
+                <Stack.Screen name="View_id" component={View_id} />
+                <Stack.Screen name="RequestStatus" component={RequestStatus} />
+                <Stack.Screen name="NewRequest" component={NewRequest} />
+                <Stack.Screen
+                  name="EducationalList"
+                  component={EducationalList}
+                />
+                <Stack.Screen name="Fee" component={Fee} />
+                <Stack.Screen
+                  name="TimetableDetails"
+                  component={TimetableDetails}
+                />
+                <Stack.Screen
+                  name="View_timetable"
+                  component={View_timetable}
+                />
+                <Stack.Screen name="FeeRecipt" component={FeeRecipt} />
+                <Stack.Screen name="Educationinfo" component={Educationinfo} />
+                <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+                <Stack.Screen name="Recipts" component={Recipts} />
+                <Stack.Screen name="TimeTable" component={TimeTable} />
+                {/* <Stack.Screen name="ResultPrint" component={ResultPrint} /> */}
+                <Stack.Screen name="LogOut" component={LogOut} />
                 <Stack.Screen name="StateDropdown" component={StateDropdown} />
-            </Stack.Navigator>
-          </NavigationContainer>
+              </Stack.Navigator>
+            </NavigationContainer>
           </StudentProfileProvider>
         </ExamProvider>
       </UserDetailProvider>

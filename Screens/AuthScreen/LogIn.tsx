@@ -109,7 +109,7 @@ const LogIn: React.FC<Props> = ({navigation}) => {
       />
 
       <View style={styles.loginContainer}>
-        <Text style={styles.title}>MSUB - Vidhyarthi</Text>
+        <Text style={styles.title}>MSUIS - Vidhyarthi</Text>
 
         <TextInput
           placeholder="Username"

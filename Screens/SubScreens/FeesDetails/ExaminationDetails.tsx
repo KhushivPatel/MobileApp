@@ -1,186 +1,3 @@
-// import React, {useContext, useEffect, useState} from 'react';
-// import {
-//   View,
-//   Text,
-//   ActivityIndicator,
-//   StyleSheet,
-//   ScrollView,
-// } from 'react-native';
-// import {AuthContext} from '../../ContextApi/AuthContext';
-
-// const ExaminationDetails = () => {
-//   const [loading, setLoading] = useState(true);
-//   const [data, setData] = useState(null);
-//   const {authToken, userDetails} = useContext(AuthContext);
-
-//   useEffect(() => {
-//     fetchExamDetails();
-//   }, []);
-
-//   const fetchExamDetails = async () => {
-//     const url =
-//       'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/NextYearAdmDetails/AdmDetailsGet';
-
-//     try {
-//       const response = await fetch(url, {
-//         method: 'GET',
-//         headers: {
-//           Referer: 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
-//           Token: authToken,
-//           'Content-Type': 'application/json',
-//         },
-//       });
-
-//       const json = await response.json();
-//       if (json.response_code === '200') {
-//         setData(json.obj);
-//       } else {
-//         console.error('Error fetching data:', json);
-//       }
-//     } catch (error) {
-//       console.error('API call failed:', error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   if (loading) {
-//     return (
-//       <View style={styles.loadingContainer}>
-//         <ActivityIndicator size="large" color="#0000ff" />
-//         <Text>Loading data...</Text>
-//       </View>
-//     );
-//   }
-
-//   if (!data) {
-//     return (
-//       <View style={styles.errorContainer}>
-//         <Text>Failed to load data.</Text>
-//       </View>
-//     );
-//   }
-
-//   const renderTableRow = (row, index) => (
-//     <View key={index} style={styles.tableRow}>
-//       <Text style={styles.tableData}>{index + 1}</Text>
-//       <Text style={styles.tableData}>
-//         {row.IsPaperSelByStudent ? 'Selected' : 'Not Selected'}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.tableData,
-//           row.PTFeeStatus === 'Paid' ? styles.paid : styles.notPaid,
-//         ]}>
-//         {row.PTFeeStatus || 'N/A'}
-//       </Text>
-//       <Text style={styles.tableData}>{row.PartTermStatus}</Text>
-//       <Text style={styles.tableData}>yes</Text>
-//       <Text style={styles.tableData}>{row.AcademicYearCode}</Text>
-//       <Text style={styles.tableData}>{row.InstancePartTermName}</Text>
-//       <Text
-//         style={[
-//           styles.tableData,
-//           row.IsFullyPaid ? styles.paid : styles.notPaid,
-//         ]}>
-//         {row.IsFullyPaid ? 'Yes' : 'No'}
-//       </Text>
-//     </View>
-//   );
-
-//   return (
-//     <ScrollView style={styles.container}>
-//       <Text style={styles.title}>Examination Details</Text>
-//       <ScrollView horizontal>
-//         <View>
-//           {/* Table Header */}
-//           <View style={[styles.tableRow, styles.tableHeaderRow]}>
-//             <Text style={styles.tableHeader}>S.No</Text>
-//             <Text style={styles.tableHeader}>Paper Selection</Text>
-//             <Text style={styles.tableHeader}>Admission Fee Status</Text>
-//             <Text style={styles.tableHeader}>Admission Fee List</Text>
-//             <Text style={styles.tableHeader}>Elective Preference</Text>
-//             <Text style={styles.tableHeader}>Academic Year</Text>
-//             <Text style={styles.tableHeader}>Semester Name</Text>
-//             <Text style={styles.status}>Yearly Status</Text>
-//           </View>
-
-//           {/* Table Data */}
-//           {data[0].PTAdmList.map((row, index) => renderTableRow(row, index))}
-//         </View>
-//       </ScrollView>
-//     </ScrollView>
-//   );
-// };
-
-// export default ExaminationDetails;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 16,
-//     backgroundColor: '#f5f5f5',
-//   },
-//   title: {
-//     fontSize: 22,
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//     marginBottom: 20,
-//   },
-//   tableRow: {
-//     flexDirection: 'row',
-//     borderBottomWidth: 1,
-//     borderBottomColor: '#ccc',
-//     paddingVertical: 12,
-//     justifyContent: 'space-between',
-//     borderRadius: 2,
-//     borderColor: '#000',
-//   },
-//   tableHeaderRow: {
-//     backgroundColor: '#e0e0e0',
-//   },
-//   tableHeader: {
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//     paddingVertical: 8,
-//     paddingHorizontal: 6,
-//     minWidth: '10%',
-//   },
-//   tableData: {
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     flex: 1,
-//     textAlign: 'center',
-//     paddingVertical: 8,
-//     paddingHorizontal: 6,
-//     minWidth: 140, // Match this width with header
-//   },
-//   status: {
-//     flex: 3,
-//     textAlign: 'center',
-//     paddingVertical: 8,
-//     paddingHorizontal: 6,
-//     minWidth: 670, // Match this width with header
-//   },
-//   loadingContainer: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   errorContainer: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   paid: {
-//     color: 'green',
-//   },
-//   notPaid: {
-//     color: 'red',
-//   },
-// });
 import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
@@ -188,14 +5,18 @@ import {
   ActivityIndicator,
   StyleSheet,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {AuthContext} from '../../ContextApi/AuthContext';
 import {Table, Row, Rows} from 'react-native-table-component';
+import BackButton from '../../CommanText/BackButton';
+import {useNavigation} from '@react-navigation/native'; // Import the navigation hook
 
 const ExaminationDetails = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const {authToken} = useContext(AuthContext);
+  const navigation = useNavigation(); // Get navigation instance
 
   useEffect(() => {
     fetchExamDetails();
@@ -247,7 +68,7 @@ const ExaminationDetails = () => {
 
   const tableHead = [
     'S.No',
-    'Exam Fee Status',
+    'Action',
     'Hall Ticket',
     'Result',
     'Timetable',
@@ -264,12 +85,51 @@ const ExaminationDetails = () => {
     'Result Status',
   ];
 
+  const handleNavigation = (row, actionType) => {
+    // Navigate to another page with row data
+    navigation.navigate('DetailsScreen', {row, actionType});
+  };
+  const NavigationOfRecipt = (row, actionType) => {
+    // Navigate to another page with row data
+    navigation.navigate('Recipts', {row, actionType});
+  };
+  const NavigationOfTimetable = (row, actionType) => {
+    // Navigate to another page with row data
+    navigation.navigate('TimeTable', {row, actionType});
+  };
+  const NavigationOfResult = (row, actionType) => {
+    // Navigate to another page with row data
+    navigation.navigate('ResultPrint', {row, actionType});
+  };
+
   const tableData = data.map((row, index) => [
     index + 1,
-    row.IsExamFeesPaid ? 'Paid' : 'Not Paid',
-    row.IsHallTicket ? 'Yes' : 'No',
-    row.IsResult ? 'Available' : 'Not Available',
-    row.IsTimetable ? 'Available' : 'Not Available',
+    <TouchableOpacity style={styles.tableData}>
+      <Text style={styles.buttonData}>
+        {row.IsExamFeesPaid ? 'Recipt' : 'Not Paid'}
+      </Text>
+    </TouchableOpacity>,
+    <TouchableOpacity
+      style={styles.tableData}
+      onPress={() => handleNavigation(row, 'Hall Ticket')}>
+      <Text style={styles.buttonData}>
+        {row.IsHallTicket ? 'Hall Ticket' : 'No'}
+      </Text>
+    </TouchableOpacity>,
+    <TouchableOpacity
+      style={styles.tableData}
+      onPress={() => NavigationOfRecipt(row, 'Result')}>
+      <Text style={styles.buttonData}>
+        {row.IsResult ? 'Result' : 'Not Available'}
+      </Text>
+    </TouchableOpacity>,
+    <TouchableOpacity
+      style={styles.tableData}
+      onPress={() => NavigationOfTimetable(row, 'Timetable')}>
+      <Text style={styles.buttonData}>
+        {row.IsTimetable ? 'Exam Timetable' : 'Not Available'}
+      </Text>
+    </TouchableOpacity>,
     row.PRN,
     row.DisplayName,
     row.FacultyName,
@@ -285,7 +145,10 @@ const ExaminationDetails = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Examination Details</Text>
+      <View style={styles.heading}>
+        <BackButton />
+        <Text style={styles.headingText}>Educational List</Text>
+      </View>
       <ScrollView horizontal>
         <View style={styles.tableContainer}>
           {/* Table Header */}
@@ -311,8 +174,24 @@ export default ExaminationDetails;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    // padding: 16,
     backgroundColor: '#f5f5f5',
+  },
+  heading: {
+    height: 58,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#5287D7',
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  headingText: {
+    marginLeft: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
   },
   title: {
     fontSize: 22,
@@ -321,35 +200,54 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   tableContainer: {
+    margin: 10,
     flex: 1,
     borderWidth: 1,
-    borderColor: '#000',
+    borderColor: '#ccc',
     borderRadius: 4,
     overflow: 'hidden',
   },
   header: {
     height: 60, // Set height for header
-    backgroundColor: '#e0e0e0',
-    borderBottomWidth: 2,
-    borderBottomColor: '#000',
+    backgroundColor: '#B9D5FF',
+    // borderBottomWidth: 2,
+    borderBottomColor: '#ccc',
   },
   headerText: {
     fontWeight: 'bold',
     textAlign: 'center',
     padding: 12,
-    width: 100, // Set width for header
+    width: 150, // Set width for header
     flex: 2,
+    color: '#000',
+
+    borderRightWidth: 1,
+    borderRightColor: '#ccc',
   },
   tableData: {
     textAlign: 'center',
     padding: 12,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    width: 100, // Set width for data cells
+    borderRightWidth: 1,
+    borderRightColor: '#ccc',
+    width: 150, // Set width for data cells
     height: 60, // Set height for data cells
   },
+  buttonData: {
+    flex: 2,
+    textAlign: 'center',
+    padding: 10,
+    backgroundColor: '#3498DB',
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
+    borderRadius: 5,
+  },
   tableBorder: {
-    borderColor: '#000',
+    borderColor: '#ccc',
+    borderRightWidth: 1,
+    borderRightColor: '#ccc',
   },
   loadingContainer: {
     flex: 1,

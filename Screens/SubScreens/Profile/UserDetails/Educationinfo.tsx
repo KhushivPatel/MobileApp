@@ -1,15 +1,25 @@
-import {View, Text, Image, ActivityIndicator, useColorScheme} from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
+
+
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  useColorScheme,
+  ScrollView,
+} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
 import styles from './styles';
-import { AuthContext } from '../../../ContextApi/AuthContext';
+import {AuthContext} from '../../../ContextApi/AuthContext';
+import AcademicYearDropdown from '../../Dropdowns/AcademicYearDropdown';
 
 const Educationinfo = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const {authToken} = useContext(AuthContext);
   const isDarkMode = useColorScheme() === 'dark';
   const currentStyles = styles(isDarkMode);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,7 +40,7 @@ const Educationinfo = () => {
         }
 
         const result = await response.json();
-        setData(result.obj[0]); // Access the first object directly
+        setData(result.obj); // Expecting a list here
       } catch (err) {
         setError(err.message);
       } finally {
@@ -59,30 +69,31 @@ const Educationinfo = () => {
   }
 
   return (
-    <View style={currentStyles.container}>
-      <Text style={currentStyles.Header}>
-        Education Details - [HSC / 12th / Intermediate]
-      </Text>
-      <View style={currentStyles.divider} />
-      {data ? (
-        <>
-          <View style={currentStyles.infoContainer}>
+    <ScrollView style={currentStyles.container}>
+      {data.length > 0 ? (
+        data.map((education, index) => (
+          <View key={index} style={currentStyles.infoContainer}>
+            {/* Dynamic list rendering */}
+            <Text style={currentStyles.Header}>
+              Education Details : {education.EligibleDegreeName || '-'}
+            </Text>
+            <View style={currentStyles.divider} />
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Eligible Degree</Text>
               <Text style={currentStyles.firstName}>
-                {data.EligibleDegreeName}
+                {education.EligibleDegreeName || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Specialization</Text>
               <Text style={currentStyles.firstName}>
-                {data.SpecializationName}
+                {education.SpecializationName || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Board/University</Text>
               <Text style={currentStyles.firstName}>
-                {data.ExaminationBodyName}
+                {education.ExaminationBodyName || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
@@ -90,103 +101,109 @@ const Educationinfo = () => {
                 Faculty/School/College Name
               </Text>
               <Text style={currentStyles.firstName}>
-                {data.InstituteAttended}
+                {education.InstituteAttended || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>School No</Text>
               <Text style={currentStyles.firstName}>
-                {data.SchoolNo || '-'}
+                {education.SchoolNo || '-'}
               </Text>
             </View>
+            {/* Add more fields dynamically as per available data */}
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Institute City</Text>
-              <Text style={currentStyles.firstName}>{data.CityName}</Text>
+              <Text style={currentStyles.firstName}>
+                {education.CityName || '-'}
+              </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Other Institute Name</Text>
               <Text style={currentStyles.firstName}>
-                {data.OtherCity || '-'}
+                {education.OtherCity || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Exam Pass Location</Text>
-              <Text style={currentStyles.firstName}>{data.ExamPassCity}</Text>
+              <Text style={currentStyles.firstName}>
+                {education.ExamPassCity || '-'}
+              </Text>
             </View>
-
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Result Status</Text>
-              <Text style={currentStyles.firstName}>{data.ResultStatus}</Text>
+              <Text style={currentStyles.firstName}>
+                {education.ResultStatus || '-'}
+              </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>
                 Declaration of Marksheet
               </Text>
               <Text style={currentStyles.firstName}>
-                {data.IsDeclared === 'True' ? 'Yes' : 'No'}
+                {education.IsDeclared === 'True' ? 'Yes' : 'No'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Exam Pass month</Text>
               <Text style={currentStyles.firstName}>
-                {data.ExamPassMonth || '-'}
+                {education.ExamPassMonth || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Exam Pass Year</Text>
               <Text style={currentStyles.firstName}>
-                {data.ExamPassYear || '-'}
+                {education.ExamPassYear || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Exam Seat Number</Text>
               <Text style={currentStyles.firstName}>
-                {data.ExamSeatNumber || '-'}
+                {education.ExamSeatNumber || '-'}
               </Text>
             </View>
-
-            {/*  */}
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Mark Obtained</Text>
               <Text style={currentStyles.firstName}>
-                {data.MarkObtained || '-'}
+                {education.MarkObtained || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Mark Out of</Text>
               <Text style={currentStyles.firstName}>
-                {data.MarkOutof || '-'}
+                {education.MarkOutof || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Grade</Text>
-              <Text style={currentStyles.firstName}>{data.Grade || '-'}</Text>
+              <Text style={currentStyles.firstName}>
+                {education.Grade || '-'}
+              </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>
+                {' '}
                 Percentage Equivalence CGPA
               </Text>
               <Text style={currentStyles.firstName}>
-                {data.PercentageEquivalenceCGPA || '-'}
+                {education.PercentageEquivalenceCGPA || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Percentage</Text>
               <Text style={currentStyles.firstName}>
-                {data.Percentage || '-'}
+                {education.Percentage || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Class Name</Text>
               <Text style={currentStyles.firstName}>
-                {data.ClassName || '-'}
+                {education.ClassName || '-'}
               </Text>
             </View>
-            {/*  */}
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Is First Trial?</Text>
               <Text style={currentStyles.firstName}>
-                {data.IsFirstTrial === '' ? 'No' : 'Yes'}
+                {education.IsFirstTrial === '' ? 'No' : 'Yes'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
@@ -194,33 +211,36 @@ const Educationinfo = () => {
                 Is Last Qualifying Exam?
               </Text>
               <Text style={currentStyles.firstName}>
-                {data.IsLastQualifyingExam === '' ? 'No' : 'Yes'}
+                {education.IsLastQualifyingExam === '' ? 'No' : 'Yes'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Teaching Language</Text>
               <Text style={currentStyles.firstName}>
-                {data.LanguageName || '-'}
+                {education.LanguageName || '-'}
               </Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>Attach Document</Text>
-              <Text style={currentStyles.firstName}>----</Text>
+              <Text style={currentStyles.firstName}>-----</Text>
             </View>
             <View style={currentStyles.nameContainer}>
               <Text style={currentStyles.nameLabel}>
+                {' '}
                 Exam Certificate Number
               </Text>
               <Text style={currentStyles.firstName}>
-                {data.ExamCertificateNumber || '-'}
+                {education.ExamCertificateNumber || '-'}
               </Text>
             </View>
+            {/* Continue rendering based on available fields */}
           </View>
-        </>
+        ))
       ) : (
-        <Text>No data available</Text>
+        <Text>No education data available</Text>
       )}
-    </View>
+    </ScrollView>
   );
 };
+
 export default Educationinfo;
