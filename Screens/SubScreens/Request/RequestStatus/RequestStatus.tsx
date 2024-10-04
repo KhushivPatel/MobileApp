@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import createStyles from './styles';
-import { AuthContext } from '../../../ContextApi/AuthContext';
+import {AuthContext} from '../../../ContextApi/AuthContext';
 import BackButton from '../../../CommanText/BackButton';
 
 const RequestStatus: React.FC = () => {
@@ -19,7 +19,7 @@ const RequestStatus: React.FC = () => {
 
   const {authToken, userDetails} = useContext(AuthContext);
   // State to hold API data
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<any[]>([]); // Change to array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,9 +44,9 @@ const RequestStatus: React.FC = () => {
 
         if (response.ok) {
           if (result.response_code === '200' && result.obj !== 'No Data') {
-            setData(result.obj);
+            setData(result.obj); // Store array data
           } else {
-            setData(null);
+            setData([]);
           }
         } else {
           throw new Error('Failed to fetch data');
@@ -59,12 +59,12 @@ const RequestStatus: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [authToken]);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <BackButton/>
+        <BackButton />
         <Text style={styles.headerText}>Request Status</Text>
       </View>
 
@@ -80,46 +80,62 @@ const RequestStatus: React.FC = () => {
         </View>
       ) : error ? (
         <Text style={styles.errorText}>{error}</Text>
-      ) : data === null ? (
+      ) : data.length === 0 ? (
         <Text style={styles.noDataText}>No Request Found</Text>
       ) : (
         <ScrollView style={styles.scrollView}>
           <View style={styles.mainContent}>
-            <View style={styles.textContainerRight}>
-              <Text
-                style={[styles.textRight, styles.boldText, styles.smallText]}>
-                Request Name
-              </Text>
-              <Text style={styles.textRight}>Father/ Mother/ Spouse Name</Text>
-            </View>
+            {/* Loop through data array */}
+            {data.map((item, index) => (
+              <View key={index}>
+                <View style={styles.textContainerRight}>
+                  <Text
+                    style={[
+                      styles.textRight,
+                      styles.boldText,
+                      styles.smallText,
+                    ]}>
+                    Request: {item.Request}
+                  </Text>
+                  <Text style={styles.textRight}>Status: {item.Status}</Text>
+                </View>
 
-            <View style={styles.divider} />
+                <View style={styles.divider} />
 
-            {/* Displaying data dynamically */}
-            <View style={styles.textRow}>
-              <Text style={styles.textLeft}>Status</Text>
-              <Text style={styles.textRight}>{data.status || 'N/A'}</Text>
-            </View>
-            <View style={styles.textRow}>
-              <Text style={styles.textLeft}>Existing Record</Text>
-              <Text style={styles.textRight}>
-                {data.existingRecord || 'N/A'}
-              </Text>
-            </View>
-            <View style={styles.textRow}>
-              <Text style={styles.textLeft}>New Record</Text>
-              <Text style={styles.textRight}>{data.newRecord || 'N/A'}</Text>
-            </View>
-            <View style={styles.textRow}>
-              <Text style={styles.textLeft}>Requested On</Text>
-              <Text style={styles.textRight}>{data.requestedOn || 'N/A'}</Text>
-            </View>
-            <View style={styles.textRow}>
-              <Text style={styles.textLeft}>Remark By Faculty</Text>
-              <Text style={styles.textRight}>
-                {data.remarkByFaculty || 'N/A'}
-              </Text>
-            </View>
+                <View style={styles.textRow}>
+                  <Text style={styles.textLeft}>Existing Record</Text>
+                  <Image
+                    source={{uri: item.ExistingRecord}}
+                    style={styles.image}
+                  />
+                </View>
+                <View style={styles.textRow}>
+                  <Text style={styles.textLeft}>Change Record</Text>
+                  <Image
+                    source={{uri: item.ChangeRecord}}
+                    style={styles.image}
+                  />
+                </View>
+                <View style={styles.textRow}>
+                  <Text style={styles.textLeft}>Requested On</Text>
+                  <Text style={styles.textRight}>
+                    {item.RequestedOnView || 'N/A'}
+                  </Text>
+                </View>
+                <View style={styles.textRow}>
+                  <Text style={styles.textLeft}>Remark By Faculty</Text>
+                  <Text style={styles.textRight}>
+                    {item.RemarksByFaculty || 'N/A'}
+                  </Text>
+                </View>
+                <View style={styles.textRow}>
+                  <Text style={styles.textLeft}>Remark By Academic</Text>
+                  <Text style={styles.textRight}>
+                    {item.RemarksByAcademic || 'N/A'}
+                  </Text>
+                </View>
+              </View>
+            ))}
           </View>
         </ScrollView>
       )}

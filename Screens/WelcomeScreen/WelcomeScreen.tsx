@@ -34,7 +34,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({navigation}) => {
 
         <View style={styles.divider} />
 
-        <Text style={styles.smallText}>MSUB - Vidhyarthi</Text>
+        <Text style={styles.smallText}>MSUIS - Vidhyarthi</Text>
       </View>
     </View>
   );

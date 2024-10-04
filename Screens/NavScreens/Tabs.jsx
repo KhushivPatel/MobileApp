@@ -15,10 +15,11 @@ import logoutImage from '../../assets/icons/logout.png';
 import ExamImage from '../../assets/icons/exam.png';
 import FeeImage from '../../assets/icons/fee.png';
 import PaperImage from '../../assets/icons/papers.png';
-import settingImage from '../../assets/icons/settings.png';
+import idCardImage from '../../assets/icons/id-card.png';
 import ExaminationDetails from '../SubScreens/FeesDetails/ExaminationDetails';
 import Fee from '../SubScreens/Exam/ExamFee/Fee';
 import PaperList from '../SubScreens/Paper/PaperSelection/PaperList';
+import View_id from '../SubScreens/Examination/IdCard/View_id';
 
 const Tab = createBottomTabNavigator();
 
@@ -162,12 +163,12 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Logout"
-        component={LogOut}
+        name="View_id"
+        component={View_id}
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={logoutImage}
+              source={idCardImage}
               style={{
                 width: focused ? 24 : 20, // Increase size if focused
                 height: focused ? 24 : 20, // Increase size if focused
@@ -186,7 +187,7 @@ const Tabs = () => {
                 fontWeight: focused ? 'bold' : 'normal',
                 color: focused ? '#5287D7' : isDarkMode ? 'lightgray' : 'gray', // Change color based on focus and mode
               }}>
-              Log out
+              ID Card
             </Text>
           ),
         }}

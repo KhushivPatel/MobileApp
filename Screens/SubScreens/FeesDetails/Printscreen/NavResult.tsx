@@ -10,7 +10,7 @@ import BackButton from '../../../CommanText/BackButton';
 import axios from 'axios';
 import {AuthContext} from '../../../ContextApi/AuthContext';
 
-const Recipts = ({route}) => {
+const NavResult = ({route}) => {
   const {authToken} = useContext(AuthContext);
   const {row, actionType} = route.params;
   const [data, setData] = useState(null);
@@ -188,4 +188,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Recipts;
+export default NavResult;

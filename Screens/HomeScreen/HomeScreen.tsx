@@ -59,6 +59,10 @@ const HomeScreen: React.FC = () => {
     // Navigate to the Notification page
     navigation.navigate('Fee');
   };
+  const handleCertificate = () => {
+    // Navigate to the Notification page
+    navigation.navigate('DownloadCertificate');
+  };
 
   interface UserResponse {
     response_code: string;
@@ -191,38 +195,6 @@ const HomeScreen: React.FC = () => {
                 </TouchableOpacity>
               </View>
             </TouchableOpacity>
-            <Text
-              style={[
-                styles.textItem,
-                {
-                  fontSize: 14,
-                  color: isDarkMode ? '#fff' : '#000',
-                  fontWeight: 'bold',
-                },
-              ]}>
-              Quick Links
-            </Text>
-            <View style={styles.linkContainer}>
-              {/* Request Status Touchable */}
-              <TouchableOpacity
-                style={[styles.linkInputWrapper, {width: '40%'}]}
-                onPress={handlerequestStatus}>
-                <Text style={styles.linkInput}>Request Status</Text>
-              </TouchableOpacity>
-
-              {/* Result Touchable */}
-              <TouchableOpacity
-                style={[styles.linkInputWrapper, {width: '25%'}]}>
-                <Text style={styles.linkInput}>Result</Text>
-              </TouchableOpacity>
-
-              {/* Fees Touchable */}
-              <TouchableOpacity
-                style={[styles.linkInputWrapper, {width: '25%'}]}
-                onPress={handleFee}>
-                <Text style={styles.linkInput}>Fees</Text>
-              </TouchableOpacity>
-            </View>
           </View>
           {/* alert1 */}
           <Alert1 />
@@ -275,29 +247,6 @@ const HomeScreen: React.FC = () => {
             </View>
           </View>
           {/* academics details */}
-          <View style={styles.ExaminationContainer}>
-            <Text style={styles.greetingText}>Academics</Text>
-            <View style={styles.rowContainer}>
-              <TouchableOpacity style={styles.coloredBox}>
-                <Text style={styles.boxText}>ADM Fees Receipt</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.coloredBox}>
-                <Text style={styles.boxText}>Result</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          {/* paper details */}
-          {/* <View style={styles.ExaminationContainer}>
-            <Text style={styles.greetingText}>Paper</Text>
-            <View style={styles.rowContainer}>
-              <TouchableOpacity style={styles.coloredBox}>
-                <Text style={styles.boxText}>Selected Paper</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.coloredBox}>
-                <Text style={styles.boxText}>Paper Selection</Text>
-              </TouchableOpacity>
-            </View>
-          </View> */}
           {/* request details */}
           <View style={styles.ExaminationContainer}>
             <Text style={styles.greetingText}>Request</Text>
@@ -318,7 +267,9 @@ const HomeScreen: React.FC = () => {
           <View style={styles.ExaminationContainer}>
             <Text style={styles.greetingText}>Certificate</Text>
             <View style={styles.rowContainer}>
-              <TouchableOpacity style={styles.coloredBox}>
+              <TouchableOpacity
+                style={styles.coloredBox}
+                onPress={handleCertificate}>
                 <Text style={styles.boxText}>Download Certificate</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.coloredBox}>

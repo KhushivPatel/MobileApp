@@ -34,13 +34,14 @@ const styles = (isDarkMode: boolean) =>
       alignItems: 'flex-start',
     } as ViewStyle,
     textRight: {
+      flex: 2,
       fontSize: 14,
       color: isDarkMode ? '#fff' : '#000',
       marginBottom: 4,
       textAlign: 'right',
     } as TextStyle,
     textRow: {
-      flex: 2,
+      flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -53,7 +54,7 @@ const styles = (isDarkMode: boolean) =>
       fontSize: 16,
       color: isDarkMode ? '#fff' : '#000',
       fontWeight: 'bold',
-      flex: 0.5,
+      flex: 2,
     } as TextStyle,
     detailContainer: {
       flex: 2,

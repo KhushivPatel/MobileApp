@@ -89,22 +89,24 @@ const ExaminationDetails = () => {
     // Navigate to another page with row data
     navigation.navigate('DetailsScreen', {row, actionType});
   };
-  const NavigationOfRecipt = (row, actionType) => {
+  const NavigationOfResult = (row, actionType) => {
     // Navigate to another page with row data
-    navigation.navigate('Recipts', {row, actionType});
+    navigation.navigate('NavResult', {row, actionType});
   };
   const NavigationOfTimetable = (row, actionType) => {
     // Navigate to another page with row data
     navigation.navigate('TimeTable', {row, actionType});
   };
-  const NavigationOfResult = (row, actionType) => {
+  const NavigationOfRecipt = (row, actionType) => {
     // Navigate to another page with row data
-    navigation.navigate('ResultPrint', {row, actionType});
+    navigation.navigate('E_Fee', {row, actionType});
   };
 
   const tableData = data.map((row, index) => [
     index + 1,
-    <TouchableOpacity style={styles.tableData}>
+    <TouchableOpacity
+      style={styles.tableData}
+      onPress={() => NavigationOfRecipt(row, 'E_Fee')}>
       <Text style={styles.buttonData}>
         {row.IsExamFeesPaid ? 'Recipt' : 'Not Paid'}
       </Text>
@@ -118,7 +120,7 @@ const ExaminationDetails = () => {
     </TouchableOpacity>,
     <TouchableOpacity
       style={styles.tableData}
-      onPress={() => NavigationOfRecipt(row, 'Result')}>
+      onPress={() => NavigationOfResult(row, 'Result')}>
       <Text style={styles.buttonData}>
         {row.IsResult ? 'Result' : 'Not Available'}
       </Text>

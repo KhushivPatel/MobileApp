@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {View, Text, useColorScheme, Image, ScrollView} from 'react-native';
-import createStyles from './Recipt'; // Import the separated styles
+import createStyles from '../../FeesDetails/Printscreen/Recipt'; // Import the separated styles
 import BackButton from '../../../CommanText/BackButton';
 
 const E_recipt: React.FC = () => {
