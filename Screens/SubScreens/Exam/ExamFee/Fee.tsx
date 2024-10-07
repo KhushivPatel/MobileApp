@@ -79,7 +79,7 @@ const Fee = () => {
     index + 1,
     row.IsPaperSelByStudent ? 'Selected' : 'Not Selected',
     row.PTFeeStatus || 'N/A',
-    row.PartTermStatus || 'N/A',
+    row.PTFeeStatus || 'N/A',
     'yes', // Assuming Elective Preference is always 'yes'
     row.AcademicYearCode || 'N/A',
     row.InstancePartTermName || 'N/A',

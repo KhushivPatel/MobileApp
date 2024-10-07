@@ -18,8 +18,7 @@ const RequestStatus: React.FC = () => {
   const styles = createStyles(isDarkMode);
 
   const {authToken, userDetails} = useContext(AuthContext);
-  // State to hold API data
-  const [data, setData] = useState<any[]>([]); // Change to array
+  const [data, setData] = useState<any[]>([]); // State to hold API data
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -106,14 +105,14 @@ const RequestStatus: React.FC = () => {
                   <Text style={styles.textLeft}>Existing Record</Text>
                   <Image
                     source={{uri: item.ExistingRecord}}
-                    style={styles.image}
+                    style={styles.image} // Styles for the image
                   />
                 </View>
                 <View style={styles.textRow}>
                   <Text style={styles.textLeft}>Change Record</Text>
                   <Image
                     source={{uri: item.ChangeRecord}}
-                    style={styles.image}
+                    style={styles.image} // Styles for the image
                   />
                 </View>
                 <View style={styles.textRow}>

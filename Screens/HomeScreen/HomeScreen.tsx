@@ -1,6 +1,338 @@
+// /* eslint-disable react-native/no-inline-styles */
+// /* eslint-disable no-catch-shadow */
+// import React, {useContext, useEffect, useState} from 'react';
+// import {
+//   View,
+//   Text,
+//   Image,
+//   TouchableOpacity,
+//   ScrollView,
+//   useColorScheme,
+//   ActivityIndicator,
+// } from 'react-native';
+// import {createStyles} from './styles';
+// import Alert1 from '../CommanText/Alert1';
+// import Alert2 from '../CommanText/Alert2';
+// import { AuthContext } from '../ContextApi/AuthContext';
+// import {useNavigation} from '@react-navigation/native';
+
+// const HomeScreen: React.FC = () => {
+//   const navigation = useNavigation();
+//   const {authToken, userDetails} = useContext(AuthContext);
+//   const isDarkMode = useColorScheme() === 'dark';
+//   const styles = createStyles(isDarkMode);
+//   const [notificationCount, setNotificationCount] = useState<number>(0);
+//   // Api call is started
+//   const [firstname, setFirstname] = useState<string | null>(null);
+//   const [emailid, setEmailid] = useState<string | null>(null);
+//   const [loading, setLoading] = useState<boolean>(true);
+//   const [error, setError] = useState<string | null>(null);
+
+//   // const handleNotification = () => {
+//   //   navigation.navigate('NotificationScreen');
+//   // };
+//   const handleProfile = () => {
+//     navigation.navigate('ProfileScreen');
+//   };
+//   const handleidcard = () => {
+//     navigation.navigate('View_id');
+//   };
+//   const handlerequestStatus = () => {
+//     navigation.navigate('RequestStatus');
+//   };
+//   const handlenewRequest = () => {
+//     navigation.navigate('NewRequest');
+//   };
+//   const handleEducation = () => {
+//     navigation.navigate('EducationalList');
+//   };
+//   const handleTimetable = () => {
+//     navigation.navigate('TimetableDetails');
+//   };
+//   const handleFee = () => {
+//     navigation.navigate('Fee');
+//   };
+//   const handleCertificate = () => {
+//     navigation.navigate('DownloadCertificate');
+//   };
+//   const handleConvocation = () => {
+//     navigation.navigate('Convocation');
+//   };
+//   const handleProgress = () => {
+//     navigation.navigate('Progress');
+//   };
+
+//   interface UserResponse {
+//     response_code: string;
+//     obj: Array<{
+//       FirstName: string;
+//       EmailId: string;
+//     }>;
+//   }
+
+//   useEffect(() => {
+//     const fetchUserInfo = async () => {
+//       try {
+//         const response = await fetch(
+//           'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentDetailsTopNav/StudentDetailsTopNavGet',
+//           {
+//             method: 'GET',
+//             headers: {
+//               Referer:
+//                 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+//               Token: authToken,
+//             },
+//           },
+//         );
+
+//         if (!response.ok) {
+//           throw new Error('Network response was not ok');
+//         }
+
+//         const data: UserResponse = await response.json();
+//         setNotificationCount(data.obj ? data.obj.length : 0);
+//         const user = data.obj[0];
+//         setFirstname(user.FirstName || 'No Firstname');
+//         setEmailid(user.EmailId || 'No Email ID');
+//       } catch (error: any) {
+//         setError(error.message);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchUserInfo();
+//   }, []);
+
+//   if (loading) {
+//     return (
+//       <View style={styles.containerloading}>
+//         <ActivityIndicator
+//           size="large"
+//           color={isDarkMode ? '#fff' : '#5287D7'}
+//           style={styles.spinner}
+//         />
+//         <Text style={styles.loadingText}>Loading...</Text>
+//       </View>
+//     );
+//   }
+
+//   if (error) {
+//     return (
+//       <View style={styles.container}>
+//         <Text>Error: {error}</Text>
+//       </View>
+//     );
+//   }
+
+//   // API call end
+//   return (
+//     <View style={styles.container}>
+//       {/* Navbar part */}
+//       <View style={styles.header}>
+//         <Image
+//           source={require('../../assets/images/msu_logo.png')}
+//           style={styles.icon}
+//         />
+//         <Text style={styles.headerText}>
+//           MSU INTEGRATED SYSTEM (MSUIS) VIDHYARTHI
+//         </Text>
+//         <View style={styles.headerIcons}></View>
+//       </View>
+//       {/* Details and menu part */}
+//       <ScrollView>
+//         <View style={styles.homestyle}>
+//           {/* Profile part */}
+//             <View style={styles.mainContent}>
+//             <TouchableOpacity onPress={handleProfile}>
+//               <View style={styles.infoContainer}>
+//                 <View style={styles.textContainer}>
+//                   <Text
+//                     style={[
+//                       styles.textItem,
+//                       {
+//                         fontSize: 24,
+//                         color: isDarkMode ? '#fff' : '#000',
+//                         fontWeight: 'bold',
+//                       },
+//                     ]}>
+//                     Hello 👋
+//                   </Text>
+//                   {/* Display FirstName from API */}
+//                   <Text
+//                     style={[
+//                       styles.textItem,
+//                       {
+//                         fontSize: 14,
+//                         color: isDarkMode ? '#fff' : '#000',
+//                         fontWeight: 'bold',
+//                       },
+//                     ]}>
+//                     {firstname}
+//                   </Text>
+//                   {/* Display EmailId from API */}
+//                   <Text
+//                     style={[
+//                       styles.textItem,
+//                       {
+//                         fontSize: 14,
+//                         color: isDarkMode ? '#cdcdcd' : '#6B6B6B',
+//                         fontWeight: 'bold',
+//                       },
+//                     ]}>
+//                     {emailid}
+//                   </Text>
+//                 </View>
+//                 <TouchableOpacity
+//                   style={styles.arrowButton}
+//                   onPress={handleProfile}>
+//                   <Image
+//                     source={require('../../assets/icons/arrow.png')}
+//                     style={styles.arrow}
+//                   />
+//                 </TouchableOpacity>
+//               </View>
+//             </TouchableOpacity>
+//           </View>
+//           {/* alert1 */}
+//           <Alert1 />
+//           {/* alert2 */}
+//           {/* <Alert2 /> */}
+//           {/* education details */}
+//           <TouchableOpacity onPress={handleEducation}>
+//             <View style={styles.educationDetailsContainer}>
+//               <View style={styles.greetingTextContainer}>
+//                 <Image
+//                   source={require('../../assets/icons/book.png')}
+//                   style={styles.bookIcon}
+//                 />
+//                 <Text style={styles.greetingText}>Educational Details</Text>
+//               </View>
+//               <TouchableOpacity
+//                 style={styles.expandDetailsButton}
+//                 onPress={handleEducation}>
+//                 <Image
+//                   source={require('../../assets/icons/arrow.png')}
+//                   style={styles.expandArrowIcon}
+//                 />
+//               </TouchableOpacity>
+//             </View>
+//           </TouchableOpacity>
+//           {/* convocation */}
+//           <TouchableOpacity onPress={handleConvocation}>
+//             <View style={styles.educationDetailsContainer}>
+//               <View style={styles.greetingTextContainer}>
+//                 <Image
+//                   source={require('../../assets/icons/convo.png')}
+//                   style={styles.bookIcon}
+//                 />
+//                 <Text style={styles.greetingText}>Convocation Details</Text>
+//               </View>
+//               <TouchableOpacity
+//                 style={styles.expandDetailsButton}
+//                 onPress={handleConvocation}>
+//                 <Image
+//                   source={require('../../assets/icons/arrow.png')}
+//                   style={styles.expandArrowIcon}
+//                 />
+//               </TouchableOpacity>
+//             </View>
+//           </TouchableOpacity>
+//           {/* progresion */}
+//           <TouchableOpacity onPress={handleProgress}>
+//             <View style={styles.educationDetailsContainer}>
+//               <View style={styles.greetingTextContainer}>
+//                 <Image
+//                   source={require('../../assets/icons/progress.png')}
+//                   style={styles.bookIcon}
+//                 />
+//                 <Text style={styles.greetingText}>Progress Details</Text>
+//               </View>
+//               <TouchableOpacity
+//                 style={styles.expandDetailsButton}
+//                 onPress={handleProgress}>
+//                 <Image
+//                   source={require('../../assets/icons/arrow.png')}
+//                   style={styles.expandArrowIcon}
+//                 />
+//               </TouchableOpacity>
+//             </View>
+//           </TouchableOpacity>
+//           {/* examination details */}
+//           <View style={styles.ExaminationContainer}>
+//             <Text style={styles.greetingText}>Examination</Text>
+//             <View style={styles.rowContainer}>
+//               <TouchableOpacity
+//                 style={styles.coloredBox}
+//                 onPress={handleTimetable}>
+//                 <Text style={styles.boxText}>Time Table</Text>
+//               </TouchableOpacity>
+//               <TouchableOpacity
+//                 style={styles.coloredBox}
+//                 onPress={handleidcard}>
+//                 <Text style={styles.boxText}>ID Card</Text>
+//               </TouchableOpacity>
+//             </View>
+//           </View>
+//           {/* exam fee and hall tickets */}
+//           <View style={styles.ExaminationContainer}>
+//             <Text style={styles.greetingText}>Exam - Fee & Hall Ticket</Text>
+//             <View style={styles.rowContainer}>
+//               <TouchableOpacity style={styles.coloredBox} onPress={handleFee}>
+//                 <Text style={styles.boxText}>Exam Fees</Text>
+//               </TouchableOpacity>
+//               <TouchableOpacity style={styles.coloredBox}>
+//                 <Text style={styles.boxText}>Hall Ticket</Text>
+//               </TouchableOpacity>
+//             </View>
+//           </View>
+//           {/* academics details */}
+//           {/* request details */}
+//           <View style={styles.ExaminationContainer}>
+//             <Text style={styles.greetingText}>Request</Text>
+//             <View style={styles.rowContainer}>
+//               <TouchableOpacity
+//                 style={styles.coloredBox}
+//                 onPress={handlerequestStatus}>
+//                 <Text style={styles.boxText}>Request Status</Text>
+//               </TouchableOpacity>
+//               <TouchableOpacity
+//                 style={styles.coloredBox}
+//                 onPress={handlenewRequest}>
+//                 <Text style={styles.boxText}>New Request</Text>
+//               </TouchableOpacity>
+//             </View>
+//           </View>
+//           {/* certificate details */}
+//           <View style={styles.ExaminationContainer}>
+//             <Text style={styles.greetingText}>Certificate</Text>
+//             <View style={styles.rowContainer}>
+//               <TouchableOpacity
+//                 style={styles.coloredBox}
+//                 onPress={handleCertificate}>
+//                 <Text style={styles.boxText}>Download Certificate</Text>
+//               </TouchableOpacity>
+//               <TouchableOpacity style={styles.coloredBox}>
+//                 <Text style={styles.boxText}>Request Certificate</Text>
+//               </TouchableOpacity>
+//             </View>
+//           </View>
+//           {/* msu text */}
+//           <Text style={styles.logotext}>
+//             The Maharaja Sayajirao University of Baroda
+//           </Text>
+//         </View>
+//       </ScrollView>
+//     </View>
+//   );
+// };
+
+// export default HomeScreen;
+
+
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-catch-shadow */
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -10,68 +342,25 @@ import {
   useColorScheme,
   ActivityIndicator,
 } from 'react-native';
-import {createStyles} from './styles';
+import { createStyles } from './styles';
 import Alert1 from '../CommanText/Alert1';
 import Alert2 from '../CommanText/Alert2';
 import { AuthContext } from '../ContextApi/AuthContext';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
-  const {authToken, userDetails} = useContext(AuthContext);
+  const { authToken } = useContext(AuthContext);
   const isDarkMode = useColorScheme() === 'dark';
   const styles = createStyles(isDarkMode);
-  const [notificationCount, setNotificationCount] = useState<number>(0);
-  // Api call is started
-  const [firstname, setFirstname] = useState<string | null>(null);
-  const [emailid, setEmailid] = useState<string | null>(null);
+  
+  // State management
+  const [userInfo, setUserInfo] = useState<{ firstname: string | null; emailid: string | null }>({ firstname: null, emailid: null });
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [notificationCount, setNotificationCount] = useState<number>(0);
 
-  // const handleNotification = () => {
-  //   navigation.navigate('NotificationScreen');
-  // };
-  const handleProfile = () => {
-    // Navigate to the Notification page
-    navigation.navigate('ProfileScreen');
-  };
-  const handleidcard = () => {
-    // Navigate to the Notification page
-    navigation.navigate('View_id');
-  };
-  const handlerequestStatus = () => {
-    // Navigate to the Notification page
-    navigation.navigate('RequestStatus');
-  };
-  const handlenewRequest = () => {
-    // Navigate to the Notification page
-    navigation.navigate('NewRequest');
-  };
-  const handleEducation = () => {
-    // Navigate to the Notification page
-    navigation.navigate('EducationalList');
-  };
-  const handleTimetable = () => {
-    // Navigate to the Notification page
-    navigation.navigate('TimetableDetails');
-  };
-  const handleFee = () => {
-    // Navigate to the Notification page
-    navigation.navigate('Fee');
-  };
-  const handleCertificate = () => {
-    // Navigate to the Notification page
-    navigation.navigate('DownloadCertificate');
-  };
-
-  interface UserResponse {
-    response_code: string;
-    obj: Array<{
-      FirstName: string;
-      EmailId: string;
-    }>;
-  }
-
+  // Fetch user information
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -80,22 +369,22 @@ const HomeScreen: React.FC = () => {
           {
             method: 'GET',
             headers: {
-              Referer:
-                'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+              Referer: 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
               Token: authToken,
             },
-          },
+          }
         );
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+        if (!response.ok) throw new Error('Network response was not ok');
 
-        const data: UserResponse = await response.json();
+        const data = await response.json();
         setNotificationCount(data.obj ? data.obj.length : 0);
+
         const user = data.obj[0];
-        setFirstname(user.FirstName || 'No Firstname');
-        setEmailid(user.EmailId || 'No Email ID');
+        setUserInfo({
+          firstname: user.FirstName || 'No Firstname',
+          emailid: user.EmailId || 'No Email ID',
+        });
       } catch (error: any) {
         setError(error.message);
       } finally {
@@ -104,16 +393,18 @@ const HomeScreen: React.FC = () => {
     };
 
     fetchUserInfo();
-  }, []);
+  }, [authToken]);
 
+  // Navigation handler
+  const navigateTo = (screen: string) => () => {
+    navigation.navigate(screen);
+  };
+
+  // Loading and error states
   if (loading) {
     return (
       <View style={styles.containerloading}>
-        <ActivityIndicator
-          size="large"
-          color={isDarkMode ? '#fff' : '#5287D7'}
-          style={styles.spinner}
-        />
+        <ActivityIndicator size="large" color={isDarkMode ? '#fff' : '#5287D7'} style={styles.spinner} />
         <Text style={styles.loadingText}>Loading...</Text>
       </View>
     );
@@ -127,10 +418,10 @@ const HomeScreen: React.FC = () => {
     );
   }
 
-  // API call end
+  // Rendered component
   return (
     <View style={styles.container}>
-      {/* Navbar part */}
+      {/* Navbar */}
       <View style={styles.header}>
         <Image
           source={require('../../assets/images/msu_logo.png')}
@@ -141,12 +432,13 @@ const HomeScreen: React.FC = () => {
         </Text>
         <View style={styles.headerIcons}></View>
       </View>
-      {/* Details and menu part */}
+
+      {/* Main content */}
       <ScrollView>
         <View style={styles.homestyle}>
-          {/* Profile part */}
+          {/* Profile Section */}
           <View style={styles.mainContent}>
-            <TouchableOpacity onPress={handleProfile}>
+            <TouchableOpacity onPress={navigateTo('ProfileScreen')}>
               <View style={styles.infoContainer}>
                 <View style={styles.textContainer}>
                   <Text
@@ -160,7 +452,6 @@ const HomeScreen: React.FC = () => {
                     ]}>
                     Hello 👋
                   </Text>
-                  {/* Display FirstName from API */}
                   <Text
                     style={[
                       styles.textItem,
@@ -170,9 +461,8 @@ const HomeScreen: React.FC = () => {
                         fontWeight: 'bold',
                       },
                     ]}>
-                    {firstname}
+                    {userInfo.firstname}
                   </Text>
-                  {/* Display EmailId from API */}
                   <Text
                     style={[
                       styles.textItem,
@@ -182,63 +472,96 @@ const HomeScreen: React.FC = () => {
                         fontWeight: 'bold',
                       },
                     ]}>
-                    {emailid}
+                    {userInfo.emailid}
                   </Text>
                 </View>
-                <TouchableOpacity
-                  style={styles.arrowButton}
-                  onPress={handleProfile}>
-                  <Image
-                    source={require('../../assets/icons/arrow.png')}
-                    style={styles.arrow}
-                  />
-                </TouchableOpacity>
+                <Image
+                  source={require('../../assets/icons/arrow.png')}
+                  style={styles.arrow}
+                />
               </View>
             </TouchableOpacity>
           </View>
-          {/* alert1 */}
+
+          {/* Alerts */}
           <Alert1 />
-          {/* alert2 */}
           {/* <Alert2 /> */}
-          {/* education details */}
-          <View style={styles.educationDetailsContainer}>
-            <View style={styles.greetingTextContainer}>
-              <Image
-                source={require('../../assets/icons/book.png')}
-                style={styles.bookIcon}
-              />
-              <Text style={styles.greetingText}>Educational Details</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.expandDetailsButton}
-              onPress={handleEducation}>
+
+          {/* Educational Details */}
+          <TouchableOpacity onPress={navigateTo('EducationalList')}>
+            <View style={styles.educationDetailsContainer}>
+              <View style={styles.greetingTextContainer}>
+                <Image
+                  source={require('../../assets/icons/book.png')}
+                  style={styles.bookIcon}
+                />
+                <Text style={styles.greetingText}>Educational Details</Text>
+              </View>
               <Image
                 source={require('../../assets/icons/arrow.png')}
                 style={styles.expandArrowIcon}
               />
-            </TouchableOpacity>
-          </View>
-          {/* examination details */}
+            </View>
+          </TouchableOpacity>
+
+          {/* Convocation Details */}
+          <TouchableOpacity onPress={navigateTo('Convocation')}>
+            <View style={styles.educationDetailsContainer}>
+              <View style={styles.greetingTextContainer}>
+                <Image
+                  source={require('../../assets/icons/convo.png')}
+                  style={styles.bookIcon}
+                />
+                <Text style={styles.greetingText}>Convocation Details</Text>
+              </View>
+              <Image
+                source={require('../../assets/icons/arrow.png')}
+                style={styles.expandArrowIcon}
+              />
+            </View>
+          </TouchableOpacity>
+
+          {/* Progress Details */}
+          <TouchableOpacity onPress={navigateTo('Progress')}>
+            <View style={styles.educationDetailsContainer}>
+              <View style={styles.greetingTextContainer}>
+                <Image
+                  source={require('../../assets/icons/progress.png')}
+                  style={styles.bookIcon}
+                />
+                <Text style={styles.greetingText}>Progress Details</Text>
+              </View>
+              <Image
+                source={require('../../assets/icons/arrow.png')}
+                style={styles.expandArrowIcon}
+              />
+            </View>
+          </TouchableOpacity>
+
+          {/* Examination Section */}
           <View style={styles.ExaminationContainer}>
             <Text style={styles.greetingText}>Examination</Text>
             <View style={styles.rowContainer}>
               <TouchableOpacity
                 style={styles.coloredBox}
-                onPress={handleTimetable}>
+                onPress={navigateTo('TimetableDetails')}>
                 <Text style={styles.boxText}>Time Table</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.coloredBox}
-                onPress={handleidcard}>
+                onPress={navigateTo('View_id')}>
                 <Text style={styles.boxText}>ID Card</Text>
               </TouchableOpacity>
             </View>
           </View>
-          {/* exam fee and hall tickets */}
+
+          {/* Exam Fees & Hall Tickets */}
           <View style={styles.ExaminationContainer}>
             <Text style={styles.greetingText}>Exam - Fee & Hall Ticket</Text>
             <View style={styles.rowContainer}>
-              <TouchableOpacity style={styles.coloredBox} onPress={handleFee}>
+              <TouchableOpacity
+                style={styles.coloredBox}
+                onPress={navigateTo('Fee')}>
                 <Text style={styles.boxText}>Exam Fees</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.coloredBox}>
@@ -246,30 +569,31 @@ const HomeScreen: React.FC = () => {
               </TouchableOpacity>
             </View>
           </View>
-          {/* academics details */}
-          {/* request details */}
+
+          {/* Request Section */}
           <View style={styles.ExaminationContainer}>
             <Text style={styles.greetingText}>Request</Text>
             <View style={styles.rowContainer}>
               <TouchableOpacity
                 style={styles.coloredBox}
-                onPress={handlerequestStatus}>
+                onPress={navigateTo('RequestStatus')}>
                 <Text style={styles.boxText}>Request Status</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.coloredBox}
-                onPress={handlenewRequest}>
+                onPress={navigateTo('NewRequest')}>
                 <Text style={styles.boxText}>New Request</Text>
               </TouchableOpacity>
             </View>
           </View>
-          {/* certificate details */}
+
+          {/* Certificate Section */}
           <View style={styles.ExaminationContainer}>
             <Text style={styles.greetingText}>Certificate</Text>
             <View style={styles.rowContainer}>
               <TouchableOpacity
                 style={styles.coloredBox}
-                onPress={handleCertificate}>
+                onPress={navigateTo('DownloadCertificate')}>
                 <Text style={styles.boxText}>Download Certificate</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.coloredBox}>
@@ -277,7 +601,8 @@ const HomeScreen: React.FC = () => {
               </TouchableOpacity>
             </View>
           </View>
-          {/* msu text */}
+
+          {/* MSU Footer */}
           <Text style={styles.logotext}>
             The Maharaja Sayajirao University of Baroda
           </Text>

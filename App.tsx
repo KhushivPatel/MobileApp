@@ -36,6 +36,8 @@ import NavResult from './Screens/SubScreens/FeesDetails/Printscreen/NavResult';
 import E_Fee from './Screens/SubScreens/FeesDetails/Printscreen/E_Fee';
 import EducationDetail from './Screens/SubScreens/Education/EducationDetail';
 import DownloadCertificate from './Screens/SubScreens/Certificate/DownloadCerti/DownloadCertificate';
+import Convocation from './Screens/SubScreens/Convocation/Convocation';
+import Progress from './Screens/SubScreens/Progress/Progress';
 
 export type RootStackParamList = {
   WelcomeScreen: undefined;
@@ -103,6 +105,8 @@ const App = () => {
                   component={DownloadCertificate}
                 />
                 <Stack.Screen name="LogOut" component={LogOut} />
+                <Stack.Screen name="Convocation" component={Convocation} />
+                <Stack.Screen name="Progress" component={Progress} />
               </Stack.Navigator>
             </NavigationContainer>
           </StudentProfileProvider>

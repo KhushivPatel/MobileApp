@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -7,19 +7,17 @@ import {
   TextInput,
   ScrollView,
   useColorScheme,
+  ActivityIndicator,
 } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import createStyles from './styles'; // Import styles from the new file
+import {AuthContext} from '../../../ContextApi/AuthContext'; // Assuming AuthContext is already set up
 
-const REQUEST_OPTIONS = [
-  'First Name',
-  'Last Name',
-  'Mobile Number',
-  'Email ID',
-  'Date Of Birth',
-  'Name as per Marksheet',
-  'Photo',
-];
+// Interface to define the API response object
+interface RequestItem {
+  Id: number;
+  Request: string;
+}
 
 const NewRequest: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -32,6 +30,43 @@ const NewRequest: React.FC = () => {
   const [existingValue, setExistingValue] = useState<string>('');
   const [inputPlaceholder, setInputPlaceholder] = useState<string>('');
   const [isOTPVisible, setIsOTPVisible] = useState<boolean>(false);
+  const [requests, setRequests] = useState<RequestItem[]>([]); // Store dynamic request options
+  const [loading, setLoading] = useState<boolean>(true); // Loading state for API call
+  const [error, setError] = useState<string | null>(null); // Error state for API call
+  const {authToken} = useContext(AuthContext); // Assuming AuthContext provides authToken
+
+  // Fetch dynamic request options from the API
+  useEffect(() => {
+    const fetchRequests = async () => {
+      try {
+        const response = await fetch(
+          'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentProfile/RequestListForProfileGet',
+          {
+            method: 'GET',
+            headers: {
+              Referer:
+                'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+              Token: authToken,
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch requests');
+        }
+
+        setRequests(result.obj); // Store the request options in state
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRequests();
+  }, [authToken]);
 
   const handleFileSelect = async () => {
     try {
@@ -58,30 +93,6 @@ const NewRequest: React.FC = () => {
       setIsOTPVisible(false);
     }
 
-    const settings = {
-      'Request to Change First Name': {
-        existingValue: 'First2050054',
-        placeholder: 'New First Name',
-      },
-      'Last Name': {existingValue: 'Last2050054', placeholder: 'New Last Name'},
-      'Date Of Birth': {
-        existingValue: '01/01/2000',
-        placeholder: 'New Date of Birth',
-      },
-      'Mobile Number': {
-        existingValue: '1234567890',
-        placeholder: 'New Mobile Number',
-      },
-      'Email ID': {
-        existingValue: 'example@example.com',
-        placeholder: 'New Email ID',
-      },
-      Photo: {existingValue: 'Current Photo', placeholder: 'Upload New Photo'},
-      'Name as per Marksheet': {
-        existingValue: 'Name as per Marksheet',
-        placeholder: 'New Name as per Marksheet',
-      },
-    };
 
     const setting = settings[item] || {existingValue: '', placeholder: ''};
     setExistingValue(setting.existingValue);
@@ -90,12 +101,15 @@ const NewRequest: React.FC = () => {
 
   const toggleDropdown = () => setDropdownVisible(!dropdownVisible);
 
+  // Render the dynamic dropdown menu
   const renderDropdownMenu = () => (
     <View style={styles.dropdownMenu}>
       <Text style={styles.Request}>Request to Change</Text>
-      {REQUEST_OPTIONS.map(item => (
-        <TouchableOpacity key={item} onPress={() => handleDropdownSelect(item)}>
-          <Text style={styles.dropdownItem}>{item}</Text>
+      {requests.map(item => (
+        <TouchableOpacity
+          key={item.Id}
+          onPress={() => handleDropdownSelect(item.Request)}>
+          <Text style={styles.dropdownItem}>{item.Request}</Text>
         </TouchableOpacity>
       ))}
     </View>
@@ -174,9 +188,7 @@ const NewRequest: React.FC = () => {
             <TouchableOpacity
               style={styles.fileSelectButton}
               onPress={toggleDropdown}>
-              <Text style={styles.fileSelectText}>
-                {selectedFile ? selectedFile : selectedRequest}
-              </Text>
+              <Text style={styles.fileSelectText}>{selectedRequest}</Text>
               <Image
                 source={require('../../../../assets/icons/arrowdown.png')}
                 style={styles.dropdownIcon}

@@ -57,7 +57,8 @@ const CountryDropdown = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Select Country</Text>
+      <View style={styles.pickerWrapper}>
+
       <Picker
         selectedValue={selectedCountry}
         onValueChange={itemValue => setSelectedCountry(itemValue)}
@@ -71,9 +72,7 @@ const CountryDropdown = () => {
           />
         ))}
       </Picker>
-      {/* <Text style={styles.selectedText}>
-        Selected Country: {selectedCountry}
-      </Text> */}
+      </View>
     </View>
   );
 };
@@ -84,21 +83,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 16,
+    // padding: 16,
+    backgroundColor: '#f7f7f7',
   },
   label: {
     fontSize: 16,
     marginBottom: 8,
+    textAlign: 'center',
+    color: '#333',
+    fontWeight: '500',
+  },
+  pickerWrapper: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    backgroundColor: '#B9D5FF',
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   picker: {
-    height: 50,
+    height: 40,
     width: '100%',
   },
-  selectedText: {
-    marginTop: 16,
-    fontSize: 16,
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   errorText: {
+    textAlign: 'center',
     color: 'red',
+    fontSize: 10,
   },
 });

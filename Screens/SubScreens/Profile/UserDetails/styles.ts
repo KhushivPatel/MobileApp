@@ -59,6 +59,52 @@ const styles = (isDarkMode: boolean) =>
       spinner: {
       marginBottom: 10,
     },
+    input: {
+      flex: 2,
+      // borderColor: isDarkMode ? '#ffffff' : '#cccccc',
+      // borderWidth: 1,
+      borderRadius: 5,
+      // padding: 10,
+      backgroundColor: isDarkMode ? '#333333' : '#B9D5FF',
+      color: isDarkMode ? '#ffffff' : '#000000',
+      // marginLeft: 10,
+    },
+      headerContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between', // Align items at both ends
+      alignItems: 'center', // Center items vertically
+      // marginBottom: 20, // Add some space below
+    },
+    headerText: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: isDarkMode ? '#ffffff' : '#000000',
+    },
+     button: {
+      backgroundColor: isDarkMode ? '#5287D7' : '#5287D7', // Adjust based on your theme
+      borderRadius: 10,
+      height:30,
+      // width:50,
+      padding:6,
+       justifyContent:'center',
+      alignItems:'center',
+      flexDirection: 'row',
+    },
+    buttonText: {
+      color: '#ffffff', // Color for button text
+      fontWeight: 'bold',
+      // justifyContent:'center',
+      // alignItems:'center',
+      textAlign:'center',
+    },
+    Edit:{
+      padding:4,
+      margin:4,
+      height:12,
+      width:12,
+      color:'#fff',
+      tintColor: 'white',
+    },
   });
 
 export default styles;

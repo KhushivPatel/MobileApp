@@ -1,5 +1,3 @@
-
-
 import {
   View,
   Text,
@@ -19,6 +17,7 @@ const Educationinfo = () => {
   const {authToken} = useContext(AuthContext);
   const isDarkMode = useColorScheme() === 'dark';
   const currentStyles = styles(isDarkMode);
+  const [documentsData, setDocumentsData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -125,6 +125,14 @@ const createStyles = (isDarkMode: boolean) =>
       spinner: {
       marginBottom: 10,
     },
+  image: {
+  width: 50, // Diameter of the circular image
+  height: 50, // Diameter of the circular image
+  borderRadius: 25, // Half of the width/height to make it circular
+  overflow: 'hidden', // Ensures any overflow is hidden
+  resizeMode: 'cover', // Change to 'cover' to fill the circle area appropriately
+},
+
   });
 
 export default createStyles;
