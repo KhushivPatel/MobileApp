@@ -25,12 +25,12 @@ const View_timetable = () => {
   const fetchTimetable = async () => {
     try {
       const response = await fetch(
-        'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentDashboard/ExamTimeTableGet',
+        'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentDashboard/ExamTimeTableGet',
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            referer: 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+            referer: 'http://172.25.15.22/',
             token: authToken,
           },
           body: JSON.stringify({

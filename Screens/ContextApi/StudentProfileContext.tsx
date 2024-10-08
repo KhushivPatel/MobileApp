@@ -60,12 +60,14 @@ export const StudentProfileProvider: React.FC<{children: ReactNode}> = ({
         return;
       }
       const response = await fetch(
-        'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentProfile/StudentProfileGet',
+        // 'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentProfile/StudentProfileGet',
+        'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentDetailsTopNav/StudentDetailsTopNavGet',
         {
           method: 'GET',
           headers: {
             accept: 'application/json, text/plain, */*',
-            referer: 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+            // referer: 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+            referer: 'http://172.25.15.22/',
             token: authToken,
           },
         },

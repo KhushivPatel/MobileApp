@@ -6,23 +6,19 @@ import {
   Image,
   TextInput,
   ScrollView,
-  useColorScheme,
   ActivityIndicator,
 } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import createStyles from './styles'; // Import styles from the new file
 import {AuthContext} from '../../../ContextApi/AuthContext'; // Assuming AuthContext is already set up
 
-// Interface to define the API response object
 interface RequestItem {
   Id: number;
   Request: string;
 }
 
 const NewRequest: React.FC = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-  const styles = createStyles(isDarkMode);
-
+  const styles = createStyles(false); // Update this if you have dark mode logic
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const [selectedRequest, setSelectedRequest] =
@@ -30,22 +26,21 @@ const NewRequest: React.FC = () => {
   const [existingValue, setExistingValue] = useState<string>('');
   const [inputPlaceholder, setInputPlaceholder] = useState<string>('');
   const [isOTPVisible, setIsOTPVisible] = useState<boolean>(false);
-  const [requests, setRequests] = useState<RequestItem[]>([]); // Store dynamic request options
-  const [loading, setLoading] = useState<boolean>(true); // Loading state for API call
-  const [error, setError] = useState<string | null>(null); // Error state for API call
-  const {authToken} = useContext(AuthContext); // Assuming AuthContext provides authToken
+  const [requests, setRequests] = useState<RequestItem[]>([]); // API request data
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const {authToken} = useContext(AuthContext);
 
-  // Fetch dynamic request options from the API
+  // Fetch request options from the API
   useEffect(() => {
     const fetchRequests = async () => {
       try {
         const response = await fetch(
-          'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentProfile/RequestListForProfileGet',
+          'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentProfile/RequestListForProfileGet',
           {
             method: 'GET',
             headers: {
-              Referer:
-                'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+              Referer: 'http://172.25.15.22/',
               Token: authToken,
               'Content-Type': 'application/json',
             },
@@ -57,7 +52,7 @@ const NewRequest: React.FC = () => {
           throw new Error('Failed to fetch requests');
         }
 
-        setRequests(result.obj); // Store the request options in state
+        setRequests(result.obj); // Store the API response
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -68,6 +63,7 @@ const NewRequest: React.FC = () => {
     fetchRequests();
   }, [authToken]);
 
+  // Handle file selection using DocumentPicker
   const handleFileSelect = async () => {
     try {
       const result = await DocumentPicker.pick({
@@ -83,28 +79,79 @@ const NewRequest: React.FC = () => {
     }
   };
 
-  const handleDropdownSelect = (item: string) => {
-    setSelectedRequest(item);
-    setDropdownVisible(false);
+  // Handle selecting a request from the dropdown
+  // const handleDropdownSelect = (item: string) => {
+  //   setSelectedRequest(item);
+  //   setDropdownVisible(false);
 
-    if (item === 'Mobile Number' || item === 'Email ID') {
-      setIsOTPVisible(true);
-    } else {
-      setIsOTPVisible(false);
-    }
+  //   if (item === 'Mobile Number' || item === 'Email ID') {
+  //     setIsOTPVisible(true);
+  //   } else {
+  //     setIsOTPVisible(false);
+  //   }
 
+  //   // Set input placeholder and existing value logic (customize as needed)
+  //   const setting = settings[item] || {existingValue: '', placeholder: ''};
+  //   setExistingValue(setting.existingValue);
+  //   setInputPlaceholder(setting.placeholder);
+  // };
+const handleDropdownSelect = (item: string) => {
+  setSelectedRequest(item);
+  setDropdownVisible(false);
 
-    const setting = settings[item] || {existingValue: '', placeholder: ''};
-    setExistingValue(setting.existingValue);
-    setInputPlaceholder(setting.placeholder);
-  };
+  if (item === 'Mobile Number' || item === 'Email ID') {
+    setIsOTPVisible(true);
+  } else {
+    setIsOTPVisible(false);
+  }
 
+  // Update existing value and placeholder based on the selected request
+  switch (item) {
+    case 'Mobile Number':
+      setExistingValue('Current Mobile Number'); // Set existing mobile number if available
+      setInputPlaceholder('Enter New Mobile Number');
+      break;
+    case 'Email ID':
+      setExistingValue('Current Email ID'); // Set existing email ID if available
+      setInputPlaceholder('Enter New Email ID');
+      break;
+    case 'Gender':
+      setExistingValue('Current Gender'); // Set existing gender if available
+      setInputPlaceholder('Enter New Gender');
+      break;
+    case 'Date Of Birth':
+      setExistingValue('Current Date of Birth'); // Set existing DOB if available
+      setInputPlaceholder('Enter New Date of Birth');
+      break;
+    case 'Name as per Marksheet':
+      setExistingValue('Current Name'); // Set existing name as per marksheet if available
+      setInputPlaceholder('Enter New Name as per Marksheet');
+      break;
+    case 'Mother Name':
+      setExistingValue("Current Mother's Name"); // Set existing mother name if available
+      setInputPlaceholder("Enter New Mother's Name");
+      break;
+    case 'Upload Document (Photo Id)':
+      setExistingValue(''); // No existing value for file uploads
+      setInputPlaceholder('');
+      break;
+    case 'Photo':
+      setExistingValue('Current Photo'); // Set if there's an existing photo
+      setInputPlaceholder('Upload New Photo');
+      break;
+    default:
+      setExistingValue('');
+      setInputPlaceholder('');
+      break;
+  }
+};
+
+  // Toggle the dropdown visibility
   const toggleDropdown = () => setDropdownVisible(!dropdownVisible);
 
   // Render the dynamic dropdown menu
   const renderDropdownMenu = () => (
     <View style={styles.dropdownMenu}>
-      <Text style={styles.Request}>Request to Change</Text>
       {requests.map(item => (
         <TouchableOpacity
           key={item.Id}
@@ -115,6 +162,7 @@ const NewRequest: React.FC = () => {
     </View>
   );
 
+  // Render the file section based on selected request
   const renderFileSection = () => (
     <View style={styles.textRow}>
       <Text style={styles.attachtext}>
@@ -123,10 +171,10 @@ const NewRequest: React.FC = () => {
         {selectedRequest.includes('Last Name') &&
           'Please Attach School Leaving Certificate *'}
         {selectedRequest.includes('Date Of Birth') &&
-          'Please Attach LC/ Birth/ Passing Certificate of standard X or XII –mentioning Date of Birth *'}
+          'Please Attach LC/ Birth Certificate *'}
         {selectedRequest.includes('Photo') && 'Upload New Photo'}
         {selectedRequest.includes('Name as per Marksheet') &&
-          'Please Attach Standard X or XII or Last Qualifying Exam Certificate *'}
+          'Please Attach Standard X or XII Certificate *'}
       </Text>
       <TouchableOpacity style={styles.ChooseButton} onPress={handleFileSelect}>
         <Text style={styles.ChooseButtonText}>Choose File</Text>
@@ -137,6 +185,7 @@ const NewRequest: React.FC = () => {
     </View>
   );
 
+  // Render the OTP section based on request type
   const renderOTPSection = () => (
     <>
       <View style={styles.otpcontainer}>
@@ -196,6 +245,8 @@ const NewRequest: React.FC = () => {
             </TouchableOpacity>
           </View>
           {dropdownVisible && renderDropdownMenu()}
+
+          {/* Display Selected Request Details */}
           <View style={styles.textRow}>
             <Text style={styles.textLeft}>Request To Change</Text>
             <Text style={styles.textRight}>{selectedRequest}</Text>

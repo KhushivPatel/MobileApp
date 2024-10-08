@@ -20,13 +20,15 @@ const StateDropdown = () => {
         const countryId = studentProfile.CountryIdOfCitizenship; // Dynamically get the CountryId
 
         const response = await fetch(
-          'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentProfile/StateMasterGet',
+          // 'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentProfile/StateMasterGet',
+          'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentProfile/StateMasterGet',
           {
             method: 'POST', // Use POST method as specified
             headers: {
               'Content-Type': 'application/json', // Ensure to specify the content type
               referer:
-                'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                // 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                'http://172.25.15.22/',
               token: authToken, // Include the token from context
             },
             body: JSON.stringify({Id: countryId}), // Dynamically set the Id

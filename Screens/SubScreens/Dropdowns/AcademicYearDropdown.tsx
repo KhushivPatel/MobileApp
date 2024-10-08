@@ -15,12 +15,13 @@ const AcademicYearDropdown = () => {
     const fetchAcademicYears = async () => {
       try {
         const response = await fetch(
-          'https://admission.msubaroda.ac.in/MSUIS_AdminAPI/api/MstProgramInstance/AcademicYearGet',
+          'http://14.139.121.110:4760/Vidhyarthi_API/api/MstProgramInstance/AcademicYearGet',
           {
             method: 'POST', // Ensure POST is correct based on the API documentation
             headers: {
               Referer:
-                'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                // 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                'http://172.25.15.22/',
               Token: authToken, // Add the auth token in the headers
               'Content-Type': 'application/json', // Added content type
             },

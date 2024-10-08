@@ -25,11 +25,13 @@ const EducationalList: React.FC = () => {
     const fetchEducationDetails = async () => {
       try {
         const response = await axios.get(
-          'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentProfile/StudentProfileGetEducationDetails',
+          // 'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentProfile/StudentProfileGetEducationDetails',
+          'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentProfile/StudentProfileGetEducationDetails',
           {
             headers: {
               Referer:
-                'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                // 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                'http://172.25.15.22/',
               Token: authToken,
             },
           },

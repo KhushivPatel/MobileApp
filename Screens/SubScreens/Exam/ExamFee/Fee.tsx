@@ -21,13 +21,15 @@ const Fee = () => {
 
   const fetchExamDetails = async () => {
     const url =
-      'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/NextYearAdmDetails/AdmDetailsGet';
+      // 'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/NextYearAdmDetails/AdmDetailsGet';
+      'http://14.139.121.110:4760/Vidhyarthi_API/api/NextYearAdmDetails/AdmDetailsGet';
 
     try {
       const response = await fetch(url, {
         method: 'GET',
         headers: {
-          Referer: 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+          // Referer: 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+          Referer: 'http://172.25.15.22/',
           Token: authToken,
           'Content-Type': 'application/json',
         },

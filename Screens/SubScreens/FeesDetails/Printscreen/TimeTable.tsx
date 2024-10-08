@@ -21,7 +21,8 @@ const TimeTable = ({route}) => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentDashboard/ExamTimeTableGet',
+          // 'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentDashboard/ExamTimeTableGet',
+          'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentDashboard/ExamTimeTableGet',
           {
             ExamEventId: row.ExamEventId,
             ProgrammeInstancePartTermId: row.ProgInstPartTermId,
@@ -29,7 +30,8 @@ const TimeTable = ({route}) => {
           {
             headers: {
               Referer:
-                'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                // 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                'http://172.25.15.22/',
               Token: authToken,
               'Content-Type': 'application/json',
             },

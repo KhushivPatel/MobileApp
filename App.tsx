@@ -38,6 +38,7 @@ import EducationDetail from './Screens/SubScreens/Education/EducationDetail';
 import DownloadCertificate from './Screens/SubScreens/Certificate/DownloadCerti/DownloadCertificate';
 import Convocation from './Screens/SubScreens/Convocation/Convocation';
 import Progress from './Screens/SubScreens/Progress/Progress';
+import ProgressForm from './Screens/SubScreens/Progress/ProgressForm';
 
 export type RootStackParamList = {
   WelcomeScreen: undefined;
@@ -107,6 +108,7 @@ const App = () => {
                 <Stack.Screen name="LogOut" component={LogOut} />
                 <Stack.Screen name="Convocation" component={Convocation} />
                 <Stack.Screen name="Progress" component={Progress} />
+                <Stack.Screen name="ProgressForm" component={ProgressForm} />
               </Stack.Navigator>
             </NavigationContainer>
           </StudentProfileProvider>

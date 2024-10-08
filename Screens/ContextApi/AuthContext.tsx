@@ -58,17 +58,20 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({children}) => {
     myHeaders.append('content-type', 'application/json');
     myHeaders.append('device', 'unknown');
     myHeaders.append('macaddress', 'not known');
-    myHeaders.append('origin', 'https://admission.msubaroda.ac.in');
+    // myHeaders.append('origin', 'https://admission.msubaroda.ac.in');
+    myHeaders.append('origin', 'http://172.25.15.22');
     myHeaders.append('os', 'windows');
     myHeaders.append('osversion', 'not known');
     myHeaders.append('priority', 'u=1, i');
     myHeaders.append(
       'referer',
-      'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+      // 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+      'http://172.25.15.22/',
     );
     myHeaders.append(
       'sec-ch-ua',
-      '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
+      // '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
+      '"Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"',
     );
     myHeaders.append('sec-ch-ua-mobile', '?0');
     myHeaders.append('sec-ch-ua-platform', '"Windows"');
@@ -79,15 +82,18 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({children}) => {
     myHeaders.append(
       'token',
       '|zIdI[R|O-cs\\2J|zIdI[R|:2442358;4|zIdI[R|\\5KiUlqP[zIJ[ScTZuY5nCxNR',
+      // '45L8GVnPp[WeGLV45L8GVnP:245262;6345L8GVnPo5KiLFW-1;CpYUsZDeNv{iklu',
     );
     myHeaders.append(
       'user-agent',
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+      // 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
     );
     try {
       // Making a POST request to the login API
       const response = await fetch(
-        'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/Verification/login',
+        // 'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/Verification/login',
+        'http://14.139.121.110:4760/Vidhyarthi_API/api/Verification/login',
         {
           method: 'POST',
           headers: myHeaders,

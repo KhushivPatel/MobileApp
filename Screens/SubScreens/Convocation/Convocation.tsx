@@ -51,12 +51,14 @@ const Convocation: React.FC = () => {
 
         // POST request with headers and an empty body
         const response = await axios.post(
-          'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/ConvocationEnrollment/getEligibleConvocationList',
+          // 'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/ConvocationEnrollment/getEligibleConvocationList',
+          'http://14.139.121.110:4760/Vidhyarthi_API/api/ConvocationEnrollment/getEligibleConvocationList',
           {}, // Empty body
           {
             headers: {
               Referer:
-                'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                // 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                'http://172.25.15.22/',
               Token: authToken,
             },
           },

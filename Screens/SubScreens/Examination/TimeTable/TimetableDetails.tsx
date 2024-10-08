@@ -46,11 +46,11 @@ const TimetableList: React.FC = () => {
     setError(null);
     try {
       const response = await fetch(
-        'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentDashboard/ApplicantPreExaminationDetails',
+        'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentDashboard/ApplicantPreExaminationDetails',
         {
           method: 'GET',
           headers: {
-            referer: 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+            referer: 'http://172.25.15.22/',
             token: authToken,
           },
         },

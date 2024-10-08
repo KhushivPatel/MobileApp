@@ -329,10 +329,9 @@
 
 // export default HomeScreen;
 
-
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-catch-shadow */
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -342,20 +341,24 @@ import {
   useColorScheme,
   ActivityIndicator,
 } from 'react-native';
-import { createStyles } from './styles';
+import {createStyles} from './styles';
 import Alert1 from '../CommanText/Alert1';
 import Alert2 from '../CommanText/Alert2';
-import { AuthContext } from '../ContextApi/AuthContext';
-import { useNavigation } from '@react-navigation/native';
+import {AuthContext} from '../ContextApi/AuthContext';
+import {useNavigation} from '@react-navigation/native';
+import ProgressForm from '../SubScreens/Progress/ProgressForm';
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
-  const { authToken } = useContext(AuthContext);
+  const {authToken} = useContext(AuthContext);
   const isDarkMode = useColorScheme() === 'dark';
   const styles = createStyles(isDarkMode);
-  
+
   // State management
-  const [userInfo, setUserInfo] = useState<{ firstname: string | null; emailid: string | null }>({ firstname: null, emailid: null });
+  const [userInfo, setUserInfo] = useState<{
+    firstname: string | null;
+    emailid: string | null;
+  }>({firstname: null, emailid: null});
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [notificationCount, setNotificationCount] = useState<number>(0);
@@ -365,17 +368,22 @@ const HomeScreen: React.FC = () => {
     const fetchUserInfo = async () => {
       try {
         const response = await fetch(
-          'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentDetailsTopNav/StudentDetailsTopNavGet',
+          // 'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentDetailsTopNav/StudentDetailsTopNavGet',
+          'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentDetailsTopNav/StudentDetailsTopNavGet',
           {
             method: 'GET',
             headers: {
-              Referer: 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+              Referer:
+                // 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                'http://172.25.15.22/',
               Token: authToken,
+              // Token:
+              //   '45L8GVnPp[WeGLV45L8GVnP:245262;6345L8GVnPo5KiLFW-1;CpYUsZDeNv{iklu',
             },
-          }
+          },
         );
 
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) {throw new Error('Network response was not ok');}
 
         const data = await response.json();
         setNotificationCount(data.obj ? data.obj.length : 0);
@@ -404,7 +412,11 @@ const HomeScreen: React.FC = () => {
   if (loading) {
     return (
       <View style={styles.containerloading}>
-        <ActivityIndicator size="large" color={isDarkMode ? '#fff' : '#5287D7'} style={styles.spinner} />
+        <ActivityIndicator
+          size="large"
+          color={isDarkMode ? '#fff' : '#5287D7'}
+          style={styles.spinner}
+        />
         <Text style={styles.loadingText}>Loading...</Text>
       </View>
     );
@@ -601,7 +613,7 @@ const HomeScreen: React.FC = () => {
               </TouchableOpacity>
             </View>
           </View>
-
+{/* <ProgressForm/> */}
           {/* MSU Footer */}
           <Text style={styles.logotext}>
             The Maharaja Sayajirao University of Baroda

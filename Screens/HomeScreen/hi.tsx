@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import createStyles from './styles';
+import ProgressForm from '../SubScreens/Progress/ProgressForm';
 
 const View_id = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -258,6 +259,7 @@ const View_id = () => {
                   </View>
                 </View>
               </View>
+                  <ProgressForm onSubmit={undefined} onClose={undefined} isVisible={undefined}/>
             </View>
           </View>
         </ScrollView>

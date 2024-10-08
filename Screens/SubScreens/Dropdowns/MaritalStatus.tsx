@@ -119,12 +119,13 @@ const MaritalStatus = () => {
     const fetchMaritalStatus = async () => {
       try {
         const response = await fetch(
-          'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentProfile/MaritalStatusGet',
+          'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentProfile/MaritalStatusGet',
           {
             method: 'GET',
             headers: {
               Referer:
-                'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                // 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+                'http://172.25.15.22/',
               Token: authToken,
             },
           },
