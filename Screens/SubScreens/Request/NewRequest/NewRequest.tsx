@@ -27,9 +27,22 @@ const NewRequest: React.FC = () => {
   const [inputPlaceholder, setInputPlaceholder] = useState<string>('');
   const [isOTPVisible, setIsOTPVisible] = useState<boolean>(false);
   const [requests, setRequests] = useState<RequestItem[]>([]); // API request data
+  const [studentDetails, setStudentDetails] = useState<any>(null); // To hold student details
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [mobileNumber, setMobileNumber] = useState<string>(''); // State for mobile number input
+  const [newMobileNumber, setNewMobileNumber] = useState<string>(''); // State for new mobile number
+  const [otp, setOtp] = useState<string>(''); // State for mobile OTP input
+  const [newEmail, setNewEmail] = useState<string>(''); // State for new email input
+  const [emailOtp, setEmailOtp] = useState<string>(''); // State for email OTP input
   const {authToken} = useContext(AuthContext);
+  const [verificationOtp, setVerificationOtp] = useState<string>(''); // State for verification OTP input
+  const [selectedRequestId, setSelectedRequestId] = useState<number | null>(
+    null,
+  ); // State to hold the selected request ID
+  const [gender, setGender] = useState<string>(''); // State for selected gender
+  const [reasonOfRequest, setReasonOfRequest] = useState<string>('');
+  const [previousRequests, setPreviousRequests] = useState<number[]>([]); // State to hold previous request IDs
 
   // Fetch request options from the API
   useEffect(() => {
@@ -63,6 +76,36 @@ const NewRequest: React.FC = () => {
     fetchRequests();
   }, [authToken]);
 
+  // Fetch existing student data from the API
+  useEffect(() => {
+    const fetchStudentDetails = async () => {
+      try {
+        const response = await fetch(
+          'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentDetailsTopNav/StudentDetailsTopNavGet',
+          {
+            method: 'GET',
+            headers: {
+              Referer: 'http://172.25.15.22/',
+              Token: authToken,
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch student details');
+        }
+
+        setStudentDetails(result.obj[0]); // Assuming only one student object is returned
+      } catch (err: any) {
+        setError(err.message);
+      }
+    };
+
+    fetchStudentDetails();
+  }, [authToken]);
+
   // Handle file selection using DocumentPicker
   const handleFileSelect = async () => {
     try {
@@ -80,71 +123,57 @@ const NewRequest: React.FC = () => {
   };
 
   // Handle selecting a request from the dropdown
-  // const handleDropdownSelect = (item: string) => {
-  //   setSelectedRequest(item);
-  //   setDropdownVisible(false);
+  const handleDropdownSelect = (item: RequestItem) => {
+    setSelectedRequest(item.Request);
+    setSelectedRequestId(item.Id); // Set the selected request ID
+    setDropdownVisible(false);
 
-  //   if (item === 'Mobile Number' || item === 'Email ID') {
-  //     setIsOTPVisible(true);
-  //   } else {
-  //     setIsOTPVisible(false);
-  //   }
+    if (item.Request === 'Mobile Number' || item.Request === 'Email ID') {
+      setIsOTPVisible(true);
+    } else {
+      setIsOTPVisible(false);
+    }
 
-  //   // Set input placeholder and existing value logic (customize as needed)
-  //   const setting = settings[item] || {existingValue: '', placeholder: ''};
-  //   setExistingValue(setting.existingValue);
-  //   setInputPlaceholder(setting.placeholder);
-  // };
-const handleDropdownSelect = (item: string) => {
-  setSelectedRequest(item);
-  setDropdownVisible(false);
-
-  if (item === 'Mobile Number' || item === 'Email ID') {
-    setIsOTPVisible(true);
-  } else {
-    setIsOTPVisible(false);
-  }
-
-  // Update existing value and placeholder based on the selected request
-  switch (item) {
-    case 'Mobile Number':
-      setExistingValue('Current Mobile Number'); // Set existing mobile number if available
-      setInputPlaceholder('Enter New Mobile Number');
-      break;
-    case 'Email ID':
-      setExistingValue('Current Email ID'); // Set existing email ID if available
-      setInputPlaceholder('Enter New Email ID');
-      break;
-    case 'Gender':
-      setExistingValue('Current Gender'); // Set existing gender if available
-      setInputPlaceholder('Enter New Gender');
-      break;
-    case 'Date Of Birth':
-      setExistingValue('Current Date of Birth'); // Set existing DOB if available
-      setInputPlaceholder('Enter New Date of Birth');
-      break;
-    case 'Name as per Marksheet':
-      setExistingValue('Current Name'); // Set existing name as per marksheet if available
-      setInputPlaceholder('Enter New Name as per Marksheet');
-      break;
-    case 'Mother Name':
-      setExistingValue("Current Mother's Name"); // Set existing mother name if available
-      setInputPlaceholder("Enter New Mother's Name");
-      break;
-    case 'Upload Document (Photo Id)':
-      setExistingValue(''); // No existing value for file uploads
-      setInputPlaceholder('');
-      break;
-    case 'Photo':
-      setExistingValue('Current Photo'); // Set if there's an existing photo
-      setInputPlaceholder('Upload New Photo');
-      break;
-    default:
-      setExistingValue('');
-      setInputPlaceholder('');
-      break;
-  }
-};
+    // Update existing value and placeholder based on the selected request
+    switch (item.Request) {
+      case 'Mobile Number':
+        setExistingValue(studentDetails?.MobileNo || ''); // Get existing mobile number from student details
+        setInputPlaceholder('Enter New Mobile Number');
+        break;
+      case 'Email ID':
+        setExistingValue(studentDetails?.EmailId || ''); // Get existing email from student details
+        setInputPlaceholder('Enter New Email ID');
+        break;
+      case 'Gender':
+        setExistingValue(studentDetails?.Gender || ''); // Get existing gender
+        setInputPlaceholder('Enter New Gender');
+        break;
+      case 'Date Of Birth':
+        setExistingValue(studentDetails?.DOB || ''); // Get existing DOB
+        setInputPlaceholder('Enter New Date of Birth');
+        break;
+      case 'Name as per Marksheet':
+        setExistingValue(studentDetails?.NameAsPerMarksheet || ''); // Get existing name
+        setInputPlaceholder('Enter New Name as per Marksheet');
+        break;
+      case 'Mother Name':
+        setExistingValue(studentDetails?.MotherName || ''); // Get existing mother name
+        setInputPlaceholder("Enter New Mother's Name");
+        break;
+      case 'Upload Document (Photo Id)':
+        setExistingValue(''); // No existing value for file uploads
+        setInputPlaceholder('');
+        break;
+      case 'Photo':
+        setExistingValue(studentDetails?.StudentPhoto || ''); // Get existing photo
+        setInputPlaceholder('Upload New Photo');
+        break;
+      default:
+        setExistingValue('');
+        setInputPlaceholder('');
+        break;
+    }
+  };
 
   // Toggle the dropdown visibility
   const toggleDropdown = () => setDropdownVisible(!dropdownVisible);
@@ -155,7 +184,7 @@ const handleDropdownSelect = (item: string) => {
       {requests.map(item => (
         <TouchableOpacity
           key={item.Id}
-          onPress={() => handleDropdownSelect(item.Request)}>
+          onPress={() => handleDropdownSelect(item)}>
           <Text style={styles.dropdownItem}>{item.Request}</Text>
         </TouchableOpacity>
       ))}
@@ -184,32 +213,277 @@ const handleDropdownSelect = (item: string) => {
       </Text>
     </View>
   );
+  // submit
 
-  // Render the OTP section based on request type
+  // Check if the request already exists before sending a new one
+  const isRequestAlreadyExists = (requestId: number) => {
+    return previousRequests.includes(requestId);
+  };
+
+  // Handle sending request with all required information
+  const handleSendRequest = async () => {
+    // Check if the request with the same RequestId already exists
+    if (isRequestAlreadyExists(selectedRequestId!)) {
+      Alert.alert(
+        'Request already exists!',
+        'This request has already been sent.',
+      );
+      return;
+    }
+
+    // Create the payload based on the selected request type
+    const payload = {
+      RequestId: selectedRequestId, // Use the dynamic Request ID
+      ReasonOfRequest: reasonOfRequest, // Reason for the request
+      ExistingRecord: existingValue, // Existing mobile number or email
+      ChangeRecord:
+        selectedRequest === 'Mobile Number' ? newMobileNumber : newEmail, // New value based on request type
+      IsDeclared: true,
+      MobileOTP: selectedRequest === 'Mobile Number' ? otp : null, // Include mobile OTP if applicable
+      EmailOTP: selectedRequest === 'Email ID' ? emailOtp : null, // Include email OTP if applicable
+      ShowName: studentDetails
+        ? `${studentDetails.FirstName} ${studentDetails.LastName}`
+        : '', // Assuming you have these fields
+      RequestName: selectedRequest, // Selected request name
+    };
+
+    try {
+      const response = await fetch(
+        'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentProfile/SendRequest',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Referer: 'http://172.25.15.22/',
+            Token: authToken,
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to send request');
+      }
+
+      // Handle successful request
+      alert('Request sent successfully!');
+
+      // Add the RequestId to the previous requests to avoid duplicates
+      setPreviousRequests([...previousRequests, selectedRequestId!]);
+    } catch (err: any) {
+      alert(err.message || 'Error sending request');
+    }
+  };
+
+  // Render loading state or error message
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+
+  if (error) {
+    return <Text style={styles.error}>{error}</Text>;
+  }
+
+  // Handle OTP sending logic for mobile
+  const handleSendMobileOTP = async () => {
+    const requestId = selectedRequestId; // Use the dynamic Request ID
+    const payload = {
+      RequestId: requestId,
+      ReasonOfRequest: null,
+      ExistingRecord: existingValue, // Existing mobile number from student details
+      ChangeRecord: newMobileNumber, // New mobile number input by user
+      IsDeclared: true,
+      MobileOTP: otp, // OTP entered by the user
+    };
+
+    try {
+      const response = await fetch(
+        'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentProfile/MobileOTP',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Referer: 'http://172.25.15.22/',
+            Token: authToken,
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to send OTP');
+      }
+      alert('OTP sent successfully');
+    } catch (err: any) {
+      alert(err.message || 'Error sending OTP');
+    }
+  };
+
+  // Handle OTP sending logic for email
+  const handleSendEmailOTP = async () => {
+    const requestId = selectedRequestId; // Use the dynamic Request ID
+    const payload = {
+      RequestId: requestId,
+      ReasonOfRequest: null,
+      ExistingRecord: existingValue, // Existing email from student details
+      ChangeRecord: newEmail, // New email input by user
+      IsDeclared: true,
+      EmailOTP: emailOtp, // OTP entered by the user
+    };
+
+    try {
+      const response = await fetch(
+        'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentProfile/EmailOTP',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Referer: 'http://172.25.15.22/',
+            Token: authToken,
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to send OTP');
+      }
+      alert('Email OTP sent successfully');
+    } catch (err: any) {
+      alert(err.message || 'Error sending Email OTP');
+    }
+  };
+  // Render the OTP section for mobile or email
+  // Render the OTP section for mobile or email
   const renderOTPSection = () => (
-    <>
-      <View style={styles.otpcontainer}>
-        <View style={styles.otptext}>
-          <TextInput style={styles.input} placeholder="Enter OTP" />
-        </View>
-        <View style={styles.otpbutton}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Send OTP</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.otpcontainer}>
-        <View style={styles.otptext}>
-          <TextInput style={styles.input} placeholder="Enter OTP" />
-        </View>
-        <View style={styles.otpbutton}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Verify OTP</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </>
+    <View>
+      {selectedRequest === 'Mobile Number' && (
+        <>
+          <View style={styles.otpcontainer}>
+            <View style={styles.otptext}>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter New Mobile Number"
+                value={newMobileNumber}
+                onChangeText={setNewMobileNumber}
+              />
+            </View>
+            <View style={styles.otpbutton}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleSendMobileOTP}>
+                <Text style={styles.buttonText}>Send OTP</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.otpcontainer}>
+            <View style={styles.otptext}>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter Verification OTP"
+                value={verificationOtp}
+                onChangeText={setVerificationOtp}
+                keyboardType="numeric"
+              />
+            </View>
+            <View style={styles.otpbutton}>
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Verify OTP</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </>
+      )}
+      {selectedRequest === 'Email ID' && (
+        <>
+          <View style={styles.otpcontainer}>
+            <View style={styles.otptext}>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter New Email ID"
+                value={newEmail}
+                onChangeText={setNewEmail}
+              />
+            </View>
+            <View style={styles.otpbutton}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleSendEmailOTP}>
+                <Text style={styles.buttonText}>Send OTP</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.otpcontainer}>
+            <View style={styles.otptext}>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter Verification Email OTP"
+                value={verificationOtp}
+                onChangeText={setVerificationOtp}
+                keyboardType="numeric"
+              />
+            </View>
+            <View style={styles.otpbutton}>
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Verify Email OTP</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </>
+      )}
+    </View>
   );
+
+  // Loading state rendering
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+  const handleGenderChange = (selectedGender: string) => {
+    setGender(selectedGender);
+  };
+
+  // Render the gender radio buttons if the selected request is 'Gender'
+  const renderGenderSelection = () => {
+    return (
+      <View style={styles.genderSelection}>
+        <Text style={styles.genderLabel}>Select Gender:</Text>
+        <TouchableOpacity
+          style={styles.radioOption}
+          onPress={() => handleGenderChange('Male')}>
+          <Text
+            style={
+              gender === 'Male' ? styles.radioSelected : styles.radioUnselected
+            }>
+            Male
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.radioOption}
+          onPress={() => handleGenderChange('Female')}>
+          <Text
+            style={
+              gender === 'Female'
+                ? styles.radioSelected
+                : styles.radioUnselected
+            }>
+            Female
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.radioOption}
+          onPress={() => handleGenderChange('Other')}>
+          <Text
+            style={
+              gender === 'Other' ? styles.radioSelected : styles.radioUnselected
+            }>
+            Other
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -223,6 +497,11 @@ const handleDropdownSelect = (item: string) => {
             setInputPlaceholder('');
             setIsOTPVisible(false);
             setDropdownVisible(false);
+            setMobileNumber(''); // Reset mobile number state
+            setNewMobileNumber(''); // Reset new mobile number state
+            setNewEmail(''); // Reset new email state
+            setOtp(''); // Reset mobile OTP state
+            setEmailOtp(''); // Reset email OTP state
           }}>
           <Image
             source={require('../../../../assets/icons/whitereload.png')}
@@ -233,6 +512,7 @@ const handleDropdownSelect = (item: string) => {
 
       <ScrollView style={styles.scrollContent}>
         <View style={styles.detailcontainer}>
+          {/* Dropdown to select request */}
           <View style={styles.fileSelectRow}>
             <TouchableOpacity
               style={styles.fileSelectButton}
@@ -248,34 +528,60 @@ const handleDropdownSelect = (item: string) => {
 
           {/* Display Selected Request Details */}
           <View style={styles.textRow}>
-            <Text style={styles.textLeft}>Request To Change</Text>
-            <Text style={styles.textRight}>{selectedRequest}</Text>
+            <TextInput
+              placeholder="Reason Of Request"
+              value={reasonOfRequest}
+              onChangeText={setReasonOfRequest} // Update reasonOfRequest state
+            />
           </View>
+
           <View style={styles.textRow}>
             <Text style={styles.textLeft}>Existing {selectedRequest}</Text>
             <Text style={styles.textRight}>{existingValue}</Text>
           </View>
           <View style={styles.textRow}>
-            <TextInput placeholder={inputPlaceholder} />
+            <TextInput
+              placeholder={inputPlaceholder}
+              value={
+                selectedRequest === 'Mobile Number' ? newMobileNumber : newEmail
+              }
+              onChangeText={text => {
+                if (selectedRequest === 'Mobile Number') {
+                  setNewMobileNumber(text);
+                } else if (selectedRequest === 'Email ID') {
+                  setNewEmail(text);
+                }
+              }}
+            />
           </View>
+          {selectedRequest === 'Gender' && renderGenderSelection()}
 
-          {selectedRequest !== 'Mobile Number' &&
-            selectedRequest !== 'Email ID' &&
-            renderFileSection()}
-
+          {selectedRequest !== 'Gender' && (
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>{inputPlaceholder}</Text>
+              <TextInput
+                style={styles.input}
+                value={existingValue}
+                onChangeText={setExistingValue}
+                placeholder={inputPlaceholder}
+              />
+            </View>
+          )}
           {isOTPVisible && renderOTPSection()}
 
           <View style={styles.textRow}>
             <TextInput placeholder="Reason Of Request" />
           </View>
-          <TouchableOpacity style={styles.ChooseButton}>
+
+          {renderFileSection()}
+
+          <TouchableOpacity
+            style={styles.ChooseButton}
+            onPress={handleSendRequest}>
             <Text style={styles.ChooseButtonText}>Send Request</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <Text style={styles.logotext}>
-        The Maharaja Sayajirao University of Baroda
-      </Text>
     </View>
   );
 };

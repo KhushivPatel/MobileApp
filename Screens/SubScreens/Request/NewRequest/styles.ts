@@ -22,6 +22,11 @@ const createStyles = (isDarkMode: boolean) => StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
   } as TextStyle,
+  title: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
+  } as TextStyle,
    logotext: {
       justifyContent: 'center',
       textAlign: 'center',
@@ -166,6 +171,38 @@ const createStyles = (isDarkMode: boolean) => StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   } as TextStyle,
+ genderSelection: {
+    marginVertical: 10,
+  },
+  genderLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  radioOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+  },
+  radioSelected: {
+    fontWeight: 'bold',
+    color: 'blue', // Selected color
+  },
+  radioUnselected: {
+    color: 'black', // Unselected color
+  },
+  inputContainer:{
+    color:'black',
+  },
+  errorText:{
+    color:'red',
+  },
+  label:{
+      flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+  },
+
 });
 
 export default createStyles;

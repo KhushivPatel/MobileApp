@@ -25,7 +25,7 @@ import Tabs from './Screens/NavScreens/Tabs';
 import LogOut from './Screens/NavScreens/LogOut';
 import PaperDetails from './Screens/SubScreens/Paper/PaperSelection/PaperDetails';
 import PaperList from './Screens/SubScreens/Paper/PaperSelection/PaperList';
-import { StudentProfileProvider } from './Screens/ContextApi/StudentProfileContext';
+import {StudentProfileProvider} from './Screens/ContextApi/StudentProfileContext';
 import StateDropdown from './Screens/SubScreens/Dropdowns/StateDropdown';
 import DetailsScreen from './Screens/SubScreens/FeesDetails/DetailsScreen';
 import Recipts from './Screens/SubScreens/FeesDetails/Printscreen/NavResult';
@@ -39,6 +39,8 @@ import DownloadCertificate from './Screens/SubScreens/Certificate/DownloadCerti/
 import Convocation from './Screens/SubScreens/Convocation/Convocation';
 import Progress from './Screens/SubScreens/Progress/Progress';
 import ProgressForm from './Screens/SubScreens/Progress/ProgressForm';
+import Achievements from './Screens/SubScreens/Achievement/Achievement';
+import AchievementForm from './Screens/SubScreens/Achievement/AchievementForm';
 
 export type RootStackParamList = {
   WelcomeScreen: undefined;
@@ -109,6 +111,11 @@ const App = () => {
                 <Stack.Screen name="Convocation" component={Convocation} />
                 <Stack.Screen name="Progress" component={Progress} />
                 <Stack.Screen name="ProgressForm" component={ProgressForm} />
+                <Stack.Screen name="Achievements" component={Achievements} />
+                {/* <Stack.Screen
+                  name="AchievementForm"
+                  component={AchievementForm}
+                /> */}
               </Stack.Navigator>
             </NavigationContainer>
           </StudentProfileProvider>
