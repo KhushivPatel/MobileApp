@@ -299,12 +299,12 @@ const PersonalInfo = () => {
     // Call your API to save the updated data
     try {
       const response = await fetch(
-        'https://admission.msubaroda.ac.in/Vidhyarthi_API/api/StudentProfile/StudentProfileUpdate', // Update with the correct API endpoint
+        'http://14.139.121.110:4760/Vidhyarthi_API/api/StudentProfile/PersonalDetailsEdit', // Update with the correct API endpoint
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Referer: 'https://admission.msubaroda.ac.in/vidhyarthi/index.html',
+            Referer: 'http://172.25.15.22/',
             Token: authToken,
           },
           body: JSON.stringify(formData),
